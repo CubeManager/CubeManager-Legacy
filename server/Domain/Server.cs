@@ -15,4 +15,6 @@ public class Server
     public Adminlist adminlist {get; set;}
 
     public Serverproperties serverproperties {get; set;}
+
+    public ServerType serverType {get; set;}
 }

@@ -1,6 +1,6 @@
 ﻿namespace domain;
 
-public class Adminlist
+public class Adminlist : ListEntityBase
 {
     public Adminlist() : base() {
     }

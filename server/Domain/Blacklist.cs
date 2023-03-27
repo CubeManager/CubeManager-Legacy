@@ -1,6 +1,6 @@
 ﻿namespace domain;
 
-public class Blacklist
+public class Blacklist : ListEntityBase
 {
     public Blacklist() : base() {
     }
