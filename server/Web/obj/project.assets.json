@@ -1,25 +1,9 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {
-      "Microsoft.AspNetCore.OpenApi/7.0.2": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.OpenApi": "1.4.3"
-        },
-        "compile": {
-          "lib/net7.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net7.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "related": ".xml"
-          }
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
+    "net6.0": {
+      "Microsoft.AspNetCore.OpenApi/7.0.0": {
+        "type": "package"
       },
       "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
         "type": "package",
@@ -32,7 +16,7 @@
           "buildMultiTargeting/Microsoft.Extensions.ApiDescription.Server.targets": {}
         }
       },
-      "Microsoft.OpenApi/1.4.3": {
+      "Microsoft.OpenApi/1.2.3": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {
@@ -111,10 +95,10 @@
     }
   },
   "libraries": {
-    "Microsoft.AspNetCore.OpenApi/7.0.2": {
-      "sha512": "oK0ZRloonE/WDAjHniF2gTbSsTUk5Z26RGN/o6MSlOnrnN12lDMBgpP1o9QbByBLCIRwT/KYvgYeBrYSe/NFnw==",
+    "Microsoft.AspNetCore.OpenApi/7.0.0": {
+      "sha512": "P1mkNhZ3IwU3phNLIUkgqVXb1exnooTalIYwpSON3oKKkcRtACDgS4WpO+xnwFw4KzV0bmgkUqB3acXxIefvvg==",
       "type": "package",
-      "path": "microsoft.aspnetcore.openapi/7.0.2",
+      "path": "microsoft.aspnetcore.openapi/7.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -122,7 +106,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net7.0/Microsoft.AspNetCore.OpenApi.dll",
         "lib/net7.0/Microsoft.AspNetCore.OpenApi.xml",
-        "microsoft.aspnetcore.openapi.7.0.2.nupkg.sha512",
+        "microsoft.aspnetcore.openapi.7.0.0.nupkg.sha512",
         "microsoft.aspnetcore.openapi.nuspec"
       ]
     },
@@ -357,17 +341,20 @@
         "tools/netcoreapp2.1/System.Diagnostics.DiagnosticSource.dll"
       ]
     },
-    "Microsoft.OpenApi/1.4.3": {
-      "sha512": "rURwggB+QZYcSVbDr7HSdhw/FELvMlriW10OeOzjPT7pstefMo7IThhtNtDudxbXhW+lj0NfX72Ka5EDsG8x6w==",
+    "Microsoft.OpenApi/1.2.3": {
+      "sha512": "Nug3rO+7Kl5/SBAadzSMAVgqDlfGjJZ0GenQrLywJ84XGKO0uRqkunz5Wyl0SDwcR71bAATXvSdbdzPrYRYKGw==",
       "type": "package",
-      "path": "microsoft.openapi/1.4.3",
+      "path": "microsoft.openapi/1.2.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "lib/net46/Microsoft.OpenApi.dll",
+        "lib/net46/Microsoft.OpenApi.pdb",
+        "lib/net46/Microsoft.OpenApi.xml",
         "lib/netstandard2.0/Microsoft.OpenApi.dll",
         "lib/netstandard2.0/Microsoft.OpenApi.pdb",
         "lib/netstandard2.0/Microsoft.OpenApi.xml",
-        "microsoft.openapi.1.4.3.nupkg.sha512",
+        "microsoft.openapi.1.2.3.nupkg.sha512",
         "microsoft.openapi.nuspec"
       ]
     },
@@ -454,35 +441,37 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net7.0": [
-      "Microsoft.AspNetCore.OpenApi >= 7.0.2",
+    "net6.0": [
+      "Microsoft.AspNetCore.OpenApi >= 6.0.2",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
   },
   "packageFolders": {
-    "/home/gian/.nuget/packages/": {}
+    "C:\\Users\\giaen\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/gian/dev/gibb/CubeManager/server/web/web.csproj",
+      "projectUniqueName": "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\web\\web.csproj",
       "projectName": "web",
-      "projectPath": "/home/gian/dev/gibb/CubeManager/server/web/web.csproj",
-      "packagesPath": "/home/gian/.nuget/packages/",
-      "outputPath": "/home/gian/dev/gibb/CubeManager/server/web/obj/",
+      "projectPath": "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\web\\web.csproj",
+      "packagesPath": "C:\\Users\\giaen\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\web\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/gian/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\giaen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net7.0"
+        "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "projectReferences": {}
         }
       },
@@ -493,12 +482,12 @@
       }
     },
     "frameworks": {
-      "net7.0": {
-        "targetAlias": "net7.0",
+      "net6.0": {
+        "targetAlias": "net6.0",
         "dependencies": {
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
-            "version": "[7.0.2, )"
+            "version": "[6.0.2, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
@@ -516,12 +505,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[7.0.2, 7.0.2]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -530,8 +513,29 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1603",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "web depends on Microsoft.AspNetCore.OpenApi (>= 6.0.2) but Microsoft.AspNetCore.OpenApi 6.0.2 was not found. An approximate best match of Microsoft.AspNetCore.OpenApi 7.0.0 was resolved.",
+      "libraryId": "Microsoft.AspNetCore.OpenApi",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "Package Microsoft.AspNetCore.OpenApi 7.0.0 is not compatible with net6.0 (.NETCoreApp,Version=v6.0). Package Microsoft.AspNetCore.OpenApi 7.0.0 supports: net7.0 (.NETCoreApp,Version=v7.0)",
+      "libraryId": "Microsoft.AspNetCore.OpenApi",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }
