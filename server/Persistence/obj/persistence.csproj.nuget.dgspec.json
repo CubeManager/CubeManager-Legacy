@@ -1,30 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "/home/gian/dev/gibb/CubeManager/server/persistence/persistence.csproj": {}
+    "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\Persistence\\Persistence.csproj": {}
   },
   "projects": {
-    "/home/gian/dev/gibb/CubeManager/server/persistence/persistence.csproj": {
+    "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/gian/dev/gibb/CubeManager/server/persistence/persistence.csproj",
-        "projectName": "persistence",
-        "projectPath": "/home/gian/dev/gibb/CubeManager/server/persistence/persistence.csproj",
-        "packagesPath": "/home/gian/.nuget/packages/",
-        "outputPath": "/home/gian/dev/gibb/CubeManager/server/persistence/obj/",
+        "projectUniqueName": "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\Persistence\\Persistence.csproj",
+        "projectName": "Persistence",
+        "projectPath": "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\Persistence\\Persistence.csproj",
+        "packagesPath": "C:\\Users\\giaen\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/gian/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\giaen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -35,8 +37,8 @@
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "imports": [
             "net461",
             "net462",
@@ -48,18 +50,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.2, 7.0.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
