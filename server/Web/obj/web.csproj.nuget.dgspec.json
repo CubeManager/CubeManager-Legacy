@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\web\\web.csproj": {}
+    "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\Web\\Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\web\\web.csproj": {
+    "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\Web\\Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\web\\web.csproj",
-        "projectName": "web",
-        "projectPath": "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\web\\web.csproj",
+        "projectUniqueName": "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\Web\\Web.csproj",
+        "projectName": "Web",
+        "projectPath": "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\Web\\Web.csproj",
         "packagesPath": "C:\\Users\\giaen\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\web\\obj\\",
+        "outputPath": "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\giaen\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,13 +40,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Microsoft.AspNetCore.OpenApi": {
-              "target": "Package",
-              "version": "[6.0.2, )"
-            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.4.0, )"
+              "version": "[6.2.3, )"
             }
           },
           "imports": [
