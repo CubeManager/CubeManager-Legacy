@@ -1,10 +1,16 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <div class="bg-base-200 h-screen w-64">
   <img class="w-1/2 ml-auto mr-auto py-4" src="assets/logo_blacknwhite-transparent.png">
   <div class="divider"></div>
-  <ul class="menu">
-    <li><a>Item 1</a></li>
-    <li class="bordered"><a>I have border</a></li>
-    <li><a>Item 3</a></li>
-  </ul>
+  <button class="btn txtbtn ml-3" (click)="home()">Dashboard</button>
+  <button class="btn txtbtn mt-3 ml-3" routerLink="/servers">My Servers</button>
+  <div class="buttons grid grid-cols-2 gap-4 mb-5">
+    <button class="btn fa fa-upload ml-3" (click)="home()" ></button>
+    <button class="btn fa fa-plus mr-3" routerLink="/newserver"></button>
+    <button class="col-span-2 fa fa-cog btn mx-3" (click)="settings()"></button>
+  </div>
 </div>
+
 
