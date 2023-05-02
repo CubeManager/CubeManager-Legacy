@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SmlFdpGG3FwYY84c9y57hN+0Vhh+rtpMuDpuq+XXQ4lNCecaYjVs4MEuBdS+Xx9AlkcdcMgS5+9HTM3Kai5o6g==",
+  "dgSpecHash": "0xxqv7lbIOXvpEHAvJ0QGsqkmfhbfbo1ceddD81PJR0ihOHtYlWqPSLDM2DY7oxYfrRhcgAFHNVqBBUznr63TA==",
   "success": true,
-  "projectFilePath": "/home/gian/dev/gibb/CubeManager/server/domain/domain.csproj",
-  "expectedPackageFiles": [
-    "/home/gian/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.2/microsoft.aspnetcore.app.ref.7.0.2.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\giaen\\Code\\CubeManager\\CubeManager\\server\\Domain\\Domain.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
