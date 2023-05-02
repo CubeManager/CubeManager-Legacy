@@ -1,4 +1,6 @@
-﻿namespace domain;
+﻿namespace Domain;
+
+using Domain.Enums;
 
 //documentation: https://minecraft.fandom.com/wiki/Server.properties
 public class ServerProperties
@@ -75,7 +77,7 @@ public class ServerProperties
 
     public int simulationDistance {get; set;}
 
-    public int rateLimit {get: set;}
+    public int rateLimit {get; set;}
 
     public bool hideOnlinePlayers {get; set;}
 
@@ -86,8 +88,6 @@ public class ServerProperties
     public bool broadcastRconToOps {get; set;}
 
     public bool enableStatus {get; set;}
-
-    public bool useNativeTransport {get; set;}
 
     public int networkCompressionThreshold {get; set;}
 

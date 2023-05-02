@@ -1,4 +1,6 @@
-﻿namespace domain;
+﻿namespace Domain;
+
+using Domain.Enums;
 
 public class Server
 {
@@ -14,7 +16,7 @@ public class Server
 
     public Adminlist adminlist {get; set;}
 
-    public Serverproperties serverproperties {get; set;}
+    public ServerProperties serverproperties {get; set;}
 
     public ServerType serverType {get; set;}
 }
