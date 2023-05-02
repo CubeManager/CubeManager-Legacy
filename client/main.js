@@ -6,7 +6,7 @@ function createWindow() {
     win = new BrowserWindow({ width: 800, height: 600 });
     // load the dist folder from Angular
     win.loadURL(url.format({
-        pathname: "http://localhost:4200/",
+        pathname: path.join(__dirname, "/dist/index.html"),
         protocol: "file:",
         slashes: true
     }));
