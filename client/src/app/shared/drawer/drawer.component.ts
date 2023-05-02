@@ -16,4 +16,14 @@ export class DrawerComponent {
   settings(){
     this.router.navigate(['/settings']);
   }
+
+  upload(){}
+
+  servers(){
+    this.router.navigate(['/servers']);
+  }
+
+  newserver(){
+    this.router.navigate(['/newserver']);
+  }
 }

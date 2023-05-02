@@ -10,7 +10,6 @@ const routes: Routes = [
   { path: 'servers', component: ServerlistComponent},
   { path: 'settings', component: SettingsComponent},
   { path: 'newserver', component: NewserverComponent},
-
 ];
 
 @NgModule({

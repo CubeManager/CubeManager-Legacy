@@ -5,10 +5,10 @@
   <img class="w-1/2 ml-auto mr-auto py-4" src="assets/logo_blacknwhite-transparent.png">
   <div class="divider"></div>
   <button class="btn txtbtn ml-3" (click)="home()">Dashboard</button>
-  <button class="btn txtbtn mt-3 ml-3" routerLink="/servers">My Servers</button>
+  <button class="btn txtbtn mt-3 ml-3" (click)="servers()">My Servers</button>
   <div class="buttons grid grid-cols-2 gap-4 mb-5">
-    <button class="btn fa fa-upload ml-3" (click)="home()" ></button>
-    <button class="btn fa fa-plus mr-3" routerLink="/newserver"></button>
+    <button class="btn fa fa-upload ml-3" (click)="upload()"></button>
+    <button class="btn fa fa-plus mr-3" (click)="newserver()"></button>
     <button class="col-span-2 fa fa-cog btn mx-3" (click)="settings()"></button>
   </div>
 </div>
