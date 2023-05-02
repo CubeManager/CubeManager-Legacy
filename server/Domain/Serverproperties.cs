@@ -1,7 +1,7 @@
 ﻿namespace domain;
 
 //documentation: https://minecraft.fandom.com/wiki/Server.properties
-public class Serverproperties
+public class ServerProperties
 {
     public int spawnProtection {get; set;}
 
