@@ -1,1 +1,32 @@
-<p>dashboard works!</p>
+<div class="ml-12 mt-6">
+
+    <h1 class="text-5xl">Dashboard</h1>
+
+    <div class="mt-11 grid grid-cols-2 gap-6">
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">CPU</h2>
+                <p class="text-6xl mt-10 ml-10">{{cpu}}%</p>
+            </div>
+        </div>
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">Memory</h2>
+                <p>{{currentMemory}}/{{maxMemory}}</p>
+            </div>
+        </div>
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">Running Servers</h2>
+                <p>%</p>
+            </div>
+        </div>
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">Storage</h2>
+                <p>{{storage}} MB</p>
+            </div>
+        </div>
+    </div>
+
+</div>
