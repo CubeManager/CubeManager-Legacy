@@ -1,1 +1,22 @@
-<p>serverlist works!</p>
+<div class="ml-12 mt-6">
+    <div class="artboard artboard-horizontal">
+        <div>
+            <ul class="menu menu-vertical lg:menu-horizontal bg-base-100">
+                <li><a>Name</a></li>
+                <li><a>Memory</a></li>
+                <li><a>CPU</a></li>
+                <li><a>Players</a></li>
+                <li><a>Controls</a></li>
+            </ul>
+        </div>
+        <div>
+            <div *ngFor="let server of servers" class="w-8/12">
+                <img src="./../../assets/server-logo-round.png" class="w-5 ml-auto mr-auto py-4">
+                {{ server.name }}
+                {{ server.memory }}
+                {{ server.cpu }}
+                {{ server.currentPlayers }} / {{ server.maxPlayers }}
+            </div>
+        </div>
+    </div>
+</div>
