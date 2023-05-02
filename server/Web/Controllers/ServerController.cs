@@ -9,6 +9,12 @@ public class ServerController : ControllerBase
     [HttpGet]
     public string GetAll()
     {
+        return "ServerList";
+    }
+
+    [HttpPost]
+    public string  CreateServer()
+    {
         return "Hello World";
     }
 }
