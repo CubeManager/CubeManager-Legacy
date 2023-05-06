@@ -1,22 +1,79 @@
-<div class="ml-12 mt-6">
-    <div class="artboard artboard-horizontal">
-        <div>
-            <ul class="menu menu-vertical lg:menu-horizontal bg-base-100">
-                <li><a>Name</a></li>
-                <li><a>Memory</a></li>
-                <li><a>CPU</a></li>
-                <li><a>Players</a></li>
-                <li><a>Controls</a></li>
-            </ul>
-        </div>
-        <div>
-            <div *ngFor="let server of servers" class="w-8/12">
-                <img src="./../../assets/server-logo-round.png" class="w-5 ml-auto mr-auto py-4">
-                {{ server.name }}
-                {{ server.memory }}
-                {{ server.cpu }}
-                {{ server.currentPlayers }} / {{ server.maxPlayers }}
-            </div>
-        </div>
+<div class="h-screen">
+  <div class="mt-12 overflow-auto no-scrollbar w-full h-5/6">
+    <div class="flex flex-row min-h-screen justify-center w-full ">
+      <table class="table w-10/12">
+        <thead class="sticky top-0">
+          <tr>
+            <th></th>
+            <th style="font-size: 16pt;">Name</th>
+            <th style="font-size: 12pt;">Memory</th>
+            <th style="font-size: 12pt;">CPU</th>
+            <th style="font-size: 12pt;">Players</th>
+            <th style="font-size: 12pt;">Controls</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="w-full" style="font-size: 13pt;">
+          <tr class="hover table-item" *ngFor="let server of servers" (click)="navigateToItem(server)">
+            <th>
+              <div class="flex items-center space-x-3">
+                <div>
+                  <div class="avatar">
+                    <div class="mask mask-circle serverlist-entry">
+                      <img src="./../../assets/server-logo-round.png" alt="Server Logo" />
+                    </div>
+                  </div>
+                </div>
+                <div [ngClass]="server.state === 'Started' ? 'green': 'red'">
+                  <mat-icon class="running-state-container">circle</mat-icon>
+                </div>
+              </div>
+            </th>
+            <td style="font-size: 15.5pt;" class="min-w-[24rem]">
+              {{ server.name }}
+            </td>
+            <td class="min-w-[8rem]">
+              {{ server.memory + " MB" }}
+            </td>
+            <td class="min-w-[6rem]">
+              {{ server.cpu + "%" }}
+            </td>
+            <td class="min-w-[10rem]">
+              {{ server.currentPlayers + "/" + server.maxPlayers}}
+            </td>
+            <td class="min-w-[10rem]">
+              <div class="flex space-x-4">
+                <div>
+                  <button [ngClass]="server.state === 'Started' ? 'black': 'green'"
+                    [disabled]="server.state === 'Started'" (click)="startServer()">
+                    <mat-icon>play_arrow</mat-icon>
+                  </button>
+                </div>
+                <div>
+                  <button [ngClass]="server.state === 'Started' ? '': 'black'" [disabled]="server.state === 'Stopped'"
+                    (click)="reloadServer()">
+                    <mat-icon>refresh</mat-icon>
+                  </button>
+                </div>
+                <div>
+                  <button [ngClass]="server.state === 'Stopped' ? 'black': 'red'" [disabled]="server.state === 'Stopped'"
+                    (click)="stopServer()">
+                    <mat-icon [ngClass]="server.state === 'Running' ? 'status-running': 'status-stopped'">stop</mat-icon>
+                  </button>
+  
+                </div>
+              </div>
+            </td>
+            <td>
+              <div>
+                <button routerLink="server/:serverName">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
