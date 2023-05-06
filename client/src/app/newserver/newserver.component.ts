@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./newserver.component.scss']
 })
 export class NewserverComponent {
+  create() {
+    
+  }
+  
+  cancel() {
 
+  }
 }
