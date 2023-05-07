@@ -14,11 +14,7 @@
     color: #525252;
 }
 
-.running-state-container {
-    font-size: 19px;
-}
-
-.serverlist-entry {
+.server-logo {
     height: 4.5rem;
     width: 4.5rem;
 }
@@ -36,8 +32,4 @@
 .no-scrollbar {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
-}
-
-.table-item {
-    height: 110px !important;
 }
