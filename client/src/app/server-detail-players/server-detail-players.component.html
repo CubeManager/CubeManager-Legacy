@@ -1,1 +1,42 @@
-<p>server-detail-players works!</p>
+<div class="mt-6">
+    <div class="card bg-base-100 shadow-xl w-10/12">
+        <div class="card-body">
+            <div class="overflow-x-auto">
+                <table class="table w-full my-10">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Controls</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let player of players">
+                      <td class="min-w-[64rem]">{{player.name}}</td>
+                      <td>
+                        <div class="flex space-x-14">
+                          <div>
+                            <button (click)="addPlayer()">
+                              <mat-icon>person_add</mat-icon>
+                            </button>
+                          </div>
+                          <div class="flex space-x-6">
+                            <div>
+                              <button (click)="removePlayer()">
+                                <mat-icon>person_remove</mat-icon>
+                              </button>
+                            </div>
+                            <div>
+                              <button (click)="banPlayer()">
+                                <mat-icon class="red">block</mat-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+        </div>
+    </div>
+</div>

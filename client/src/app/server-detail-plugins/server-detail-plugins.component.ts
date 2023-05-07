@@ -6,5 +6,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./server-detail-plugins.component.scss']
 })
 export class ServerDetailPluginsComponent {
+  plugins = [
+    { name: 'Plugin1' },
+    { name: 'Plugin2' },
+    { name: 'Plugin3' },
+    { name: 'Plugin4' },
+    { name: 'Plugin5' },
+  ];
 
+  removePlugin() {
+    
+  }
+
+  addPlugin() {
+    
+  }
 }

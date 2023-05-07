@@ -1,1 +1,104 @@
-<p>server-detail-config works!</p>
+<div class="mt-6 ml-4">
+    <div class="w-10/12">
+        <div class="flex space-x-28 mt-11">
+            <div>
+                <div>
+                    <p>Gamemode</p>
+                    <select class="select w-full max-w-xs">
+                        <option>Survival</option>
+                        <option>Ipsum</option>
+                        <option>Ipsum</option>
+                        <option>Ipsum</option>
+                        <option>Ipsum</option>
+                    </select>
+                </div>
+
+                <div class="mt-2">
+                    <p>Max Players</p>
+                    <input type="number" class="input w-full max-w-xs" />
+                </div>
+
+                <div class="mt-2">
+                    <p>Whitelist Enabled</p>
+                    <div class="flex mt-2">
+                        <input type="checkbox" class="toggle" checked />
+                        <a routerLink="" class="ml-4 underline underline-offset-2">Edit Whitelist</a>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <p>Level Name (World Name)</p>
+                    <input type="text" class="input w-full max-w-xs" />
+                </div>
+
+                <div class="mt-2">
+                    <p>View Distance</p>
+                    <input type="number" class="input w-full max-w-xs" />
+                </div>
+
+                <div class="mt-2">
+                    <p>Simulation Distance</p>
+                    <input type="number" class="input w-full max-w-xs" />
+                </div>
+            </div>
+
+            <div class="flex flex-col space-y-8">
+                <div>
+                    <p>PVP</p>
+                    <input type="checkbox" class="toggle mt-1" checked />
+                </div>
+
+                <div>
+                    <p>Hardcore</p>
+                    <input type="checkbox " class="toggle mt-1" />
+                </div>
+
+                <div>
+                    <p>Spawn...</p>
+                    <input type="checkbox" class="toggle mt-1" checked />
+                </div>
+            </div>
+
+            <div class="flex flex-col space-y-8">
+                <div>
+                    <p>Lorem Ipsum</p>
+                    <input type="checkbox" class="toggle mt-1" />
+                </div>
+
+                <div>
+                    <p>Lorem Ipsum</p>
+                    <input type="checkbox" class="toggle mt-1" />
+                </div>
+
+                <div>
+                    <p>Lorem Ipsum</p>
+                    <input type="checkbox" class="toggle mt-1" checked />
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-2 flex space-x-12">
+            <div>
+                <p>MOTD</p>
+                <textarea class="textarea" placeholder="Welcome to the Minecraft Server" style="width: 320px;"></textarea>
+            </div>
+            <div>
+                <p>Add World</p>
+                <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs mt-1" />
+            </div>
+        </div>
+
+
+
+        <div>
+            <a routerLink="" class="underline underline-offset-2">Show Advanced</a>
+        </div>
+
+        <div class="mt-24 flex space-x-5">
+            <button class="btn btn-error action-button" (click)="reset()">Reset</button>
+            <button class="btn btn-success action-button" (click)="save()">Save</button>
+        </div>
+    </div>
+</div>

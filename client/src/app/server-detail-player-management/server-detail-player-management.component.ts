@@ -7,4 +7,31 @@ import { Component } from '@angular/core';
 })
 export class ServerDetailPlayerManagementComponent {
 
+  whiteList = [
+    { name: 'Player1' },
+    { name: 'Player2' },
+    { name: 'Player3' },
+    { name: 'Player4' },
+    { name: 'Player5' },
+  ];
+
+  banList = [
+    { name: 'Player1' },
+    { name: 'Player2' },
+    { name: 'Player3' },
+    { name: 'Player4' },
+    { name: 'Player5' },
+  ];
+
+  addPlayer() {
+
+  }
+
+  removePlayer() {
+
+  }
+
+  banPlayer() {
+
+  }
 }

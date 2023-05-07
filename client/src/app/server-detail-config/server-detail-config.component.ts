@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./server-detail-config.component.scss']
 })
 export class ServerDetailConfigComponent {
+  reset() {
 
+  }
+
+  save() {
+
+  }
 }

@@ -1,1 +1,76 @@
-<p>server-detail-player-management works!</p>
+<div class="mt-6 w-10/12">
+    <div class="grid grid-cols-2 gap-6">
+        <div>
+            <div class="card bg-base-100 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title">Whitelist</h2>
+                    <div class="overflow-x-auto">
+                        <table class="table w-full my-2">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let player of whiteList">
+                                    <td class="min-w-[48rem]">{{player.name}}</td>
+                                    <td>
+                                        <div>
+                                            <button (click)="banPlayer()">
+                                                <mat-icon class="red">block</mat-icon>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">Bans</h2>
+                <div class="overflow-x-auto">
+                    <table class="table w-full my-2">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let player of whiteList">
+                                <td class="min-w-[48rem]">{{player.name}}</td>
+                                <td>
+                                    <div>
+                                        <button (click)="banPlayer()">
+                                            <mat-icon>person_add</mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-6 mt-6">
+        <div class="grid grid-cols-8 gap-6">
+            <input type="text" class="input w-full col-span-7" />
+            <button class="btn btn-primary col-span-1">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <div class="grid grid-cols-8 gap-6">
+            <input type="text" class="input w-full col-span-7" />
+            <button class="btn btn-primary col-span-1">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
