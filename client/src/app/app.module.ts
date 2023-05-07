@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ServerlistComponent } from './serverlist/serverlist.component';
 import { SettingsComponent } from './settings/settings.component';
 import { NewserverComponent } from './newserver/newserver.component';
+import { ServerDetailComponent } from './server-detail/server-detail.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { NewserverComponent } from './newserver/newserver.component';
     ServerlistComponent,
     SettingsComponent,
     NewserverComponent,
+    ServerDetailComponent,
   ],
   imports: [
     BrowserModule,
