@@ -8,11 +8,11 @@ public class ListEntityBase
 
     public List<Player> list {get; set;}
 
-    public addPlayer(Player player){
-        list.add(player);
+    public void AddPlayer(Player player){
+        list.Add(player);
     }
 
-    public removePlayer(Player player){
-        list.remove(player);
+    public void RemovePlayer(Player player){
+        list.Remove(player);
     }
 }
