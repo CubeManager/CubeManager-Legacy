@@ -10,6 +10,12 @@ import { ServerlistComponent } from './serverlist/serverlist.component';
 import { SettingsComponent } from './settings/settings.component';
 import { NewserverComponent } from './newserver/newserver.component';
 import { ServerDetailComponent } from './server-detail/server-detail.component';
+import { ServerDetailConsoleComponent } from './server-detail-console/server-detail-console.component';
+import { ServerDetailLogsComponent } from './server-detail-logs/server-detail-logs.component';
+import { ServerDetailPlayersComponent } from './server-detail-players/server-detail-players.component';
+import { ServerDetailPlayerManagementComponent } from './server-detail-player-management/server-detail-player-management.component';
+import { ServerDetailConfigComponent } from './server-detail-config/server-detail-config.component';
+import { ServerDetailPluginsComponent } from './server-detail-plugins/server-detail-plugins.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +25,12 @@ import { ServerDetailComponent } from './server-detail/server-detail.component';
     SettingsComponent,
     NewserverComponent,
     ServerDetailComponent,
+    ServerDetailConsoleComponent,
+    ServerDetailLogsComponent,
+    ServerDetailPlayersComponent,
+    ServerDetailPlayerManagementComponent,
+    ServerDetailConfigComponent,
+    ServerDetailPluginsComponent,
   ],
   imports: [
     BrowserModule,
