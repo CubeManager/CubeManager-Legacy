@@ -1,20 +1,30 @@
 ﻿namespace Web.Controllers;
 
 using Microsoft.AspNetCore.Mvc;
+using Service.IServices;
+using Service.InputModels;
 
 [ApiController]
 [Route("servers")]
 public class ServerController : ControllerBase
 {
-    [HttpGet]
-    public string GetAll()
+    private readonly IServerCreationService serverCreationService;
+
+    public ServerController(IServerCreationService serverCreationService)
     {
-        return "ServerList";
+        this.serverCreationService = serverCreationService;
+    }
+
+    [HttpGet]
+    public ActionResult<string> GetAll()
+    {
+        return Ok("ServerList");
     }
 
     [HttpPost]
-    public string  CreateServer()
+    public ActionResult CreateServer([FromBody] ServerInputModel serverInput)
     {
-        return "Hello World";
+        serverCreationService.CreateServer(serverInput);
+        return Ok();
     }
 }

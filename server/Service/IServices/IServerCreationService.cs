@@ -2,7 +2,7 @@
 
 namespace Service.IServices;
 
-public interface IServerService
+public interface IServerCreationService
 {
     public void CreateServer(ServerInputModel serverInput);
 }
