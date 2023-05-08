@@ -25,6 +25,7 @@ public class ServerCreationService : IServerCreationService
 
         ProcessStartInfo startProcessInfo = new ProcessStartInfo();
         startProcessInfo.RedirectStandardInput = true;
+        startProcessInfo.RedirectStandardOutput = true;
         startProcessInfo.WorkingDirectory = serverPath;
         startProcessInfo.FileName = "java";
         startProcessInfo.Arguments = $"-Xmx{serverInput.maxMemory}M -jar {serverPath}\\server.jar nogui";
@@ -32,5 +33,15 @@ public class ServerCreationService : IServerCreationService
         Process serverProcess = new Process();
         serverProcess.StartInfo = startProcessInfo;
         serverProcess.Start();
+
+        string line;
+        while ((line = serverProcess.StandardOutput.ReadLine()) != null)
+        {
+            Console.WriteLine(line);
+            if (line.Contains("You need to agree to the EULA in order to run the server"))
+            {
+                serverProcess.StandardInput.WriteLine("eula=true");
+            }
+        }
     }
 }
