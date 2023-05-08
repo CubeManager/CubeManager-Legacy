@@ -9,5 +9,8 @@ export class ServerService {
 
   public createServer() {
     this.apiService.post('http://localhost:3000/api/server', { name: 'test' }).subscribe((data) => {});
+
+    // Because were using generics in the ApiService, we can and SHOULD also do this:
+    // this.apiService.post<Model>('http://localhost:3000/api/server', { ... } ).subscribe((data) => {});
   }
 }
