@@ -13,4 +13,11 @@ export class ServerService {
     // Because were using generics in the ApiService, we can and SHOULD also do this:
     // this.apiService.post<Model>('http://localhost:3000/api/server', { ... } ).subscribe((data) => {});
   }
+
+  public getServerList() {
+    return this.apiService.get('http://localhost:8080/servers').subscribe((data) => {});
+
+    // Because were using generics in the ApiService, we can and SHOULD also do this:
+    // this.apiService.post<Model>('http://localhost:3000/api/server', { ... } ).subscribe((data) => {});
+  }
 }

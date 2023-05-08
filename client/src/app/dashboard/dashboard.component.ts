@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {HttpClient } from "@angular/common/http";
+import { ApiService } from '../core/services/api.service';
+import { ServerService } from '../core/services/serverApi.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,13 +29,29 @@ export class DashboardComponent {
   ]
   ;
 
-  constructor(){
+  constructor(private http: HttpClient){
 
     for (let server of this.servers) {
         this.cpu += server.cpu;
         this.currentMemory += server.memory;
         this.storage += server.storage;
     }
+    
+
+    let testlol = async () => {
+      let apiService = new ApiService(http);
+      let serverApi = new ServerService(apiService);
+      return serverApi.getServerList();
+    }
+
+    
+    let process1 = testlol();
+    console.log(process1);
+
+    // this.servers[0].name = process1;
+    // this.servers[0].cpu = 
+    // this.servers[0].memory =
+    // this.servers[0].storage = 
   };
 
 }

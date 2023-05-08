@@ -10,8 +10,7 @@ public class ServerController : ControllerBase
     [HttpGet]
     public string GetAll()
     {
-            Process[] localAll = Process.GetProcesses();
-            Console.Write(localAll);
+            // Process[] localAll = Process.GetProcesses();
             // foreach (Process server in localAll) {
             // }
             // return string.Join(", ", (object[])localAll);
