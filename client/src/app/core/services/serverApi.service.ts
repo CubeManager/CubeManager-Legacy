@@ -15,7 +15,7 @@ export class ServerService {
   }
 
   public getServerList() {
-    return this.apiService.get('http://localhost:8080/servers').subscribe((data) => {});
+    return this.apiService.get('https://localhost:8080/servers').subscribe((data) => {});
 
     // Because were using generics in the ApiService, we can and SHOULD also do this:
     // this.apiService.post<Model>('http://localhost:3000/api/server', { ... } ).subscribe((data) => {});
