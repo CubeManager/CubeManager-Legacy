@@ -51,4 +51,9 @@ public class ServerCubeManagerConfigService : IServerCubeManagerConfigService
         File.WriteAllText(cubeManagerConfigFile, JsonSerializer.Serialize(serverCubeManagerConfig));
 
     }
+
+    public ServerCubeManagerConfig CreateServerCubeManagerConfig(string jarFile, int maxMemory)
+    {
+        return new ServerCubeManagerConfig(jarFile, maxMemory);
+    }
 }

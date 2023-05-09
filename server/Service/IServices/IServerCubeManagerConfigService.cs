@@ -17,8 +17,11 @@ public interface IServerCubeManagerConfigService
     /// <param name="serverInput"></param>
     public void SetCubeManagerConfig(ServerCubeManagerConfig serverCubeManagerConfig, string serverName);
 
-    public ServerCubeManagerConfig CreateServerCubeManagerConfig(string jarFile, int maxMemory)
-    {
-        return new ServerCubeManagerConfig(jarFile, maxMemory);
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="jarFile"></param>
+    /// <param name="maxMemory"></param>
+    /// <returns></returns>
+    public ServerCubeManagerConfig CreateServerCubeManagerConfig(string jarFile, int maxMemory);
 }
