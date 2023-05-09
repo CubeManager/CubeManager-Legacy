@@ -1,8 +1,8 @@
-<div class="mt-6">
-    <div class="card bg-base-100 shadow-xl w-10/12">
-        <div class="card-body">
-            <div class="overflow-x-auto">
-                <table class="table w-full my-10">
+<div class="w-10/12">
+    <div class="card bg-base-100 shadow-xl overflow-scroll no-scrollbar h-[48vh]">
+        <div class="card-body no-scrollbar">
+            <div class="overflow-x-auto no-scrollbar">
+                <table class="table table-auto overflow-scroll w-full my-2">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -26,14 +26,11 @@
                 </table>
             </div>
         </div>
-
-        <div class="flex justify-center mr-8 ml-8">
-            <button class="btn btn-primary w-full" (click)="addPlugin()">
-                <mat-icon>add</mat-icon>
-            </button>
-        </div>
-
-        <br>
-        <br>
     </div>
+    
+    <div class="mt-2">
+        <button class="btn btn-primary w-full" (click)="addPlugin()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>    
 </div>

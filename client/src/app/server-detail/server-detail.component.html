@@ -1,30 +1,29 @@
-<div class="ml-12 mt-10">
-    <div class="flex space-x-3 ">
+<div class="ml-12 mt-10 h-full">
+    <div class="flex space-x-3">
         <div [ngClass]="server.state === 'Started' ? 'green': 'red'" class="flex items-center">
             <mat-icon class="running-state-container">circle</mat-icon>
         </div>
         <h1 class="text-5xl">{{ server.name }}</h1>
     </div>
 
-    <div class="mt-5 grid grid-cols-4 gap-6">
+    <div class="mt-5 grid grid-cols-4 gap-6 card-wrapper">
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title">CPU</h2>
-                <p class="text-5xl my-10 data">{{server.cpu}}%</p>
+                <p class="text-5xl  data usage-text">{{server.cpu}}%</p>
             </div>
         </div>
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title">Memory</h2>
-                <p class="text-5xl my-10 data">{{server.memory}} MB</p>
+                <p class="text-5xl data usage-text">{{server.memory}} MB</p>
             </div>
         </div>
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title">Players</h2>
-                <div class="my-10" style="display: flex; justify-content: space-between;">
-                    <p class="text-5xl mr-3" style="text-align: right">{{server.currentPlayers}}</p>
-                    <p class="text-3xl mt-5">/ {{server.maxPlayers}}</p>
+                <div class="" style="display: flex;">
+                    <p class="text-5xl usage-text">{{server.currentPlayers}} / {{server.maxPlayers}}</p>
                 </div>
             </div>
         </div>
@@ -50,15 +49,15 @@
         </div>
     </div>
 
-    <div class="mt-8">
+    <div class="mt-8 tab-wrapper">
         <div class="">
-            <a *ngFor="let tab of tabs; index as index" class="tab text-xl hover:underline underline-offset-2"
+            <a *ngFor="let tab of tabs; index as index" class="tab text-xl hover:underline underline-offset-2 tab-text"
                 [ngClass]="index === activeTab ? 'tab-active underline underline-offset-2' : ''"
                 (click)="switchTab(index)">{{ tab }}</a>
         </div>
     </div>
 
-    <div>
+    <div class="mt-6 tab-content-wrapper h-[60vh]">
         <div *ngIf="activeTab === 0">
             <app-server-detail-console></app-server-detail-console>
         </div>
@@ -78,5 +77,4 @@
             <app-server-detail-plugins></app-server-detail-plugins>
         </div>
     </div>
-
 </div>

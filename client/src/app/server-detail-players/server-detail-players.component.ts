@@ -12,6 +12,9 @@ export class ServerDetailPlayersComponent {
     { name: 'Player3' },
     { name: 'Player4' },
     { name: 'Player5' },
+    { name: 'Player6' },
+    { name: 'Player7' },
+    { name: 'Player8' },
   ];
 
   addPlayer() {
