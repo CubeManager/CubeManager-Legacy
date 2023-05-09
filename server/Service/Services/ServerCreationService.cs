@@ -1,34 +1,46 @@
-﻿using Service.InputModels;
-using Service.IServices;
-using System;
-using System.Diagnostics;
-using System.Net.WebSockets;
+﻿namespace Service.Services;
 
-namespace Service.Services;
+using Service.InputModels;
+using Service.IServices;
+using System.Diagnostics;
 
 public class ServerCreationService : IServerCreationService
 {
-    public async void CreateServer(ServerInputModel serverInput)
+    IServerPropertiesService serverPropertiesService;
+
+    public ServerCreationService(IServerPropertiesService serverPropertiesService)
     {
-        var serverPath = GetServerPath(serverInput.serverName);
+        this.serverPropertiesService = serverPropertiesService;
+    }
+
+    public async Task CreateServer(ServerInputModel serverInput)
+    {
+        var serverPath = Util.GetServerPath(serverInput.serverName);
+
+        if(serverInput.maxMemory < 250)
+        {
+            // throw new Exception("maxMemory must be at least 250 MB")
+        }
 
         if (Directory.Exists(serverPath))
         {
             //throw new Exception("Server Folder already exists");
         }
-        else
-        {
-            Directory.CreateDirectory(serverPath);
-        }
+
+        Directory.CreateDirectory(serverPath);
 
         var processStartInfo = CreateServerProcessStartInfo(serverPath, serverInput.maxMemory);
 
-        var initialProcess = StartServerProcess(processStartInfo);
-        await WaitForEulaFileCreationAsync(initialProcess);
-        initialProcess.Kill();
-        await initialProcess.WaitForExitAsync();
-        AcceptEulaFile(serverPath);
+        CreateEulaFile(serverPath);
+
         var primaryProcess = StartServerProcess(processStartInfo);
+        await WaitUntilDoneAsync(primaryProcess);
+        primaryProcess.Kill();
+        await primaryProcess.WaitForExitAsync();
+        if (serverInput.serverProperties != null)
+        {
+            serverPropertiesService.ChangeServerProperties(serverInput.serverProperties, serverInput.serverName);
+        }
     }
 
     private ProcessStartInfo CreateServerProcessStartInfo(string serverPath, int maxMemory)
@@ -50,12 +62,12 @@ public class ServerCreationService : IServerCreationService
         return serverProcess;
     }
 
-    private async Task WaitForEulaFileCreationAsync(Process process)
+    private async Task WaitUntilDoneAsync(Process process)
     {
         string line;
         while ((line = await process.StandardOutput.ReadLineAsync()) != null)
         {
-            if (line.Contains("agree") && line.Contains("EULA"))
+            if (line.Contains("Done") && line.Contains("!"))
             {
                 break;
             }
@@ -67,13 +79,10 @@ public class ServerCreationService : IServerCreationService
         var eula = File.ReadAllText($"{serverPath}\\eula.txt");
         eula = eula.Replace("false", "true");
         File.WriteAllText($"{serverPath}\\eula.txt", eula);
-    }
+    }    
 
-    private string GetServerPath(string serverName)
+    private void CreateEulaFile(string serverPath)
     {
-        return Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            $"CubeManager\\{serverName}\\"
-        );
+        File.WriteAllText(Path.Combine(serverPath, "eula.txt"), $"#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://aka.ms/MinecraftEULA).\r\n#{DateTime.Now}\r\neula=true\r\n");
     }
 }

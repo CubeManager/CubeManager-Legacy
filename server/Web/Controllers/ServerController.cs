@@ -31,16 +31,18 @@ public class ServerController : ControllerBase {
             return string.Join("/n", (object[])(typeof(Process).GetProperties()));
     }
     private readonly IServerCreationService serverCreationService;
+    private readonly IServerPropertiesService serverPropertiesService;
 
-    public ServerController(IServerCreationService serverCreationService)
+    public ServerController(IServerCreationService serverCreationService, IServerPropertiesService serverPropertiesService)
     {
         this.serverCreationService = serverCreationService;
+        this.serverPropertiesService = serverPropertiesService;
     }
 
     [HttpPost]
-    public ActionResult CreateServer([FromBody] ServerInputModel serverInput)
+    public async Task<IActionResult> CreateServer([FromBody] ServerInputModel serverInput)
     {
-        serverCreationService.CreateServer(serverInput);
+        await serverCreationService.CreateServer(serverInput);
         return Ok();
             }
 
