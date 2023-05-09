@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
+using Service;
 using Service.IServices;
 using Service.InputModels;
 using System.Text.RegularExpressions;
@@ -86,8 +87,8 @@ public class ServerController : ControllerBase {
         string[] pids = new string[ports.Length];
         using (Process p = new Process()) {
             ProcessStartInfo ps = new ProcessStartInfo();
-            ps.Arguments = "-a -n -o";
-            ps.FileName = "netstat.exe";
+            ps.Arguments = "-a -n -o -p";
+            ps.FileName = "netstat";
             ps.UseShellExecute = false;
             ps.WindowStyle = ProcessWindowStyle.Hidden;
             ps.RedirectStandardInput = true;
@@ -95,12 +96,12 @@ public class ServerController : ControllerBase {
             ps.RedirectStandardError = true;
             p.StartInfo = ps;
             p.Start();
-            string[] rows = Regex.Split(p.StandardOutput.ReadToEnd(), "\r\n");
+            string[] rows = Regex.Split(p.StandardOutput.ReadToEnd(), "\n");
             int index = 0;
             foreach (string port in ports) {
                 string row = Array.FindAll(rows, s => s.Contains(port))[0];
                 string[] tokens = Regex.Split(row, "\\s+");
-                pids[index] = (tokens[5]);
+                //pids[index] = (tokens[5]); --> different on Linux netstat
                 index++;
             }
         }
