@@ -1,11 +1,11 @@
-<div class="mt-6 w-10/12">
-    <div class="grid grid-cols-2 gap-6">
+<div class="mt-6 ">
+    <div class="grid grid-cols-2 gap-6 w-10/12">
         <div>
             <div class="card bg-base-100 shadow-xl">
                 <div class="card-body">
                     <h2 class="card-title">Whitelist</h2>
                     <div class="overflow-x-auto">
-                        <table class="table w-full my-2">
+                        <table class="table my-2">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -14,7 +14,7 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let player of whiteList">
-                                    <td class="min-w-[48rem]">{{player.name}}</td>
+                                    <td class="w-full">{{player.name}}</td>
                                     <td>
                                         <div>
                                             <button (click)="banPlayer()">
@@ -34,7 +34,7 @@
             <div class="card-body">
                 <h2 class="card-title">Bans</h2>
                 <div class="overflow-x-auto">
-                    <table class="table w-full my-2">
+                    <table class="table my-2">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -43,7 +43,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let player of whiteList">
-                                <td class="min-w-[48rem]">{{player.name}}</td>
+                                <td class="w-full">{{player.name}}</td>
                                 <td>
                                     <div>
                                         <button (click)="banPlayer()">
