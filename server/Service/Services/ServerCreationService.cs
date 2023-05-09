@@ -1,18 +1,16 @@
-﻿using Domain;
-using Service.InputModels;
+﻿using Service.InputModels;
 using Service.IServices;
+using System;
 using System.Diagnostics;
+using System.Net.WebSockets;
 
 namespace Service.Services;
 
 public class ServerCreationService : IServerCreationService
 {
-    public void CreateServer(ServerInputModel serverInput)
+    public async void CreateServer(ServerInputModel serverInput)
     {
-        string serverPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
-            $"CubeManager\\{serverInput.serverName}\\"
-        );
+        var serverPath = GetServerPath(serverInput.serverName);
 
         if (Directory.Exists(serverPath))
         {
@@ -23,25 +21,59 @@ public class ServerCreationService : IServerCreationService
             Directory.CreateDirectory(serverPath);
         }
 
-        ProcessStartInfo startProcessInfo = new ProcessStartInfo();
-        startProcessInfo.RedirectStandardInput = true;
-        startProcessInfo.RedirectStandardOutput = true;
-        startProcessInfo.WorkingDirectory = serverPath;
-        startProcessInfo.FileName = "java";
-        startProcessInfo.Arguments = $"-Xmx{serverInput.maxMemory}M -jar {serverPath}\\server.jar nogui";
+        var processStartInfo = CreateServerProcessStartInfo(serverPath, serverInput.maxMemory);
 
+        var initialProcess = StartServerProcess(processStartInfo);
+        await WaitForEulaFileCreationAsync(initialProcess);
+        initialProcess.Kill();
+        await initialProcess.WaitForExitAsync();
+        AcceptEulaFile(serverPath);
+        var primaryProcess = StartServerProcess(processStartInfo);
+    }
+
+    private ProcessStartInfo CreateServerProcessStartInfo(string serverPath, int maxMemory)
+    {
+        ProcessStartInfo processStartInfo = new ProcessStartInfo();
+        processStartInfo.RedirectStandardInput = true;
+        processStartInfo.RedirectStandardOutput = true;
+        processStartInfo.WorkingDirectory = serverPath;
+        processStartInfo.FileName = "java";
+        processStartInfo.Arguments = $"-Xmx{maxMemory}M -jar {serverPath}\\server.jar nogui";
+        return processStartInfo;
+    }
+
+    private Process StartServerProcess(ProcessStartInfo startProcessInfo)
+    {
         Process serverProcess = new Process();
         serverProcess.StartInfo = startProcessInfo;
         serverProcess.Start();
+        return serverProcess;
+    }
 
+    private async Task WaitForEulaFileCreationAsync(Process process)
+    {
         string line;
-        while ((line = serverProcess.StandardOutput.ReadLine()) != null)
+        while ((line = await process.StandardOutput.ReadLineAsync()) != null)
         {
-            Console.WriteLine(line);
-            if (line.Contains("You need to agree to the EULA in order to run the server"))
+            if (line.Contains("agree") && line.Contains("EULA"))
             {
-                serverProcess.StandardInput.WriteLine("eula=true");
+                break;
             }
         }
+    }
+
+    private void AcceptEulaFile(string serverPath)
+    {
+        var eula = File.ReadAllText($"{serverPath}\\eula.txt");
+        eula = eula.Replace("false", "true");
+        File.WriteAllText($"{serverPath}\\eula.txt", eula);
+    }
+
+    private string GetServerPath(string serverName)
+    {
+        return Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            $"CubeManager\\{serverName}\\"
+        );
     }
 }
