@@ -11,6 +11,7 @@ public static class IServiceCollectionExtensions
         services.AddScoped<IServerCreationService, ServerCreationService>();
         services.AddScoped<IServerPropertiesService, ServerPropertiesService>();
         services.AddScoped<IServerCubeManagerConfigService, ServerCubeManagerConfigService>();
+        services.AddScoped<IServerUpdateService, ServerUpdateService>();
         return services;
     }
 }

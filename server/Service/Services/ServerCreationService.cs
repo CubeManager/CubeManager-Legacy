@@ -1,5 +1,6 @@
 ﻿namespace Service.Services;
 
+using Domain;
 using Service.InputModels;
 using Service.IServices;
 using System.Diagnostics;
@@ -7,10 +8,12 @@ using System.Diagnostics;
 public class ServerCreationService : IServerCreationService
 {
     IServerPropertiesService serverPropertiesService;
+    IServerCubeManagerConfigService serverCubeManagerConfigService;
 
-    public ServerCreationService(IServerPropertiesService serverPropertiesService)
+    public ServerCreationService(IServerPropertiesService serverPropertiesService, IServerCubeManagerConfigService serverCubeManagerConfigService)
     {
         this.serverPropertiesService = serverPropertiesService;
+        this.serverCubeManagerConfigService = serverCubeManagerConfigService;
     }
 
     public async Task CreateServer(ServerInputModel serverInput)
@@ -41,6 +44,8 @@ public class ServerCreationService : IServerCreationService
         {
             serverPropertiesService.ChangeServerProperties(serverInput.serverProperties, serverInput.serverName);
         }
+
+        CreateServerCubeManagerConfig(Util.GetJarFileName(serverInput), serverInput.maxMemory, serverInput.serverName);
     }
 
     private ProcessStartInfo CreateServerProcessStartInfo(string serverPath, int maxMemory)
@@ -74,15 +79,14 @@ public class ServerCreationService : IServerCreationService
         }
     }
 
-    private void AcceptEulaFile(string serverPath)
-    {
-        var eula = File.ReadAllText($"{serverPath}\\eula.txt");
-        eula = eula.Replace("false", "true");
-        File.WriteAllText($"{serverPath}\\eula.txt", eula);
-    }    
-
     private void CreateEulaFile(string serverPath)
     {
         File.WriteAllText(Path.Combine(serverPath, "eula.txt"), $"#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://aka.ms/MinecraftEULA).\r\n#{DateTime.Now}\r\neula=true\r\n");
+    }
+
+    private void CreateServerCubeManagerConfig(string jarFile, int maxMemory, string serverName)
+    {
+        var config = serverCubeManagerConfigService.CreateServerCubeManagerConfig(jarFile, maxMemory);
+        serverCubeManagerConfigService.SetCubeManagerConfig(config, serverName);
     }
 }
