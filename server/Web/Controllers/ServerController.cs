@@ -30,6 +30,17 @@ public class ServerController : ControllerBase {
         }
             return string.Join("/n", (object[])(typeof(Process).GetProperties()));
     }
+
+    public class Server
+    {
+        public Server(string Name)
+        {
+            this.Name = Name;
+            this.Description = "Desc";
+        }
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
     private readonly IServerCreationService serverCreationService;
     private readonly IServerPropertiesService serverPropertiesService;
 
@@ -109,3 +120,4 @@ public class ServerController : ControllerBase {
         return pids;
     } 
 }
+
