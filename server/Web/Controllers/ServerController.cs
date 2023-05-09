@@ -17,24 +17,10 @@ public class ServerController : ControllerBase
         this.serverPropertiesService = serverPropertiesService;
     }
 
-    [HttpGet]
-    public ActionResult<string> GetAll()
-    {
-        return Ok("ServerList");
-    }
-
     [HttpPost]
     public async Task<IActionResult> CreateServer([FromBody] ServerInputModel serverInput)
     {
         await serverCreationService.CreateServer(serverInput);
-        return Ok();
-    }
-
-    [HttpPut("properties")]
-    public ActionResult ChangeProperties([FromBody] ServerInputModel serverInput)
-    {
-        
-        serverCreationService.CreateServer(serverInput);
         return Ok();
     }
 }
