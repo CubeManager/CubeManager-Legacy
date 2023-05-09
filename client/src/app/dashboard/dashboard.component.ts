@@ -29,7 +29,7 @@ export class DashboardComponent {
   ]
   ;
 
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient, private apiService: ApiService){
 
     for (let server of this.servers) {
         this.cpu += server.cpu;
@@ -38,15 +38,8 @@ export class DashboardComponent {
     }
     
 
-    let testlol = async () => {
-      let apiService = new ApiService(http);
-      let serverApi = new ServerService(apiService);
-      return serverApi.getServerList();
-    }
+    this.apiService.get("http://localhost:4200/api/servers").pipe().subscribe((data) => console.log(data))
 
-    
-    let process1 = testlol();
-    console.log(process1);
 
     // this.servers[0].name = process1;
     // this.servers[0].cpu = 
