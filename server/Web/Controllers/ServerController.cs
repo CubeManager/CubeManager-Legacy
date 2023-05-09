@@ -16,12 +16,17 @@ public class ServerController : ControllerBase {
     {
         // Server server = new Server;
         // server.serverproperties = new ServerProperties();
-        string[] ports = {"25565", "25566"};
+        string[] ports = {"25565"};
         string[] pids = GetPIDsByPorts(ports);
         foreach (string pid in pids)
         {
             Process process = Process.GetProcessById(Int32.Parse(pid));
-            Console.WriteLine(process.ProcessName + " CPU: " + await GetCpuUsageForProcess(process) + "%" + " Memory: " + process.WorkingSet64 );
+            string path = "C:\\Users\\taawajac\\Minecraft Server";
+            DirectoryInfo info = new DirectoryInfo(path);
+            Console.WriteLine(process.ProcessName + " CPU: " + 
+            await GetCpuUsageForProcess(process) + "%" + " Memory: " + 
+            process.WorkingSet64 / 1024 / 1024 + "MB"  + " Storage: " + 
+            info.EnumerateFiles( "*", SearchOption.AllDirectories).Sum(file => file.Length) / 1024 / 1024 + "MB");
         }
             return string.Join("/n", (object[])(typeof(Process).GetProperties()));
     }
