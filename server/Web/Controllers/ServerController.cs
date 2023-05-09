@@ -9,10 +9,12 @@ using Service.InputModels;
 public class ServerController : ControllerBase
 {
     private readonly IServerCreationService serverCreationService;
+    private readonly IServerPropertiesService serverPropertiesService;
 
-    public ServerController(IServerCreationService serverCreationService)
+    public ServerController(IServerCreationService serverCreationService, IServerPropertiesService serverPropertiesService)
     {
         this.serverCreationService = serverCreationService;
+        this.serverPropertiesService = serverPropertiesService;
     }
 
     [HttpGet]
@@ -22,8 +24,16 @@ public class ServerController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult CreateServer([FromBody] ServerInputModel serverInput)
+    public async Task<IActionResult> CreateServer([FromBody] ServerInputModel serverInput)
     {
+        await serverCreationService.CreateServer(serverInput);
+        return Ok();
+    }
+
+    [HttpPut("properties")]
+    public ActionResult ChangeProperties([FromBody] ServerInputModel serverInput)
+    {
+        
         serverCreationService.CreateServer(serverInput);
         return Ok();
     }

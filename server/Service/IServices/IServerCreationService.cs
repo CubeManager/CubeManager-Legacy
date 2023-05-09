@@ -1,8 +1,12 @@
-﻿using Service.InputModels;
+﻿namespace Service.IServices;
 
-namespace Service.IServices;
+using Service.InputModels;
 
 public interface IServerCreationService
 {
-    public void CreateServer(ServerInputModel serverInput);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="serverInput"></param>
+    public Task CreateServer(ServerInputModel serverInput);
 }

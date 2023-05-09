@@ -1,119 +1,176 @@
 ﻿namespace Domain;
 
 using Domain.Enums;
+using System.Text.Json.Serialization;
 
 //documentation: https://minecraft.fandom.com/wiki/Server.properties
 public class ServerProperties
 {
-    public int spawnProtection {get; set;}
+    [JsonPropertyName("spawn_protection")]
+    public int spawnProtection { get; set; }
 
-    public int maxTickTime {get; set;}
-    
-    public bool forceGamemode {get; set;}
+    [JsonPropertyName("max-tick-tim")]
+    public int maxTickTime { get; set; }
 
-    public bool allowNether {get; set;}
+    [JsonPropertyName("force-gamemode")]
+    public bool forceGamemode { get; set; }
 
-    public int maxChainedNeighborUpdates {get; set;}
+    [JsonPropertyName("allow-nether")]
+    public bool allowNether { get; set; }
 
-    public bool enableQuery {get; set;}
+    [JsonPropertyName("max-chained-neighbor-updates")]
+    public int maxChainedNeighborUpdates { get; set; }
 
-    public int queryPort {get; set;}
+    [JsonPropertyName("enable-query")]
+    public bool enableQuery { get; set; }
 
-    public int playerIdleTimeout {get; set;}
+    [JsonPropertyName("query.port")]
+    public int queryPort { get; set; }
 
-    public bool spawnMonsters {get; set;}
+    [JsonPropertyName("player-idle-timeout")]
+    public int playerIdleTimeout { get; set; }
 
-    public bool pvp {get; set;}
+    [JsonPropertyName("spawn-monsters")]
+    public bool spawnMonsters { get; set; }
 
-    public bool snooperEnabled {get; set;}
+    [JsonPropertyName("pvp")]
+    public bool pvp { get; set; }
 
-    public bool hardcore {get; set;}
+    [JsonPropertyName("snooper-enabled")]
+    public bool snooperEnabled { get; set; }
 
-    public bool enableCommandBlock {get; set;}
+    [JsonPropertyName("hardcore")]
+    public bool hardcore { get; set; }
 
-    public int maxPlayers {get; set;}
+    [JsonPropertyName("enable-command-block")]
+    public bool enableCommandBlock { get; set; }
 
-    public int serverPort {get; set;}
+    [JsonPropertyName("max-players")]
+    public int maxPlayers { get; set; }
 
-    public string serverIp {get; set;}
+    [JsonPropertyName("server-port")]
+    public int serverPort { get; set; }
 
-    public bool spawnNpcs {get; set;}
+    [JsonPropertyName("server-ip")]
+    public string? serverIp { get; set; }
 
-    public bool allowFlight {get; set;}
+    [JsonPropertyName("spawn-npcs")]
+    public bool spawnNpcs { get; set; }
 
-    public string levelName {get; set;}
+    [JsonPropertyName("allow-flight")]
+    public bool allowFlight { get; set; }
 
-    public int viewDistance {get; set;}
+    [JsonPropertyName("level-name")]
+    public string? levelName { get; set; }
 
-    public bool spawnAnimals {get; set;}
+    [JsonPropertyName("view-distance")]
+    public int viewDistance { get; set; }
 
-    public bool whiteList {get; set;}
+    [JsonPropertyName("spawn-animals")]
+    public bool spawnAnimals { get; set; }
 
-    public bool generateStructures {get; set;}
+    [JsonPropertyName("white-list")]
+    public bool whiteList { get; set; }
 
-    public bool onlineMode {get; set;}
+    [JsonPropertyName("generate-structures")]
+    public bool generateStructures { get; set; }
 
-    public int maxBuildingHeight {get; set;}
+    [JsonPropertyName("online-mode")]
+    public bool onlineMode { get; set; }
 
-    public string levelSeed {get; set;}
+    [JsonPropertyName("max-building-height")]
+    public int maxBuildingHeight { get; set; }
 
-    public bool useNativeTransport {get; set;}
+    [JsonPropertyName("level-seed")]
+    public string? levelSeed { get; set; }
 
-    public string motd {get; set;}
+    [JsonPropertyName("use-native-transport")]
+    public bool useNativeTransport { get; set; }
 
-    public bool enableRcon {get; set;}
+    [JsonPropertyName("modt")]
+    public string? motd { get; set; }
 
-    public string rconPassword {get; set;}
+    [JsonPropertyName("enable-rcon")]
+    public bool enableRcon { get; set; }
 
-    public int rconPort {get; set;}
+    [JsonPropertyName("rcon.password")]
+    public string? rconPassword { get; set; }
 
-    public int maxWorldSize {get; set;}
+    [JsonPropertyName("rcon.port")]
+    public int rconPort { get; set; }
 
-    public string resourcePackSha1 {get; set;}
+    [JsonPropertyName("rcon.password")]
+    public int maxWorldSize { get; set; }
 
-    public bool enforceWhitelist {get; set;}
+    [JsonPropertyName("resource-pack-sha1")]
+    public string? resourcePackSha1 { get; set; }
 
-    public string initialEnabledPacks {get; set;}
+    [JsonPropertyName("enforce-white-list")]
+    public bool enforceWhitelist { get; set; }
 
-    public int simulationDistance {get; set;}
+    [JsonPropertyName("initial-enabled-packs")]
+    public string? initialEnabledPacks { get; set; }
 
-    public int rateLimit {get; set;}
+    [JsonPropertyName("simulation-distance")]
+    public int simulationDistance { get; set; }
 
-    public bool hideOnlinePlayers {get; set;}
+    [JsonPropertyName("rate-limit")]
+    public int rateLimit { get; set; }
 
-    public bool preventProxyConnections {get; set;}
+    [JsonPropertyName("hide-online-players")]
+    public bool hideOnlinePlayers { get; set; }
 
-    public bool syncChunkWrites {get; set;}
+    [JsonPropertyName("prevent-proxy-connections")]
+    public bool preventProxyConnections { get; set; }
 
-    public bool broadcastRconToOps {get; set;}
+    [JsonPropertyName("sync-chunk-writes")]
+    public bool syncChunkWrites { get; set; }
 
-    public bool enableStatus {get; set;}
+    [JsonPropertyName("broadcast-rcon-to-ops")]
+    public bool broadcastRconToOps { get; set; }
 
-    public int networkCompressionThreshold {get; set;}
+    [JsonPropertyName("enable-status")]
+    public bool enableStatus { get; set; }
 
-    public bool enforceSecureProfile {get; set;}
+    [JsonPropertyName("network-compression-threshold")]
+    public int networkCompressionThreshold { get; set; }
 
-    public bool enableJmxMonitoring {get;set;}
+    [JsonPropertyName("enforce-secure-profile")]
+    public bool enforceSecureProfile { get; set; }
 
-    public bool requireResourcePack {get; set;}
+    [JsonPropertyName("enable-jmx-monitoring")]
+    public bool enableJmxMonitoring { get; set; }
 
-    public int entityBroadcastRangePercentage {get; set;}
+    [JsonPropertyName("require-resource-pack")]
+    public bool requireResourcePack { get; set; }
 
-    public bool broadcastConsoleToOps {get; set;}
+    [JsonPropertyName("entity-broadcast-range-percentage")]
+    public int entityBroadcastRangePercentage { get; set; }
 
-    public string resourcePack {get; set;}
+    [JsonPropertyName("broadcast-console-to-ops")]
+    public bool broadcastConsoleToOps { get; set; }
 
-    public string resourcePackPrompt {get; set;}
+    [JsonPropertyName("resource-pack")]
+    public string? resourcePack { get; set; }
 
-    public string initialDisabledPacks {get; set;}
+    [JsonPropertyName("resource-pack-prompt")]
+    public string? resourcePackPrompt { get; set; }
 
-    public string generatorSettings {get; set;}
+    [JsonPropertyName("initial-disabled-packs")]
+    public string? initialDisabledPacks { get; set; }
 
-    public Difficulty difficulty {get; set;}
+    [JsonPropertyName("generator-settings")]
+    public string? generatorSettings { get; set; }
 
-    public Gamemode gamemode {get; set;}
+    [JsonPropertyName("difficulty")]
+    public Difficulty difficulty { get; set; }
 
-    public LevelType levelType {get; set;}
+    [JsonPropertyName("gamemode")]
+    public Gamemode gamemode { get; set; }
 
-    public OpPermissionLevel opPermissionLevel {get; set;}
+    [JsonPropertyName("level-type")]
+    public LevelType levelType { get; set; }
+
+    [JsonPropertyName("op-permission-level")]
+    public OpPermissionLevel opPermissionLevel { get; set; }
 }
