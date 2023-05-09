@@ -1,6 +1,6 @@
-﻿using domain.enums;
+﻿namespace Domain;
 
-namespace domain;
+using Domain.Enums;
 
 //documentation: https://minecraft.fandom.com/wiki/Server.properties
 public class ServerProperties
