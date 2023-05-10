@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {HttpClient } from "@angular/common/http";
 import { ApiService } from '../core/services/api.service';
-import { ServerService } from '../core/services/serverApi.service';
+import { Server } from '../server.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,38 +12,16 @@ export class DashboardComponent {
   public currentMemory: number = 0;
   public maxMemory: number = 16000;
   public storage: number = 0;
-  public servers = [
-    {
-      name: "1",
-      memory: 1020,
-      cpu: 5,
-      storage: 1000
-    },
-    {
-      name: "2",
-      memory: 880,
-      cpu: 10,
-      storage: 2000
-    }
-  ]
-  ;
+  public servers: Server[] = new Array<Server>();
 
-  constructor(private http: HttpClient, private apiService: ApiService){
-
-    for (let server of this.servers) {
-        this.cpu += server.cpu;
-        this.currentMemory += server.memory;
-        this.storage += server.storage;
-    }
-    
-
-    this.apiService.get("http://localhost:4200/api/servers").pipe().subscribe((data) => console.log(data))
-
-
-    // this.servers[0].name = process1;
-    // this.servers[0].cpu = 
-    // this.servers[0].memory =
-    // this.servers[0].storage = 
-  };
-
+  constructor(apiService: ApiService){
+    setInterval(() => {
+    apiService.get<Server[]>('http://localhost:4200/api/servers').subscribe(data => {
+      this.cpu = data.reduce((sum, current) => sum + current.cpu, 0);
+      this.currentMemory = data.reduce((sum, current) => sum + current.ram, 0);
+      this.storage = data.reduce((sum, current) => sum + current.storage, 0);
+      this.servers = data;
+      } );
+  }, 1000);
+}
 }

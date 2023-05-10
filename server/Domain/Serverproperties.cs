@@ -99,7 +99,7 @@ public class ServerProperties
     [JsonPropertyName("rcon.port")]
     public int rconPort { get; set; }
 
-    [JsonPropertyName("rcon.password")]
+    [JsonPropertyName("rcon.maxWorldSize")]
     public int maxWorldSize { get; set; }
 
     [JsonPropertyName("resource-pack-sha1")]

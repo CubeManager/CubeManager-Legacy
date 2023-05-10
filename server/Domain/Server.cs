@@ -16,14 +16,17 @@ public class Server
 
     public Adminlist adminlist {get; set;}
 
+    public string name {get; set;}
 
-    public int ram {get; set;}
+    public double ram {get; set;}
 
-    public int cpu {get; set;}
+    public double cpu {get; set;}
 
-    public int storage {get; set;}
+    public double storage {get; set;}
 
     public string location {get; set;}
+
+    public Boolean running {get; set;}
 
     public ServerProperties serverproperties {get; set;}
 

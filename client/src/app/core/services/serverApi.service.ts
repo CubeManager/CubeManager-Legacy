@@ -10,8 +10,4 @@ export class ServerService {
   public createServer() {
     this.apiService.post('http://localhost:4200/api/servers', { name: 'test' }).subscribe((data) => {});
   }
-
-  public getServerList() {
-    return this.apiService.get('http://localhost:4200/api/servers').subscribe((data) => {});
-  }
 }
