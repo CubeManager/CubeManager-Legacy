@@ -7,8 +7,20 @@ using Microsoft.AspNetCore.Mvc;
 public class ServerController : ControllerBase
 {
     [HttpGet]
-    public string GetAll()
+    public ActionResult<Server> GetAll()
     {
-        return "Hello World";
+        return new Server("This Name");
+    }
+
+    public class Server
+    {
+        public Server(string Name)
+        {
+            this.Name = Name;
+            this.Description = "Desc";
+        }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }
+
