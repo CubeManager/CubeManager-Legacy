@@ -6,10 +6,10 @@ using System.Text.Json.Serialization;
 //documentation: https://minecraft.fandom.com/wiki/Server.properties
 public class ServerProperties
 {
-    [JsonPropertyName("spawn_protection")]
+    [JsonPropertyName("spawn-protection")]
     public int spawnProtection { get; set; }
 
-    [JsonPropertyName("max-tick-tim")]
+    [JsonPropertyName("max-tick-time")]
     public int maxTickTime { get; set; }
 
     [JsonPropertyName("force-gamemode")]
@@ -35,9 +35,6 @@ public class ServerProperties
 
     [JsonPropertyName("pvp")]
     public bool pvp { get; set; }
-
-    [JsonPropertyName("snooper-enabled")]
-    public bool snooperEnabled { get; set; }
 
     [JsonPropertyName("hardcore")]
     public bool hardcore { get; set; }
@@ -78,16 +75,13 @@ public class ServerProperties
     [JsonPropertyName("online-mode")]
     public bool onlineMode { get; set; }
 
-    [JsonPropertyName("max-building-height")]
-    public int maxBuildingHeight { get; set; }
-
     [JsonPropertyName("level-seed")]
     public string? levelSeed { get; set; }
 
     [JsonPropertyName("use-native-transport")]
     public bool useNativeTransport { get; set; }
 
-    [JsonPropertyName("modt")]
+    [JsonPropertyName("motd")]
     public string? motd { get; set; }
 
     [JsonPropertyName("enable-rcon")]
@@ -105,7 +99,7 @@ public class ServerProperties
     [JsonPropertyName("resource-pack-sha1")]
     public string? resourcePackSha1 { get; set; }
 
-    [JsonPropertyName("enforce-white-list")]
+    [JsonPropertyName("enforce-whitelist")]
     public bool enforceWhitelist { get; set; }
 
     [JsonPropertyName("initial-enabled-packs")]
