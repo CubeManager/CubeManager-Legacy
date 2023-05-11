@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ServerlistComponent } from './serverlist/serverlist.component';
 import { SettingsComponent } from './settings/settings.component';
 import { NewserverComponent } from './newserver/newserver.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { NewserverComponent } from './newserver/newserver.component';
     AppRoutingModule,
     CoreModule,
     SharedModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
