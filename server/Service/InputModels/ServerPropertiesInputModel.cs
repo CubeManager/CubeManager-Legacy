@@ -5,10 +5,10 @@ namespace Service.InputModels;
 
 public class ServerPropertiesInputModel
 {
-    [ServerPropertyName("spawn_protection")]
+    [ServerPropertyName("spawn-protection")]
     public int? spawnProtection { get; set; }
 
-    [ServerPropertyName("max-tick-tim")]
+    [ServerPropertyName("max-tick-time")]
     public int? maxTickTime { get; set; }
 
     [ServerPropertyName("force-gamemode")]
@@ -34,9 +34,6 @@ public class ServerPropertiesInputModel
 
     [ServerPropertyName("pvp")]
     public bool? pvp { get; set; }
-
-    [ServerPropertyName("snooper-enabled")]
-    public bool? snooperEnabled { get; set; }
 
     [ServerPropertyName("hardcore")]
     public bool? hardcore { get; set; }
@@ -77,16 +74,13 @@ public class ServerPropertiesInputModel
     [ServerPropertyName("online-mode")]
     public bool? onlineMode { get; set; }
 
-    [ServerPropertyName("max-building-height")]
-    public int? maxBuildingHeight { get; set; }
-
     [ServerPropertyName("level-seed")]
     public string? levelSeed { get; set; }
 
     [ServerPropertyName("use-native-transport")]
     public bool? useNativeTransport { get; set; }
 
-    [ServerPropertyName("modt")]
+    [ServerPropertyName("motd")]
     public string? motd { get; set; }
 
     [ServerPropertyName("enable-rcon")]
@@ -104,7 +98,7 @@ public class ServerPropertiesInputModel
     [ServerPropertyName("resource-pack-sha1")]
     public string? resourcePackSha1 { get; set; }
 
-    [ServerPropertyName("enforce-white-list")]
+    [ServerPropertyName("enforce-whitelist")]
     public bool? enforceWhitelist { get; set; }
 
     [ServerPropertyName("initial-enabled-packs")]
