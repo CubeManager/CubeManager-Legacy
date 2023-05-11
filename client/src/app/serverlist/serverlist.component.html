@@ -70,7 +70,7 @@
 
               <td>
                 <div>
-                  <button [routerLink]="['/servers', server.name, 'config']">
+                  <button [routerLink]="['/servers', server.name]" (click)="setConfigTab()" >
                     <mat-icon>edit</mat-icon>
                   </button>
                 </div>

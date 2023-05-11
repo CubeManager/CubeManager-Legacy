@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { VariableService } from '../variable.service';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class ServerDetailComponent implements OnInit {
 
   activeTab = 0;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private readonly _variableService: VariableService) {
 
   }
 
@@ -34,6 +35,11 @@ export class ServerDetailComponent implements OnInit {
 
     // this.server = serverService.getServer(serverId)
     this.server = this.servers.find((server) => server.name === serverName);
+
+    if (this._variableService.setConfigTabActive) {
+      this.activeTab = 4;
+      this._variableService.setConfigTabActive = false;
+    }
   }
 
   switchTab(index: number) {
