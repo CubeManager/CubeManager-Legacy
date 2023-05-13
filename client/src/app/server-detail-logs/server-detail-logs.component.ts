@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-server-detail-logs',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./server-detail-logs.component.scss']
 })
 export class ServerDetailLogsComponent {
-
+  @Input() server: any;
 }

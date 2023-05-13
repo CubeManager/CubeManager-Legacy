@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-server-detail-player-management',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./server-detail-player-management.component.scss']
 })
 export class ServerDetailPlayerManagementComponent {
+
+  @Input() server: any;
 
   whiteList = [
     { name: 'Player1' },

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-server-detail-console',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./server-detail-console.component.scss']
 })
 export class ServerDetailConsoleComponent {
-
+  @Input() server: any;
 }

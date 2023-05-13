@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-server-detail-players',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./server-detail-players.component.scss']
 })
 export class ServerDetailPlayersComponent {
+  @Input() server: any;
+
   players = [
     { name: 'Player1' },
     { name: 'Player2' },
