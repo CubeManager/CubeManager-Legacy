@@ -1,4 +1,4 @@
-<div class="ml-4 w-10/12 text">
+<div class="ml-4 w-10/12 text overflow-auto no-scrollbar h-[50vh]">
     <div class="grid grid-cols-2">
         <div class="grid grid-cols-2">
             <div>
@@ -95,28 +95,26 @@
         </div>
     </div>
 
-    <div class="mt-4 flex">
-        <div class="w-1/2 grid grid-cols-2">
+    <div>
+        <div class="mt-2 flex space-x-12">
             <div>
                 <p>MOTD</p>
-                <textarea placeholder="Bio" class="textarea textarea-bordered textarea-sm w-full max-w-xs text"
-                    placeholder="Welcome to the Minecraft Server"></textarea>
+                <textarea class="textarea" placeholder="Welcome to the Minecraft Server"
+                    style="width: 320px;"></textarea>
             </div>
-
-            <div class="spacing">
-                <p>Upload World</p>
-                <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs text" />
+            <div>
+                <p>Add World</p>
+                <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs mt-1" />
             </div>
         </div>
 
-        <div class="flex items-center gap-x-6">
-            <button class="btn btn-error action-button button-text spacing" (click)="reset()">Reset</button>
-            <button class="btn btn-success action-button button-text" (click)="save()">Save</button>
+        <div>
+            <a [routerLink]="['/newserver/advanced']" class="underline underline-offset-2">Show Advanced</a>
         </div>
-    </div>
 
-    <div>
-        <a [routerLink]="['/servers', server.name, 'advanced']" class="underline underline-offset-2">Show
-            Advanced</a>
+        <div class="mt-8 flex space-x-5">
+            <button class="btn btn-error action-button button-sizing" (click)="reset()">Cancel</button>
+            <button class="btn btn-success action-button button-sizing" (click)="save()">Create</button>
+        </div>
     </div>
 </div>
