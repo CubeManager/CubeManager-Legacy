@@ -59,22 +59,22 @@
 
     <div class="mt-6 tab-content-wrapper h-[50vh]">
         <div *ngIf="activeTab === 0">
-            <app-server-detail-console></app-server-detail-console>
+            <app-server-detail-console [server]="server"></app-server-detail-console>
         </div>
         <div *ngIf="activeTab === 1">
-            <app-server-detail-logs></app-server-detail-logs>
+            <app-server-detail-logs [server]="server"></app-server-detail-logs>
         </div>
         <div *ngIf="activeTab === 2">
-            <app-server-detail-players></app-server-detail-players>
+            <app-server-detail-players [server]="server"></app-server-detail-players>
         </div>
         <div *ngIf="activeTab === 3">
-            <app-server-detail-player-management></app-server-detail-player-management>
+            <app-server-detail-player-management [server]="server"></app-server-detail-player-management>
         </div>
         <div *ngIf="activeTab === 4">
-            <app-server-detail-config></app-server-detail-config>
+            <app-server-detail-config [server]="server"></app-server-detail-config>
         </div>
         <div *ngIf="activeTab === 5">
-            <app-server-detail-plugins></app-server-detail-plugins>
+            <app-server-detail-plugins [server]="server"></app-server-detail-plugins>
         </div>
     </div>
 </div>
