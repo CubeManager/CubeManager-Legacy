@@ -18,6 +18,7 @@ import { ServerDetailConfigComponent } from './server-detail-config/server-detai
 import { ServerDetailPluginsComponent } from './server-detail-plugins/server-detail-plugins.component';
 import { ServerConfigAdvancedComponent } from './server-config-advanced/server-config-advanced.component';
 import { NewserverAdvancedComponent } from './newserver-advanced/newserver-advanced.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { NewserverAdvancedComponent } from './newserver-advanced/newserver-advan
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
