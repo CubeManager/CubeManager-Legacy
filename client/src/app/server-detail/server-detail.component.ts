@@ -26,7 +26,7 @@ export class ServerDetailComponent implements OnInit {
   activeTab = 0;
 
   constructor(private route: ActivatedRoute, private readonly _variableService: VariableService) {
-
+    
   }
 
   ngOnInit(): void {
@@ -46,15 +46,16 @@ export class ServerDetailComponent implements OnInit {
     this.activeTab = index;
   }
 
-  startServer() {
-
+  startServer(serverName: string) {
+    // TODO: Implement startServer()
   }
 
-  stopServer() {
-
+  stopServer(serverName: string) {
+    // TODO: Implement stopServer()
   }
 
-  reloadServer() {
-
+  restartServer(serverName: string) {
+    this.stopServer(serverName);
+    this.startServer(serverName);
   }
 }

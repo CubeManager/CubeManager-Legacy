@@ -10,39 +10,39 @@
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title">CPU</h2>
-                <p class="text-5xl  data usage-text">{{server.cpu}}%</p>
+                <p class="text-5xl usage-text my-10">{{server.cpu}}%</p>
             </div>
         </div>
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title">Memory</h2>
-                <p class="text-5xl data usage-text">{{server.memory}} MB</p>
+                <p class="text-5xl usage-text my-10">{{server.memory}} MB</p>
             </div>
         </div>
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title">Players</h2>
-                <div class="" style="display: flex;">
-                    <p class="text-5xl usage-text">{{server.currentPlayers}} / {{server.maxPlayers}}</p>
+                <div class="" >
+                    <p class="text-5xl usage-text my-10">{{server.currentPlayers}} / {{server.maxPlayers}}</p>
                 </div>
             </div>
         </div>
         <div class="flex flex-col justify-center">
             <div>
                 <button [ngClass]="server.state === 'Started' ? 'black': 'green'"
-                    [disabled]="server.state === 'Started'" (click)="startServer()">
+                    [disabled]="server.state === 'Started'" (click)="startServer(server.name)">
                     <mat-icon class="text-4xl icons">play_arrow</mat-icon>
                 </button>
             </div>
             <div>
                 <button [ngClass]="server.state === 'Started' ? '': 'black'" [disabled]="server.state === 'Stopped'"
-                    (click)="reloadServer()">
+                    (click)="restartServer(server.name)">
                     <mat-icon class="text-4xl icons">refresh</mat-icon>
                 </button>
             </div>
             <div>
                 <button [ngClass]="server.state === 'Stopped' ? 'black': 'red'" [disabled]="server.state === 'Stopped'"
-                    (click)="stopServer()">
+                    (click)="stopServer(server.name)">
                     <mat-icon class="text-4xl icons">stop</mat-icon>
                 </button>
             </div>
@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    <div class="mt-6 tab-content-wrapper h-[60vh]">
+    <div class="mt-6 tab-content-wrapper h-[50vh]">
         <div *ngIf="activeTab === 0">
             <app-server-detail-console></app-server-detail-console>
         </div>

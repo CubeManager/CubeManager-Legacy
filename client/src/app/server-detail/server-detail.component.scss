@@ -6,19 +6,19 @@
     color: #BA0808;
 }
 
-.card .data {
-    text-align: center;
-}
-
 .icons {
     height: 48px;
     width: 48px;
 }
 
-@media screen and (max-width: 1920px) {
+.usage-text {
+    text-align: center;
+}
+
+@media only screen and (max-width: 1919px), screen and (max-height: 1079px){
     .usage-text {
         font-size: 1.5rem;
-        text-align: center;
+        margin-top: 0px;
     }
 
     .icons {
