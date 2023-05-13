@@ -1,0 +1,365 @@
+<div class="ml-12 mt-6 w-10/12">
+    <h1 class="text-5xl">{{server.name}} - Advanced Setting</h1>
+    <div class="mt-5">
+        <div class="grid grid-cols-4 gap-1">
+            <div>
+                <p>Gamemode</p>
+                <select class="select">
+                    <option selected>Survival</option>
+                    <option>Creative</option>
+                    <option>Hardcore</option>
+                    <option>Spectator</option>
+                    <option>Adventure</option>
+                </select>
+            </div>
+
+            <div>
+                <p>Level Name (World Name)</p>
+                <input type="text" class="input max-w-xs" value="" />
+            </div>
+
+            <div>
+                <p>Difficulty</p>
+                <select class="select max-w-xs">
+                    <option>Peaceful</option>
+                    <option selected>Easy</option>
+                    <option>Normal</option>
+                    <option>Hard</option>
+                </select>
+            </div>
+
+            <div class="mt-2">
+                <p>Max Players</p>
+                <input type="number" class="input max-w-xs" value="20" />
+            </div>
+
+            <div class="mt-2">
+                <p>View Distance</p>
+                <input type="number" class="input max-w-xs" value="10" />
+            </div>
+
+            <div class="mt-2">
+                <p>Simulation Distance</p>
+                <input type="number" class="input max-w-xs" value="10" />
+            </div>
+
+            <div class="mt-2">
+                <p>Spawn Protection</p>
+                <input type="number" class="input max-w-xs" value="16" />
+            </div>
+
+            <div class="mt-2">
+                <p>RCON Port</p>
+                <input type="number" class="input max-w-xs" value="25575" />
+            </div>
+
+            <div class="mt-2">
+                <p>Server Port</p>
+                <input type="number" class="input max-w-xs" value="25575" />
+            </div>
+
+            <div class="mt-2">
+                <p>Seed</p>
+                <input type="text" class="input max-w-xs" value=""/>
+            </div>
+
+            <div>
+                <p>Generator Settings</p>
+                <input type="text" class="input max-w-xs" value="{}" />
+            </div>
+
+            <div class="mt-2">
+                <p>Query Port</p>
+                <input type="number" class="input max-w-xs" value="25565" />
+            </div>
+
+            <div class="mt-2">
+                <p>Max Chained Neigbor Updates</p>
+                <input type="number" class="input max-w-xs" value="1000000" />
+            </div>
+
+            <div class="mt-2">
+                <p>Network Compression Threshold</p>
+                <input type="number" class="input max-w-xs" value="256" />
+            </div>
+
+            <div class="mt-2">
+                <p>Max Tick Time</p>
+                <input type="number" class="input max-w-xs" value="256" />
+            </div>
+
+            <div class="mt-2">
+                <p>Initial Disabled Packs</p>
+                <input type="text" class="input max-w-xs" value=""/>
+            </div>
+
+            <div>
+                <p>Server IP</p>
+                <input type="text" class="input max-w-xs" value=""/>
+            </div>
+
+            <div>
+                <p>Resource Pack Prompt</p>
+                <input type="text" class="input max-w-xs" value=""/>
+            </div>
+
+            <div class="mt-2">
+                <p>OP Permission Level</p>
+                <input type="number" class="input max-w-xs" value="4" />
+            </div>
+
+            <div class="mt-2">
+                <p>Resource Pack</p>
+                <input type="text" class="input max-w-xs" value=""/>
+            </div>
+
+            <div class="mt-2">
+                <p>Entitiy Broadcast Range</p>
+                <input type="number" class="input max-w-xs" value="100" />
+            </div>
+
+            <div class="mt-2">
+                <p>RCON Password</p>
+                <input type="password" class="input max-w-xs" value=""/>
+            </div>
+
+            <div class="mt-2">
+                <p>Player Idle Timeout</p>
+                <input type="number" class="input max-w-xs" value="0" />
+            </div>
+
+
+            <div class="mt-2">
+                <p>Rate Limit</p>
+                <input type="number" class="input max-w-xs" value="0" />
+            </div>
+
+            <div class="mt-2">
+                <p>Function Permission Level</p>
+                <input type="number" class="input max-w-xs" value="2" />
+            </div>
+
+            <div class="mt-2">
+                <p>Initial Enabled Packs</p>
+                <input type="text" class="input max-w-xs" value="vanilla" />
+            </div>
+
+            <div class="mt-2">
+                <p>Level Type</p>
+                <input type="text" class="input max-w-xs" value="minecract\:normal" />
+            </div>
+
+            <div class="mt-2">
+                <p>Text Filtering Config</p>
+                <input type="text" class="input max-w-xs" value=""/>
+            </div>
+
+
+            <div class="mt-2">
+                <p>Resource Pack SHA1</p>
+                <input type="text" class="input max-w-xs" value="" />
+            </div>
+
+            <div class="mt-2">
+                <p>Max World Size</p>
+                <input type="number" class="input max-w-xs" value="29999984" />
+            </div>
+
+            <div>
+                <p>MOTD</p>
+                <textarea class="textarea max-w-xs" placeholder="Welcome to the Minecraft Server"></textarea>
+            </div>
+
+            <div>
+                <p>Upload World</p>
+                <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs" />
+            </div>
+        </div>
+
+        <div class="grid grid-cols-6 gap-2">
+            <div>
+                <p>PVP</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>Structures</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div>
+                <p>Command Block</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>Force Gamemode</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>Hardcore</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>Whitelist</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>NPCs</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div>
+                <p>Animals</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div>
+                <p>Monsters</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div>
+                <p>JMX-Monitoring</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>PVP</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>Structures</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div>
+                <p>Command Block</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>Force Gamemode</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>Hardcore</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>Whitelist</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>NPCs</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div>
+                <p>Animals</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div>
+                <p>Monsters</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div>
+                <p>JMX-Monitoring</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>Query</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>Enforce Secure Profile</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div>
+                <p>Require Resource Pack</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>Use Native Transport</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div>
+                <p>Online Mode</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div>
+                <p>Status</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div>
+                <p>Allow Flight</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>Broadcast RCON to OPS</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div>
+                <p>Allow Nether</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div>
+                <p>Enable RCON</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div>
+                <p>Sync Chunk Writes</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div class="mt-2">
+                <p>Prevent Proxy Connections</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div class="mt-2">
+                <p>Hide Online Players</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div class="mt-2">
+                <p>Debug</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+
+            <div class="mt-2">
+                <p>Broadcast Console to OPS</p>
+                <input type="checkbox" class="toggle mt-1" checked />
+            </div>
+
+            <div class="mt-2">
+                <p>Enforce Whitelist</p>
+                <input type="checkbox" class="toggle mt-1" />
+            </div>
+        </div>
+
+        <div class="mt-5 flex space-x-5">
+            <button class="btn btn-error action-button" (click)="cancel()">Reset</button>
+            <button class="btn btn-success action-button" (click)="save()">Save</button>
+        </div>
+    </div>
