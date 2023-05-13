@@ -23,7 +23,7 @@ export class ServerDetailComponent implements OnInit {
     "Plugins",
   ]
 
-  activeTab = 0;
+  activeTab = 4;
 
   constructor(private route: ActivatedRoute, private readonly _variableService: VariableService) {
     

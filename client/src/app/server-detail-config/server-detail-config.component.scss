@@ -1,0 +1,20 @@
+.button-container {
+    display: flex;
+}
+
+@media only screen and (max-width: 1919px),
+screen and (max-height: 1079px) {
+    .text {
+        font-size: 0.75rem;
+        line-height: 1rem;
+    }
+
+    .spacing {
+        margin-left: 20px;
+    }
+
+    .button-text {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+}

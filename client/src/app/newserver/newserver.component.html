@@ -1,15 +1,15 @@
 <div class="ml-12 mt-6">
     <h1 class="text-5xl">Create Server</h1>
 
-    <div class="mt-11">
+    <div class="mt-11 text">
         <div>
             <p>Server Name</p>
-            <input type="text" class="input w-full max-w-xs" />
+            <input type="text" class="input w-full max-w-xs text" />
         </div>
 
         <div class="mt-2">
             <p>Server Version</p>
-            <select class="select w-full max-w-xs">
+            <select class="select w-full max-w-xs text">
                 <option>Paper 1.19.2</option>
                 <option>Ipsum</option>
                 <option>Ipsum</option>
@@ -18,103 +18,152 @@
             </select>
         </div>
 
-        <div class="flex space-x-28 mt-11">
-            <div>
+        <div class="grid grid-cols-2 w-10/12 mt-11 setting-wrapper">
+            <div class="grid grid-cols-2">
                 <div>
-                    <p>Gamemode</p>
-                    <select class="select w-full max-w-xs">
-                        <option>Survival</option>
-                        <option>Ipsum</option>
-                        <option>Ipsum</option>
-                        <option>Ipsum</option>
-                        <option>Ipsum</option>
-                    </select>
+                    <div>
+                        <p>Gamemode</p>
+                        <select class="select text">
+                            <option selected>Survival</option>
+                            <option>Creative</option>
+                            <option>Hardcore</option>
+                            <option>Spectator</option>
+                            <option>Adventure</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <p>Difficulty</p>
+                        <select class="select text">
+                            <option>Peaceful</option>
+                            <option selected>Easy</option>
+                            <option>Normal</option>
+                            <option>Hard</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <p>Level Name (World Name)</p>
+                        <input type="text" class="input text" value="" />
+                    </div>
                 </div>
 
-                <div class="mt-2">
-                    <p>Max Players</p>
-                    <input type="number" class="input w-full max-w-xs" />
-                </div>
+                <div>
+                    <div>
+                        <p>Max Players</p>
+                        <input type="number" class="input text" value="20" />
+                    </div>
 
-                <div class="mt-2">
-                    <p>Whitelist Enabled</p>
-                    <div class="flex mt-2">
-                        <input type="checkbox" class="toggle" checked />
-                        <a routerLink="" class="ml-4 underline underline-offset-2">Edit Whitelist</a>
+                    <div>
+                        <p>View Distance</p>
+                        <input type="number" class="input text" value="10" />
+                    </div>
+
+                    <div>
+                        <p>Simulation Distance</p>
+                        <input type="number" class="input text max-w-xs" value="10" />
                     </div>
                 </div>
             </div>
 
-            <div>
-                <div>
-                    <p>Level Name (World Name)</p>
-                    <input type="text" class="input w-full max-w-xs" />
-                </div>
-
-                <div class="mt-2">
-                    <p>View Distance</p>
-                    <input type="number" class="input w-full max-w-xs" />
-                </div>
-
-                <div class="mt-2">
-                    <p>Simulation Distance</p>
-                    <input type="number" class="input w-full max-w-xs" />
-                </div>
-            </div>
-
-            <div class="flex flex-col space-y-8">
+            <div class="grid grid-cols-3 checkbox-wrapper">
                 <div>
                     <p>PVP</p>
+                    <input type="checkbox" class="toggle mt-1" />
+                </div>
+
+                <div>
+                    <p>Structures</p>
                     <input type="checkbox" class="toggle mt-1" checked />
+                </div>
+
+                <div>
+                    <p>Command Block</p>
+                    <input type="checkbox" class="toggle mt-1" />
+                </div>
+
+                <div>
+                    <p>Force Gamemode</p>
+                    <input type="checkbox" class="toggle mt-1" />
                 </div>
 
                 <div>
                     <p>Hardcore</p>
-                    <input type="checkbox " class="toggle mt-1" />
-                </div>
-
-                <div>
-                    <p>Spawn...</p>
-                    <input type="checkbox" class="toggle mt-1" checked />
-                </div>
-            </div>
-
-            <div class="flex flex-col space-y-8">
-                <div>
-                    <p>Lorem Ipsum</p>
                     <input type="checkbox" class="toggle mt-1" />
                 </div>
 
                 <div>
-                    <p>Lorem Ipsum</p>
+                    <p>Whitelist</p>
                     <input type="checkbox" class="toggle mt-1" />
                 </div>
 
                 <div>
-                    <p>Lorem Ipsum</p>
+                    <p>NPCs</p>
+                    <input type="checkbox" class="toggle mt-1" checked />
+                </div>
+
+                <div>
+                    <p>Animals</p>
+                    <input type="checkbox" class="toggle mt-1" checked />
+                </div>
+
+                <div>
+                    <p>Monsters</p>
                     <input type="checkbox" class="toggle mt-1" checked />
                 </div>
             </div>
         </div>
 
-        <div class="mt-2 flex space-x-12">
-            <div>
-                <p>MOTD</p>
-                <textarea class="textarea" placeholder="Welcome to the Minecraft Server" style="width: 320px;"></textarea>
+
+        <!-- If screen is small -->
+        <div class="mt-4 flex" *ngIf="screenSmall">
+            <div class="w-5/12 grid grid-cols-2">
+                <div>
+                    <p>MOTD</p>
+                    <textarea placeholder="Bio" class="textarea textarea-bordered textarea-sm w-full max-w-xs text"
+                        placeholder="Welcome to the Minecraft Server"></textarea>
+                </div>
+
+                <div class="spacing">
+                    <p>Upload World</p>
+                    <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs text" />
+                </div>
             </div>
-            <div>
-                <p>Add World</p>
-                <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs mt-1" />
+
+            <div class="flex items-center gap-x-6">
+                <button class="btn btn-error action-button button-text button-sizing spacing" (click)="cancel()">Cancel</button>
+                <button class="btn btn-success action-button button-text button-sizing" (click)="create()">Create</button>
             </div>
         </div>
 
-        <div>
-            <a [routerLink]="['/newserver/advanced']" class="underline underline-offset-2">Show Advanced</a>
+        <div *ngIf="screenSmall">
+            <a [routerLink]="['/newserver/advanced']" class="underline underline-offset-2">
+                Show Advanced
+            </a>
         </div>
 
-        <div class="mt-24 flex space-x-5">
-            <button class="btn btn-error action-button" (click)="cancel()">Cancel</button>
-            <button class="btn btn-success action-button" (click)="create()">Create</button>
+        <!-- If screen is big -->
+        <div *ngIf="screenSmall === false">
+            <div class="mt-2 flex space-x-12">
+                <div>
+                    <p>MOTD</p>
+                    <textarea class="textarea" placeholder="Welcome to the Minecraft Server"
+                        style="width: 320px;"></textarea>
+                </div>
+                <div>
+                    <p>Add World</p>
+                    <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs mt-1" />
+                </div>
+            </div>
+
+            <div>
+                <a [routerLink]="['/newserver/advanced']" class="underline underline-offset-2">Show Advanced</a>
+            </div>
+
+            <div class="mt-14 flex space-x-5">
+                <button class="btn btn-error action-button" (click)="cancel()">Cancel</button>
+                <button class="btn btn-success action-button" (click)="create()">Create</button>
+            </div>
         </div>
     </div>
 </div>
