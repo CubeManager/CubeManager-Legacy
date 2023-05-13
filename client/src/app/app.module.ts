@@ -16,6 +16,8 @@ import { ServerDetailPlayersComponent } from './server-detail-players/server-det
 import { ServerDetailPlayerManagementComponent } from './server-detail-player-management/server-detail-player-management.component';
 import { ServerDetailConfigComponent } from './server-detail-config/server-detail-config.component';
 import { ServerDetailPluginsComponent } from './server-detail-plugins/server-detail-plugins.component';
+import { ServerConfigAdvancedComponent } from './server-config-advanced/server-config-advanced.component';
+import { NewserverAdvancedComponent } from './newserver-advanced/newserver-advanced.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { ServerDetailPluginsComponent } from './server-detail-plugins/server-det
     ServerDetailPlayerManagementComponent,
     ServerDetailConfigComponent,
     ServerDetailPluginsComponent,
+    ServerConfigAdvancedComponent,
+    NewserverAdvancedComponent,
   ],
   imports: [
     BrowserModule,
