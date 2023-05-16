@@ -46,9 +46,6 @@ public class ServerPropertiesInputModel
     [ServerPropertyName("server-port")]
     public int? serverPort { get; set; }
 
-    [ServerPropertyName("max-players")]
-    public int? maxPlayers { get; set; }
-
     [ServerPropertyName("server-ip")]
     public string? serverIp { get; set; }
 
