@@ -1,0 +1,51 @@
+.green {
+    color: #08BA0F;
+}
+
+.red {
+    color: #BA0808;
+}
+
+.icons {
+    height: 48px;
+    width: 48px;
+}
+
+.usage-text {
+    text-align: center;
+}
+
+@media only screen and (max-width: 1919px), screen and (max-height: 1079px){
+    .usage-text {
+        font-size: 1.5rem;
+        margin-top: 0px;
+    }
+
+    .icons {
+        height: 32px;
+        width: 32px;
+        font-size: 28px;
+    }
+
+    .card {
+        height: 130px !important;
+    }
+
+    h1 {
+        font-size: 36px;
+        line-height: 40px;
+    }
+
+    .tab-text {
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    .tab-wrapper {
+        margin-top: 16px;
+    }
+
+    .tab-content-wrapper {
+        margin-top: 10px;
+    }
+}
