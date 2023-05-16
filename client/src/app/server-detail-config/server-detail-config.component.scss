@@ -9,10 +9,6 @@
     scrollbar-width: none;  /* Firefox */
 }
 
-.action-button {
-    width: 320px;
-}
-
 .button-container {
     display: flex;
 }
@@ -31,17 +27,5 @@ screen and (max-height: 1079px) {
     .button-text {
         font-size: 0.875rem;
         line-height: 1.25rem;
-    }
-
-    .checkbox-wrapper {
-        margin-left: 1rem;
-    }
-
-    .setting-wrapper {
-        margin-top: 20px;
-    }
-
-    .button-sizing {
-        width: 90px;
     }
 }
