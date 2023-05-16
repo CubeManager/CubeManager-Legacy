@@ -15,6 +15,8 @@ export class DashboardComponent {
   public servers: Server[] = new Array<Server>();
 
   constructor(apiService: ApiService){
+    apiService.get<number>('http://localhost:4200/api/ram').subscribe(data => {
+      this.maxMemory = data} );
     setInterval(() => {
     apiService.get<Server[]>('http://localhost:4200/api/servers').subscribe(data => {
       this.cpu = data.reduce((sum, current) => sum + current.cpu, 0);

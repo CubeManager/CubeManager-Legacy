@@ -45,6 +45,12 @@ public class ServerController : ControllerBase {
         return servers;
 
     }
+
+    [HttpGet("/ram")]
+    public ActionResult<double> getRAM() {
+        return getPCRAM();
+    }
+
     private readonly IServerCreationService serverCreationService;
     private readonly IServerPropertiesService serverPropertiesService;
 
@@ -74,7 +80,7 @@ public class ServerController : ControllerBase {
     }
 
     // help source: https://gist.github.com/cheynewallace/5971686
-    public static string[] GetPIDsByPorts(List<int> ports) {
+    private static string[] GetPIDsByPorts(List<int> ports) {
         string[] pids = new string[ports.Count];
         using (Process p = new Process()) {
             ProcessStartInfo ps = new ProcessStartInfo();
@@ -98,5 +104,22 @@ public class ServerController : ControllerBase {
         }
         return pids;
     } 
+
+    private static double getPCRAM() {
+        var info = new ProcessStartInfo();
+        info.FileName = "wmic";
+        info.Arguments = "OS get FreePhysicalMemory,TotalVisibleMemorySize /Value";
+        info.RedirectStandardOutput = true;
+        string output = "";
+        using(var process = Process.Start(info))
+        {                
+            output = process.StandardOutput.ReadToEnd();
+        }
+ 
+        var lines = output.Trim().Split("\n");
+        var freeMemoryParts = lines[0].Split("=", StringSplitOptions.RemoveEmptyEntries);
+        var totalMemoryParts = lines[1].Split("=", StringSplitOptions.RemoveEmptyEntries);
+        return Math.Round(double.Parse(totalMemoryParts[1]) / 1024, 0);
+    }
 }
 
