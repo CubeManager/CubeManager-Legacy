@@ -6,7 +6,7 @@
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title">CPU</h2>
-                <p class="text-6xl my-10 data">{{cpu}}%</p>
+                <p class="text-6xl my-8 data">{{cpu}}%</p>
             </div>
         </div>
         <div class="card bg-base-100 shadow-xl">
@@ -18,11 +18,11 @@
                 </div>
             </div>
         </div>
-        <div class="card bg-base-100 shadow-xl">
-            <div class="card-body">
+        <div class="card bg-base-100 shadow-xl overflow-scroll no-scrollbar h-[35vh]">
+            <div class="card-body overflow-auto no-scrollbar">
                 <h2 class="card-title">Running Servers</h2>
-                <div class="overflow-x-auto">
-                    <table class="table w-full my-10">
+                <div class="overflow-x-auto no-scrollbar">
+                    <table class="table table-auto w-full mt-2">
                       <thead>
                         <tr>
                           <th>Name</th>
@@ -44,7 +44,7 @@
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title">Storage</h2>
-                <p  class="text-6xl my-10 data">{{storage}} MB</p>
+                <p  class="text-6xl my-8 data">{{storage}} MB</p>
             </div>
         </div>
     </div>
