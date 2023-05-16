@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.SignalR;
 using Service.BackgroundServices;
 
 
+
 [ApiController]
 [Route("servers")]
 public class ServerController : ControllerBase
@@ -35,15 +36,11 @@ public class ServerController : ControllerBase
         this.hubContext = hubContext;
     }
 
-    public class Server
+    [HttpPost]
+    public async Task<IActionResult> CreateServer([FromBody] ServerInputModel serverInput)
     {
-        public Server(string Name)
-        {
-            this.Name = Name;
-            this.Description = "Desc";
-        }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        await serverCreationService.CreateServer(serverInput);
+        return Ok();
     }
 
     [HttpPost("start/{serverName}")]

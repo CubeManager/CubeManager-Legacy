@@ -1,19 +1,18 @@
-
-﻿namespace Service.Services;
-
 ﻿using CrossCutting.Attributes;
 using Service.InputModels;
 using Service.IServices;
-using Service.Services.Util;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
-public class ServerPropertiesService
+namespace Service.Services;
+
+public class ServerPropertiesService : IServerPropertiesService
 {
-    public void ChangeServerProperties(ServerPropertiesInputModel sesrverProperties, string serverName)
+    public void ChangeServerProperties(ServerPropertiesInputModel serverProperties, string serverName)
     {
-        var filePath = Path.Combine(PersistenceUtil.GetServerPath(serverName), "server.properties");
+        var filePath = Path.Combine(Util.GetServerPath(serverName), "server.properties");
+
         // Read in the file 
         string fileContents = File.ReadAllText(filePath);
 

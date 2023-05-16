@@ -1,6 +1,5 @@
 ﻿namespace Web.Extensions;
 
-using Hangfire;
 using Service.IServices;
 using Service.Services;
 

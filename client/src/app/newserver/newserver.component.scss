@@ -1,0 +1,47 @@
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.action-button {
+    width: 320px;
+}
+
+.button-container {
+    display: flex;
+}
+
+@media only screen and (max-width: 1919px),
+screen and (max-height: 1079px) {
+    .text {
+        font-size: 0.75rem;
+        line-height: 1rem;
+    }
+
+    .spacing {
+        margin-left: 20px;
+    }
+
+    .button-text {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+
+    .checkbox-wrapper {
+        margin-left: 1rem;
+    }
+
+    .setting-wrapper {
+        margin-top: 20px;
+    }
+
+    .button-sizing {
+        width: 90px;
+    }
+}
