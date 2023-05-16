@@ -13,15 +13,15 @@ export class ServerlistComponent {
   constructor(private readonly _variableService: VariableService) {}
 
   startServer() {
-
+    //TODO Logic
   }
 
   stopServer() {
-
+    //TODO Logic
   }
 
   reloadServer() {
-
+    //TODO Logic
   }
 
   setConfigTab() {

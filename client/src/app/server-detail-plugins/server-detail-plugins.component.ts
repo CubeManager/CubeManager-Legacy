@@ -17,10 +17,10 @@ export class ServerDetailPluginsComponent {
   ];
 
   removePlugin() {
-    
+        //TODO Logic
   }
 
   addPlugin() {
-    
+        //TODO Logic
   }
 }

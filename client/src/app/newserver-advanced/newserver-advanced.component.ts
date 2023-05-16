@@ -7,10 +7,10 @@ import { Component } from '@angular/core';
 })
 export class NewserverAdvancedComponent {
   cancel() {
-
+        //TODO Logic
   }
 
   create() {
-    
+        //TODO Logic
   }
 }

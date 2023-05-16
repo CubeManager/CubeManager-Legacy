@@ -10,10 +10,10 @@ export class ServerDetailConfigComponent {
   @Input() server: any;
 
   reset() {
-
+    //TODO Logic
   }
 
   save() {
-
+    //TODO Logic
   }
 }

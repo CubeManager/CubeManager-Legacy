@@ -24,10 +24,10 @@ export class ServerConfigAdvancedComponent implements OnInit {
   }
 
   cancel() {
-
+    //TODO Logic
   }
 
   save() {
-
+    //TODO Logic
   }
 }

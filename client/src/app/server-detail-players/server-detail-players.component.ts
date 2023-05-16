@@ -20,15 +20,15 @@ export class ServerDetailPlayersComponent {
   ];
 
   addPlayer() {
-
+    //TODO Logic
   }
 
   removePlayer() {
-
+    //TODO Logic
   }
 
   banPlayer() {
-    
+        //TODO Logic
   }
 
 }

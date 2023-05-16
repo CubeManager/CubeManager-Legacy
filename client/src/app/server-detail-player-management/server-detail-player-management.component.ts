@@ -26,14 +26,14 @@ export class ServerDetailPlayerManagementComponent {
   ];
 
   addPlayer() {
-
+    //TODO Logic
   }
 
   removePlayer() {
-
+    //TODO Logic
   }
 
   banPlayer() {
-
+    //TODO Logic
   }
 }
