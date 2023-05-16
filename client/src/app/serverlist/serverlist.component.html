@@ -12,11 +12,12 @@
               <th class="text-sm">Players</th>
               <th class="text-sm">Controls</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr class="hover table-item" *ngFor="let server of servers" [routerLink]="['/servers', server.name]">
-              <td class="w-[12rem]">
+              <td class="w-[11rem]">
                 <div class="flex items-center space-x-3">
                   <div>
                     <div class="mask mask-circle server-logo">
@@ -29,7 +30,7 @@
                 </div>
               </td>
 
-              <td class="text-xl min-w-[8rem]">
+              <td class="text-xl">
                 {{server.name}}
               </td>
 
@@ -72,6 +73,14 @@
                 <div>
                   <button [routerLink]="['/servers', server.name]" (click)="setConfigTab()" >
                     <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+              </td>
+
+              <td>
+                <div>
+                  <button (click)="deleteServer()" >
+                    <mat-icon>delete</mat-icon>
                   </button>
                 </div>
               </td>
