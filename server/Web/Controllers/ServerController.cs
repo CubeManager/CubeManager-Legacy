@@ -20,8 +20,8 @@ public class ServerController : ControllerBase {
         if (servers.Count == 0) {
             Server server = new Server();
             server.running = true;
-            server.name = "Minecraft Server";
-            server.location = "C:\\Users\\taawajac\\Minecraft Server";
+            server.name = "string";
+            server.location = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),$"CubeManager\\{server.name}\\");;
             server.serverproperties = new ServerProperties();
             server.serverproperties.queryPort = 25565;
             servers.Add(server);
