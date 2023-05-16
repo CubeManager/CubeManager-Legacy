@@ -23,10 +23,6 @@ public class Server
 
     public double cpu {get; set;}
 
-    public double storage {get; set;}
-
-    public string location {get; set;}
-
     public Boolean running {get; set;}
 
     public ServerType serverType { get; set; }
