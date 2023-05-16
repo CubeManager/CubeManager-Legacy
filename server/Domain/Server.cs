@@ -1,6 +1,6 @@
-﻿using domain.enums;
+namespace Domain;
 
-namespace domain;
+using Domain.Enums;
 
 public class Server
 {

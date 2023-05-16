@@ -1,151 +1,149 @@
-﻿namespace Domain;
-
+﻿using Domain.Enums;
 using CrossCutting.Attributes;
-using Domain.Enums;
+namespace Service.InputModels;
 
-//documentation: https://minecraft.fandom.com/wiki/Server.properties
-public class ServerProperties
+public class ServerPropertiesInputModel
 {
     [ServerPropertyName("spawn-protection")]
-    public int spawnProtection { get; set; }
+    public int? spawnProtection { get; set; }
 
     [ServerPropertyName("max-tick-time")]
-    public int maxTickTime { get; set; }
+    public int? maxTickTime { get; set; }
 
     [ServerPropertyName("force-gamemode")]
-    public bool forceGamemode { get; set; }
+    public bool? forceGamemode { get; set; }
 
     [ServerPropertyName("allow-nether")]
-    public bool allowNether { get; set; }
+    public bool? allowNether { get; set; }
 
     [ServerPropertyName("max-chained-neighbor-updates")]
-    public int maxChainedNeighborUpdates { get; set; }
+    public int? maxChainedNeighborUpdates { get; set; }
 
     [ServerPropertyName("enable-query")]
-    public bool enableQuery { get; set; }
+    public bool? enableQuery { get; set; }
 
     [ServerPropertyName("query.port")]
-    public int queryPort { get; set; }
+    public int? queryPort { get; set; }
 
     [ServerPropertyName("player-idle-timeout")]
-    public int playerIdleTimeout { get; set; }
+    public int? playerIdleTimeout { get; set; }
 
     [ServerPropertyName("spawn-monsters")]
-    public bool spawnMonsters { get; set; }
+    public bool? spawnMonsters { get; set; }
 
     [ServerPropertyName("pvp")]
-    public bool pvp { get; set; }
+    public bool? pvp { get; set; }
 
     [ServerPropertyName("hardcore")]
-    public bool hardcore { get; set; }
+    public bool? hardcore { get; set; }
 
     [ServerPropertyName("enable-command-block")]
-    public bool enableCommandBlock { get; set; }
-    
+    public bool? enableCommandBlock { get; set; }
+
     [ServerPropertyName("max-players")]
-    public int maxPlayers { get; set; }
+    public int? maxPlayers { get; set; }
 
     [ServerPropertyName("server-port")]
-    public int serverPort { get; set; }
+    public int? serverPort { get; set; }
 
-    [ServerPropertyName("max-build-height")]
-    public int maxBuildHeight { get; set; }
+    [ServerPropertyName("max-players")]
+    public int? maxPlayers { get; set; }
 
     [ServerPropertyName("server-ip")]
     public string? serverIp { get; set; }
 
     [ServerPropertyName("spawn-npcs")]
-    public bool spawnNpcs { get; set; }
+    public bool? spawnNpcs { get; set; }
 
     [ServerPropertyName("allow-flight")]
-    public bool allowFlight { get; set; }
+    public bool? allowFlight { get; set; }
 
     [ServerPropertyName("level-name")]
     public string? levelName { get; set; }
 
     [ServerPropertyName("view-distance")]
-    public int viewDistance { get; set; }
+    public int? viewDistance { get; set; }
 
     [ServerPropertyName("spawn-animals")]
-    public bool spawnAnimals { get; set; }
+    public bool? spawnAnimals { get; set; }
 
     [ServerPropertyName("white-list")]
-    public bool whiteList { get; set; }
+    public bool? whiteList { get; set; }
 
     [ServerPropertyName("generate-structures")]
-    public bool generateStructures { get; set; }
+    public bool? generateStructures { get; set; }
 
     [ServerPropertyName("online-mode")]
-    public bool onlineMode { get; set; }
+    public bool? onlineMode { get; set; }
 
     [ServerPropertyName("level-seed")]
     public string? levelSeed { get; set; }
 
     [ServerPropertyName("use-native-transport")]
-    public bool useNativeTransport { get; set; }
+    public bool? useNativeTransport { get; set; }
 
     [ServerPropertyName("motd")]
     public string? motd { get; set; }
 
     [ServerPropertyName("enable-rcon")]
-    public bool enableRcon { get; set; }
+    public bool? enableRcon { get; set; }
 
     [ServerPropertyName("rcon.password")]
     public string? rconPassword { get; set; }
 
     [ServerPropertyName("rcon.port")]
-    public int rconPort { get; set; }
+    public int? rconPort { get; set; }
 
-    [ServerPropertyName("rcon.password")]
-    public int maxWorldSize { get; set; }
+    [ServerPropertyName("max-world-size")]
+    public int? maxWorldSize { get; set; }
 
     [ServerPropertyName("resource-pack-sha1")]
     public string? resourcePackSha1 { get; set; }
 
     [ServerPropertyName("enforce-whitelist")]
-    public bool enforceWhitelist { get; set; }
+    public bool? enforceWhitelist { get; set; }
 
     [ServerPropertyName("initial-enabled-packs")]
     public string? initialEnabledPacks { get; set; }
 
     [ServerPropertyName("simulation-distance")]
-    public int simulationDistance { get; set; }
+    public int? simulationDistance { get; set; }
 
     [ServerPropertyName("rate-limit")]
-    public int rateLimit { get; set; }
+    public int? rateLimit { get; set; }
 
     [ServerPropertyName("hide-online-players")]
-    public bool hideOnlinePlayers { get; set; }
+    public bool? hideOnlinePlayers { get; set; }
 
     [ServerPropertyName("prevent-proxy-connections")]
-    public bool preventProxyConnections { get; set; }
+    public bool? preventProxyConnections { get; set; }
 
     [ServerPropertyName("sync-chunk-writes")]
-    public bool syncChunkWrites { get; set; }
+    public bool? syncChunkWrites { get; set; }
 
     [ServerPropertyName("broadcast-rcon-to-ops")]
-    public bool broadcastRconToOps { get; set; }
+    public bool? broadcastRconToOps { get; set; }
 
     [ServerPropertyName("enable-status")]
-    public bool enableStatus { get; set; }
+    public bool? enableStatus { get; set; }
 
     [ServerPropertyName("network-compression-threshold")]
-    public int networkCompressionThreshold { get; set; }
+    public int? networkCompressionThreshold { get; set; }
 
     [ServerPropertyName("enforce-secure-profile")]
-    public bool enforceSecureProfile { get; set; }
+    public bool? enforceSecureProfile { get; set; }
 
     [ServerPropertyName("enable-jmx-monitoring")]
-    public bool enableJmxMonitoring { get; set; }
+    public bool? enableJmxMonitoring { get; set; }
 
     [ServerPropertyName("require-resource-pack")]
-    public bool requireResourcePack { get; set; }
+    public bool? requireResourcePack { get; set; }
 
     [ServerPropertyName("entity-broadcast-range-percentage")]
-    public int entityBroadcastRangePercentage { get; set; }
+    public int? entityBroadcastRangePercentage { get; set; }
 
     [ServerPropertyName("broadcast-console-to-ops")]
-    public bool broadcastConsoleToOps { get; set; }
+    public bool? broadcastConsoleToOps { get; set; }
 
     [ServerPropertyName("resource-pack")]
     public string? resourcePack { get; set; }
@@ -160,14 +158,14 @@ public class ServerProperties
     public string? generatorSettings { get; set; }
 
     [ServerPropertyName("difficulty")]
-    public Difficulty difficulty { get; set; }
+    public Difficulty? difficulty { get; set; }
 
     [ServerPropertyName("gamemode")]
-    public Gamemode gamemode { get; set; }
+    public Gamemode? gamemode { get; set; }
 
     [ServerPropertyName("level-type")]
-    public LevelType levelType { get; set; }
+    public LevelType? levelType { get; set; }
 
     [ServerPropertyName("op-permission-level")]
-    public OpPermissionLevel opPermissionLevel { get; set; }
+    public OpPermissionLevel? opPermissionLevel { get; set; }
 }

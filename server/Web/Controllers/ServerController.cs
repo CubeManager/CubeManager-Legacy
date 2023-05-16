@@ -1,26 +1,27 @@
 ﻿namespace Web.Controllers;
 
 using Microsoft.AspNetCore.Mvc;
+using Service.IServices;
+using Service.InputModels;
 
 [ApiController]
 [Route("servers")]
 public class ServerController : ControllerBase
 {
-    [HttpGet]
-    public ActionResult<Server> GetAll()
+    private readonly IServerCreationService serverCreationService;
+    private readonly IServerPropertiesService serverPropertiesService;
+
+    public ServerController(IServerCreationService serverCreationService, IServerPropertiesService serverPropertiesService)
     {
-        return new Server("This Name");
+        this.serverCreationService = serverCreationService;
+        this.serverPropertiesService = serverPropertiesService;
     }
 
-    public class Server
+    [HttpPost]
+    public async Task<IActionResult> CreateServer([FromBody] ServerInputModel serverInput)
     {
-        public Server(string Name)
-        {
-            this.Name = Name;
-            this.Description = "Desc";
-        }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        await serverCreationService.CreateServer(serverInput);
+        return Ok();
     }
 }
 
