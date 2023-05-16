@@ -1,6 +1,24 @@
 <div class="ml-6 mt-6 w-full overflow-auto no-scrollbar h-[91.5vh] w-[75vw]">
     <h1 class="text-5xl">Create Server - Advanced Setting</h1>
-    <div class="mt-5">
+
+    <div class="mt-11 text">
+        <div>
+            <p>Server Name</p>
+            <input type="text" class="input w-full max-w-xs text" />
+        </div>
+
+        <div class="mt-2">
+            <p>Server Version</p>
+            <select class="select w-full max-w-xs text">
+                <option>Paper 1.19.2</option>
+                <option>Ipsum</option>
+                <option>Ipsum</option>
+                <option>Ipsum</option>
+                <option>Ipsum</option>
+            </select>
+        </div>
+
+    <div class="mt-11">
         <div class="grid grid-cols-4 gap-y-2">
             <div>
                 <p>Gamemode</p>
@@ -358,8 +376,8 @@
             </div>
         </div>
 
-        <div class="mt-5 flex space-x-5">
-            <button class="btn btn-error action-button" (click)="cancel()">Reset</button>
-            <button class="btn btn-success action-button" (click)="create()">Save</button>
+        <div class="mt-8 flex space-x-5">
+            <button class="btn btn-error action-button button-sizing" (click)="cancel()">Cancel</button>
+            <button class="btn btn-success action-button button-sizing" (click)="create()">Create</button>
         </div>
     </div>
