@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'app-newserver',
@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./newserver.component.scss']
 })
 export class NewserverComponent {
+
+  create() {
+    //TODO Logic
+  }
+  
+  cancel() {
+    //TODO Logic 
+  }
+
 
 }

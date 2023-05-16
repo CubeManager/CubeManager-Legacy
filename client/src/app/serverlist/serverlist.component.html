@@ -1,1 +1,84 @@
-<p>serverlist works!</p>
+<div class="flex w-11/12 h-[91vh] ml-12 mt-8">
+  <div class="card bg-base-100 shadow-xl overflow-scroll w-full no-scrollbar h-full">
+    <div class="card-body w-full">
+      <div class="overflow-x-auto w-full">
+        <table class="table table-auto overflow-scroll w-full my-2">
+          <thead class="sticky top-0">
+            <tr>
+              <th></th>
+              <th class="text-xl">Name</th>
+              <th class="text-sm">Memory</th>
+              <th class="text-sm">CPU</th>
+              <th class="text-sm">Players</th>
+              <th class="text-sm">Controls</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="hover table-item" *ngFor="let server of servers" [routerLink]="['/servers', server.name]">
+              <td class="w-[12rem]">
+                <div class="flex items-center space-x-3">
+                  <div>
+                    <div class="mask mask-circle server-logo">
+                      <img src="./../../assets/server-logo-round.png" alt="Server Logo" />
+                    </div>
+                  </div>
+                  <div [ngClass]="server.state === 'Started' ? 'green': 'red'">
+                    <mat-icon class="running-state-container text-lg">circle</mat-icon>
+                  </div>
+                </div>
+              </td>
+
+              <td class="text-xl min-w-[8rem]">
+                {{server.name}}
+              </td>
+
+              <td>
+                {{server.memory}} MB
+              </td>
+
+              <td>
+                {{server.cpu}} %
+              </td>
+
+              <td>
+                {{ server.currentPlayers}}/{{ server.maxPlayers }}
+              </td>
+
+              <td>
+                <div class="flex space-x-4">
+                  <div>
+                    <button [ngClass]="server.state === 'Started' ? 'black': 'green'"
+                      [disabled]="server.state === 'Started'" (click)="startServer()">
+                      <mat-icon>play_arrow</mat-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button [ngClass]="server.state === 'Started' ? '': 'black'" [disabled]="server.state === 'Stopped'"
+                      (click)="reloadServer()">
+                      <mat-icon>refresh</mat-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button [ngClass]="server.state === 'Stopped' ? 'black': 'red'" [disabled]="server.state === 'Stopped'"
+                      (click)="stopServer()">
+                      <mat-icon>stop</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div>
+                  <button [routerLink]="['/servers', server.name]" (click)="setConfigTab()" >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
