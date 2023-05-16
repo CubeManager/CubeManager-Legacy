@@ -21,10 +21,16 @@ public class ServerController : ControllerBase {
             Server server = new Server();
             server.running = true;
             server.name = "string";
-            server.location = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),$"CubeManager\\{server.name}\\");;
             server.serverproperties = new ServerProperties();
             server.serverproperties.queryPort = 25565;
             servers.Add(server);
+
+            Server server2 = new Server();
+            server2.running = false;
+            server2.name = "string3";
+            server2.serverproperties = new ServerProperties();
+            server2.serverproperties.queryPort = 25566;
+            servers.Add(server2);
         } 
         List<int> ports = new List<int>();
         foreach (Server server in servers) {
@@ -36,11 +42,16 @@ public class ServerController : ControllerBase {
         foreach (string pid in pids)
         {
             Process process = Process.GetProcessById(Int32.Parse(pid));
-            DirectoryInfo info = new DirectoryInfo(servers[index].location);
             servers[index].cpu = Math.Round(await GetCpuUsageForProcess(process), 4);
             servers[index].ram = process.WorkingSet64 / 1024 / 1024;
-            servers[index].storage = info.EnumerateFiles("*", SearchOption.AllDirectories).Sum(file => file.Length) / 1024 / 1024;
             index++;
+        }
+
+        if (pids.Length == 0) {
+            foreach (Server server in servers) {
+                server.cpu = 0;
+                server.ram = 0;
+            }
         }
         return servers;
 
@@ -49,6 +60,12 @@ public class ServerController : ControllerBase {
     [HttpGet("/ram")]
     public ActionResult<double> getRAM() {
         return getPCRAM();
+    }
+
+    [HttpGet("/storage")]
+    public ActionResult<double> getUsedStorage() {
+        string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),$"CubeManager");
+        return new DirectoryInfo(path).EnumerateFiles("*", SearchOption.AllDirectories).Sum(fi => fi.Length) / 1024 / 1024;
     }
 
     private readonly IServerCreationService serverCreationService;
@@ -96,9 +113,13 @@ public class ServerController : ControllerBase {
             string[] rows = Regex.Split(p.StandardOutput.ReadToEnd(), "\r\n");
             int index = 0;
             foreach (int port in ports) {
-                string row = Array.FindAll(rows, s => s.Contains(port.ToString()))[0];
-                string[] tokens = Regex.Split(row, "\\s+");
-                pids[index] = (tokens[5]);
+                string? row = Array.Find(rows, s => s.Contains(port.ToString()));
+                if (row == null) {
+                    pids = pids.Skip(1).ToArray();  
+                } else {
+                    string[] tokens = Regex.Split(row, "\\s+");
+                    pids[index] = (tokens[5]);
+                }
                 index++;
             }
         }
