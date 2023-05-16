@@ -5,7 +5,6 @@ using Service.InputModels;
 using Service.IServices;
 using System.Diagnostics;
 
-
 public class ServerCreationService : IServerCreationService
 {
     IServerPropertiesService serverPropertiesService;
@@ -17,9 +16,10 @@ public class ServerCreationService : IServerCreationService
 
     public async Task CreateServer(ServerInputModel serverInput)
     {
-        var serverPath = Util.GetServerPath(serverInput.serverName);
+        var serverPath = PersistenceUtil.GetServerPath(serverInput.serverName);
+        var serverJarFile = PersistenceUtil.GetJarFileName(serverInput);
 
-        if(serverInput.maxMemory < 250)
+        if (serverInput.maxMemory < 250)
         {
             // throw new Exception("maxMemory must be at least 250 MB")
         }

@@ -1,4 +1,4 @@
-﻿namespace Service.Services.Util.Util;
+﻿namespace Service.Services.Util;
 
 using Domain;
 using System.Text.Json;

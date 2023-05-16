@@ -1,9 +1,8 @@
-﻿using Service.InputModels;
+﻿namespace Service.Services;
+
+using Service.InputModels;
 using Service.IServices;
 using Service.Services.Util;
-using Service.Services.Util.Util;
-
-namespace Service.Services;
 
 public class ServerUpdateService : IServerUpdateService
 {
@@ -16,7 +15,7 @@ public class ServerUpdateService : IServerUpdateService
     public void UpdateServer(ServerInputModel serverInput)
     {
         // Override CubeManager config
-        var serverCubeManagerConfig = CubeManagerConfigUtil.CreateServerCubeManagerConfig(PersistenceUtil.GetJarFileName(serverInput), serverInput.maxMemory);
+        var serverCubeManagerConfig = CubeManagerConfigUtil.CreateServerCubeManagerConfig(Services.Util.PersistenceUtil.GetJarFileName(serverInput), serverInput.maxMemory);
         CubeManagerConfigUtil.SetCubeManagerConfig(serverCubeManagerConfig, serverInput.serverName);
 
         // Override server.properties

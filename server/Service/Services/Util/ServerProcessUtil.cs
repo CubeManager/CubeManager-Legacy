@@ -1,7 +1,7 @@
 ﻿
-using System.Diagnostics;
-
 namespace Service.Services.Util;
+
+using System.Diagnostics;
 
 public static class ServerProcessUtil
 {

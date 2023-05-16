@@ -1,6 +1,5 @@
 ﻿namespace Service.IServices;
-
-using Service.InputModels;
+using Service.ViewModel;
 
 public interface IServerReadService
 {

@@ -1,27 +1,26 @@
-﻿using CrossCutting.Attributes;
+﻿namespace Service.Services;
+
+using CrossCutting.Attributes;
 using Service.InputModels;
 using Service.IServices;
+using Service.Services.Util;
 using System.Reflection;
-using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
-
-namespace Service.Services;
 
 public class ServerPropertiesService : IServerPropertiesService
 {
     public void ChangeServerProperties(ServerPropertiesInputModel serverProperties, string serverName)
     {
-        var filePath = Path.Combine(Util.GetServerPath(serverName), "server.properties");
-
+        var filePath = Path.Combine(PersistenceUtil.GetServerPath(serverName), "server.properties");
         // Read in the file 
         string fileContents = File.ReadAllText(filePath);
 
 
         Type classType = serverProperties.GetType();
-        foreach(PropertyInfo property in classType.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+        foreach (PropertyInfo property in classType.GetProperties(BindingFlags.Public | BindingFlags.Instance))
         {
             var propertyValue = property.GetValue(serverProperties);
-            if(propertyValue != null)
+            if (propertyValue != null)
             {
                 var propertyName = GetPropertyName(property);
                 // Use a regular expression to find the line with the property we want to change
@@ -51,7 +50,7 @@ public class ServerPropertiesService : IServerPropertiesService
         ServerPropertyNameAttribute attribute = (ServerPropertyNameAttribute)prop.GetCustomAttribute(typeof(ServerPropertyNameAttribute));
 
         // Get the value of the attribute
-        if(attribute != null)
+        if (attribute != null)
         {
             return attribute.Name;
         }
