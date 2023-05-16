@@ -96,7 +96,7 @@ public class ServerProperties
     [ServerPropertyName("rcon.port")]
     public int rconPort { get; set; }
 
-    [ServerPropertyName("rcon.password")]
+    [ServerPropertyName("rcon.max-world-size")]
     public int maxWorldSize { get; set; }
 
     [ServerPropertyName("resource-pack-sha1")]
