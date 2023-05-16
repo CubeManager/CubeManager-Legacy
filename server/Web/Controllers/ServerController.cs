@@ -22,13 +22,13 @@ public class ServerController : ControllerBase {
             server.running = true;
             server.name = "string";
             server.location = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),$"CubeManager\\{server.name}\\");;
-            server.serverproperties = new ServerProperties();
-            server.serverproperties.queryPort = 25565;
+            server.serverProperties = new ServerProperties();
+            server.serverProperties.queryPort = 25565;
             servers.Add(server);
         } 
         List<int> ports = new List<int>();
         foreach (Server server in servers) {
-            if (server.running == true) ports.Add(server.serverproperties.queryPort);
+            if (server.running == true) ports.Add(server.serverProperties.queryPort);
         }
 
         string[] pids = GetPIDsByPorts(ports);
@@ -53,11 +53,13 @@ public class ServerController : ControllerBase {
 
     private readonly IServerCreationService serverCreationService;
     private readonly IServerPropertiesService serverPropertiesService;
+    private readonly IServerUpdateService serverUpdateService;
 
-    public ServerController(IServerCreationService serverCreationService, IServerPropertiesService serverPropertiesService)
-     {
+    public ServerController(IServerCreationService serverCreationService, IServerPropertiesService serverPropertiesService, IServerUpdateService serverUpdateService)
+    {
         this.serverCreationService = serverCreationService;
         this.serverPropertiesService = serverPropertiesService;
+        this.serverUpdateService = serverUpdateService;
     }
 
     [HttpPost]
@@ -67,6 +69,12 @@ public class ServerController : ControllerBase {
         return Ok();
     }
 
+    [HttpPut]
+    public IActionResult UpdateServer([FromBody] ServerInputModel serverInput)
+    {
+        serverUpdateService.UpdateServer(serverInput);
+        return Ok();
+    }
     private async Task<double> GetCpuUsageForProcess(Process process)
     {
         var startTime = DateTime.UtcNow;

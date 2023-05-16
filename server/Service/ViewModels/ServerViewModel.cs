@@ -1,10 +1,11 @@
 ﻿namespace Service.InputModels;
 
+using Domain;
 using Domain.Enums;
 
-public class ServerInputModel
+public class ServerViewModel
 {
-    public ServerInputModel(string serverName, ServerType serverType, string exactVersion, int maxMemory, ServerPropertiesInputModel? serverProperties)
+    public ServerViewModel(string serverName, ServerType serverType, string exactVersion, int maxMemory, ServerProperties serverProperties)
     {
         this.serverName = serverName;
         this.serverType = serverType;
@@ -17,5 +18,5 @@ public class ServerInputModel
     public ServerType serverType { get; set; }
     public string exactVersion { get; set; }
     public int maxMemory { get; set; }
-    public ServerPropertiesInputModel? serverProperties { get; set; }
+    public ServerProperties serverProperties { get; set; }
 }

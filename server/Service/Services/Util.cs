@@ -1,4 +1,6 @@
-﻿namespace Service.Services;
+﻿using Service.InputModels;
+
+namespace Service.Services;
 
 public static class Util
 {
@@ -8,5 +10,10 @@ public static class Util
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             $"CubeManager\\{serverName}\\"
         );
+    }
+
+    public static string GetJarFileName(ServerInputModel serverInput)
+    {
+        return $"{serverInput.serverType.ToString().ToLower()}-{serverInput.exactVersion}.jar";
     }
 }

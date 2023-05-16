@@ -16,6 +16,7 @@ public class Server
 
     public Adminlist adminlist {get; set;}
 
+    public ServerProperties serverProperties {get; set;}
     public string name {get; set;}
 
     public double ram {get; set;}
@@ -28,7 +29,7 @@ public class Server
 
     public Boolean running {get; set;}
 
-    public ServerProperties serverproperties {get; set;}
+    public ServerType serverType { get; set; }
 
-    public ServerType serverType {get; set;}
+    public string exactVersion { get; set;}
 }
