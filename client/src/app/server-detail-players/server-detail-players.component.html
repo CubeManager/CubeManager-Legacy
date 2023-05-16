@@ -1,0 +1,40 @@
+<div class="card bg-base-100 shadow-xl w-10/12 overflow-scroll no-scrollbar h-[50vh]">
+  <div class="card-body no-scrollbar">
+    <div class="overflow-x-auto no-scrollbar">
+      <table class="table table-auto overflow-scroll w-full my-2">
+        <thead class="sticky top-0">
+          <tr>
+            <th>Name</th>
+            <th>Controls</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let player of players">
+            <td class="w-full">{{player.name}}</td>
+            <td>
+              <div class="flex space-x-14">
+                <div>
+                  <button (click)="addPlayer()">
+                    <mat-icon>person_add</mat-icon>
+                  </button>
+                </div>
+                <div class="flex space-x-6 ">
+                  <div>
+                    <button (click)="removePlayer()">
+                      <mat-icon>person_remove</mat-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button (click)="banPlayer()">
+                      <mat-icon class="red">block</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

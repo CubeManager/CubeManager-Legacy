@@ -1,1 +1,52 @@
-<p>dashboard works!</p>
+<div class="ml-12 mt-6 mr-12">
+
+    <h1 class="text-5xl">Dashboard</h1>
+
+    <div class="mt-11 grid grid-cols-2 gap-6">
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">CPU</h2>
+                <p class="text-6xl my-10 data">{{cpu}}%</p>
+            </div>
+        </div>
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">Memory</h2>
+                <div class="my-10" style="display: flex; justify-content: space-between;">
+                    <p  class="text-6xl mr-3" style="text-align: right">{{currentMemory}}</p>
+                    <p class="text-4xl mt-5">/ {{maxMemory}} MB</p>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">Running Servers</h2>
+                <div class="overflow-x-auto">
+                    <table class="table w-full my-10">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Memory</th>
+                          <th>CPU</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let server of servers">
+                          <td>{{server.name}}</td>
+                          <td>{{server.memory}} MB</td>
+                          <td>{{server.cpu}} %</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+            </div>
+        </div>
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">Storage</h2>
+                <p  class="text-6xl my-10 data">{{storage}} MB</p>
+            </div>
+        </div>
+    </div>
+
+</div>
