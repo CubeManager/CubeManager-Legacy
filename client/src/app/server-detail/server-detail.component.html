@@ -1,0 +1,80 @@
+<div class="ml-12 mt-10 h-full">
+    <div class="flex space-x-3">
+        <div [ngClass]="server.state === 'Started' ? 'green': 'red'" class="flex items-center">
+            <mat-icon class="running-state-container">circle</mat-icon>
+        </div>
+        <h1 class="text-5xl">{{ server.name }}</h1>
+    </div>
+
+    <div class="mt-5 grid grid-cols-4 gap-6 card-wrapper">
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">CPU</h2>
+                <p class="text-5xl usage-text my-10">{{server.cpu}}%</p>
+            </div>
+        </div>
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">Memory</h2>
+                <p class="text-5xl usage-text my-10">{{server.memory}} MB</p>
+            </div>
+        </div>
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">Players</h2>
+                <div class="" >
+                    <p class="text-5xl usage-text my-10">{{server.currentPlayers}} / {{server.maxPlayers}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col justify-center">
+            <div>
+                <button [ngClass]="server.state === 'Started' ? 'black': 'green'"
+                    [disabled]="server.state === 'Started'" (click)="startServer(server.name)">
+                    <mat-icon class="text-4xl icons">play_arrow</mat-icon>
+                </button>
+            </div>
+            <div>
+                <button [ngClass]="server.state === 'Started' ? '': 'black'" [disabled]="server.state === 'Stopped'"
+                    (click)="restartServer(server.name)">
+                    <mat-icon class="text-4xl icons">refresh</mat-icon>
+                </button>
+            </div>
+            <div>
+                <button [ngClass]="server.state === 'Stopped' ? 'black': 'red'" [disabled]="server.state === 'Stopped'"
+                    (click)="stopServer(server.name)">
+                    <mat-icon class="text-4xl icons">stop</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-8 tab-wrapper">
+        <div class="">
+            <a *ngFor="let tab of tabs; index as index" class="tab text-xl hover:underline underline-offset-2 tab-text"
+                [ngClass]="index === activeTab ? 'tab-active underline underline-offset-2' : ''"
+                (click)="switchTab(index)">{{ tab }}</a>
+        </div>
+    </div>
+
+    <div class="mt-6 tab-content-wrapper h-[50vh]">
+        <div *ngIf="activeTab === 0">
+            <app-server-detail-console [server]="server"></app-server-detail-console>
+        </div>
+        <div *ngIf="activeTab === 1">
+            <app-server-detail-logs [server]="server"></app-server-detail-logs>
+        </div>
+        <div *ngIf="activeTab === 2">
+            <app-server-detail-players [server]="server"></app-server-detail-players>
+        </div>
+        <div *ngIf="activeTab === 3">
+            <app-server-detail-player-management [server]="server"></app-server-detail-player-management>
+        </div>
+        <div *ngIf="activeTab === 4">
+            <app-server-detail-config [server]="server"></app-server-detail-config>
+        </div>
+        <div *ngIf="activeTab === 5">
+            <app-server-detail-plugins [server]="server"></app-server-detail-plugins>
+        </div>
+    </div>
+</div>

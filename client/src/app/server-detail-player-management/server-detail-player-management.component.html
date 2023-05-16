@@ -1,0 +1,74 @@
+<div class="w-10/12">
+    <div class="grid grid-cols-2 gap-6">
+        <div class="card bg-base-100 shadow-xl overflow-scroll no-scrollbar h-[40vh]">
+            <div class="card-body overflow-auto no-scrollbar">
+                <h2 class="card-title">Whitelist</h2>
+                <div class="overflow-x-auto no-scrollbar">
+                    <table class="table table-auto w-full my-2">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let player of whiteList">
+                                <td class="w-full">{{player.name}}</td>
+                                <td>
+                                    <div>
+                                        <button (click)="banPlayer()">
+                                            <mat-icon class="red">block</mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl overflow-scroll no-scrollbar h-[40vh]">
+            <div class="card-body overflow-auto no-scrollbar">
+                <h2 class="card-title">Bans</h2>
+                <div class="overflow-x-auto no-scrollbar">
+                    <table class="table table-auto w-full my-2">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let player of whiteList">
+                                <td class="w-full">{{player.name}}</td>
+                                <td>
+                                    <div>
+                                        <button (click)="banPlayer()">
+                                            <mat-icon>person_add</mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mt-3">
+        <div class="grid grid-cols-8 gap-3">
+            <input type="text" class="input w-full col-span-6" />
+            <button class="btn btn-primary col-span-2">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <div class="grid grid-cols-8 gap-3">
+            <input type="text" class="input w-full col-span-6" />
+            <button class="btn btn-primary col-span-2">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
