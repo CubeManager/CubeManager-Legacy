@@ -22,6 +22,18 @@ export class DashboardComponent {
       memory: 880,
       cpu: 10,
       storage: 2000
+    },
+    {
+      name: "3",
+      memory: 1020,
+      cpu: 5,
+      storage: 1000
+    },
+    {
+      name: "4",
+      memory: 880,
+      cpu: 10,
+      storage: 2000
     }
   ]
   ;
