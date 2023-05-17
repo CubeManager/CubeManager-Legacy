@@ -1,22 +1,21 @@
-﻿using Domain;
-using Service.Services.Util;
-using Service.IServices;
+﻿namespace Service.Services.Util;
+
+using Domain;
 using System.Text.Json;
 
-namespace Service.Services;
-
-public class ServerCubeManagerConfigService : IServerCubeManagerConfigService
+public static class CubeManagerConfigUtil
 {
-    public ServerCubeManagerConfig GetCubeManagerConfig(string serverName)
+
+    public static ServerCubeManagerConfig GetCubeManagerConfig(string serverName)
     {
         string cubeManagerConfigFile = Path.Combine(PersistenceUtil.GetServerPath(serverName), "cubemanager-config.json");
         if (!File.Exists(cubeManagerConfigFile))
         {
             throw new Exception("CubeManager config file does not exist");
         }
-        
+
         string jsonString = File.ReadAllText(cubeManagerConfigFile);
-        if(jsonString == null || jsonString == "")
+        if (jsonString == null || jsonString == "")
         {
             throw new Exception();
         }
@@ -24,7 +23,7 @@ public class ServerCubeManagerConfigService : IServerCubeManagerConfigService
         try
         {
             var serverCubeManagerConfig = JsonSerializer.Deserialize<ServerCubeManagerConfig>(jsonString);
-            if(serverCubeManagerConfig != null)
+            if (serverCubeManagerConfig != null)
             {
                 return serverCubeManagerConfig;
             }
@@ -40,7 +39,7 @@ public class ServerCubeManagerConfigService : IServerCubeManagerConfigService
         }
     }
 
-    public void SetCubeManagerConfig(ServerCubeManagerConfig serverCubeManagerConfig, string serverName)
+    public static void SetCubeManagerConfig(ServerCubeManagerConfig serverCubeManagerConfig, string serverName)
     {
         string cubeManagerConfigFile = Path.Combine(PersistenceUtil.GetServerPath(serverName), "cubemanager-config.json");
         if (!File.Exists(cubeManagerConfigFile))
@@ -52,7 +51,7 @@ public class ServerCubeManagerConfigService : IServerCubeManagerConfigService
 
     }
 
-    public ServerCubeManagerConfig CreateServerCubeManagerConfig(string jarFile, int maxMemory)
+    public static ServerCubeManagerConfig CreateServerCubeManagerConfig(string jarFile, int maxMemory)
     {
         return new ServerCubeManagerConfig(jarFile, maxMemory);
     }

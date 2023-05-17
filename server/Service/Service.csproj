@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CrossCutting\CrossCutting.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
