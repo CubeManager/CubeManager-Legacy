@@ -11,18 +11,12 @@ public class ServerParameterService : IServerParameterService
    public double getPCRAM() {
         var info = new ProcessStartInfo();
         info.FileName = "wmic";
-        info.Arguments = "OS get FreePhysicalMemory,TotalVisibleMemorySize /Value";
+        info.Arguments = "OS get TotalVisibleMemorySize /Value";
         info.RedirectStandardOutput = true;
-        string output = "";
-        using(var process = Process.Start(info))
-        {                
-            output = process.StandardOutput.ReadToEnd();
-        }
- 
-        var lines = output.Trim().Split("\n");
-        var freeMemoryParts = lines[0].Split("=", StringSplitOptions.RemoveEmptyEntries);
-        var totalMemoryParts = lines[1].Split("=", StringSplitOptions.RemoveEmptyEntries);
-        return Math.Round(double.Parse(totalMemoryParts[1]) / 1024, 0);
+        var process = Process.Start(info);
+        string output = process.StandardOutput.ReadToEnd();
+        var totalMemoryParts = output.Substring(output.IndexOf('=') + 1);
+        return Math.Round((double.Parse(totalMemoryParts) / 1024), 0);
     }
 
     private async Task<double> GetCpuUsageForProcess(Process process)
@@ -36,35 +30,6 @@ public class ServerParameterService : IServerParameterService
         var cpuUsageTotal = cpuUsedMs / (Environment.ProcessorCount * totalMsPassed);
         return cpuUsageTotal;
     }
-
-    public string[] GetPIDsByPorts(List<int> ports) {
-        string[] pids = new string[ports.Count];
-        using (Process p = new Process()) {
-            ProcessStartInfo ps = new ProcessStartInfo();
-            ps.Arguments = "-a -n -o";
-            ps.FileName = "netstat.exe";
-            ps.UseShellExecute = false;
-            ps.WindowStyle = ProcessWindowStyle.Hidden;
-            ps.RedirectStandardInput = true;
-            ps.RedirectStandardOutput = true;
-            ps.RedirectStandardError = true;
-            p.StartInfo = ps;
-            p.Start();
-            string[] rows = Regex.Split(p.StandardOutput.ReadToEnd(), "\r\n");
-            int index = 0;
-            foreach (int port in ports) {
-                string? row = Array.Find(rows, s => s.Contains(port.ToString()));
-                if (row == null) {
-                    pids = pids.Skip(1).ToArray();  
-                } else {
-                    string[] tokens = Regex.Split(row, "\\s+");
-                    pids[index] = (tokens[5]);
-                }
-                index++;
-            }
-        }
-        return pids;
-    } 
 
     public List<Server> CreateTestServers() {
      List<Server> servers = new List<Server>();
@@ -84,18 +49,18 @@ public class ServerParameterService : IServerParameterService
             return servers;
     }
 
-    public async Task<List<Server>> ProcessesById(string[] pids, List<Server> servers)
+    public async Task<List<Server>> getPerformance(Dictionary<string, Process> processes, List<Server> servers)
     {
         int index = 0;
-        foreach (string pid in pids)
+        foreach (KeyValuePair<string, Process> process in processes)
         {
-            Process process = Process.GetProcessById(Int32.Parse(pid));
-            servers[index].cpu = Math.Round(await GetCpuUsageForProcess(process), 4);
-            servers[index].ram = process.WorkingSet64 / 1024 / 1024;
+            //doesnt work perfectly yet, server and process have to be combined somehow not by index
+            servers[index].cpu = Math.Round(await GetCpuUsageForProcess(process.Value), 4);
+            servers[index].ram = process.Value.WorkingSet64 / 1024 / 1024;
             index++;
         }
 
-        if (pids.Length == 0) {
+        if (processes.Count == 0) {
             foreach (Server server in servers) {
                 server.cpu = 0;
                 server.ram = 0;

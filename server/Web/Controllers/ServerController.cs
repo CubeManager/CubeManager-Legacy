@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Diagnostics;
 using Service.IServices;
 using Service.InputModels;
 using Domain;
@@ -45,11 +46,10 @@ public class ServerController : ControllerBase {
     [HttpGet]
     public async Task<ActionResult<List<Server>>> GetAll()
     {
-        List<int> ports = new List<int>();
+        //TODO = return all servers and set 'running' based on process list
         List<Server> servers = serverParameterService.CreateTestServers();
-        foreach (Server server in servers) if (server.running == true) ports.Add(server.serverProperties.queryPort);
-        string[] pids = serverParameterService.GetPIDsByPorts(ports);
-        return await serverParameterService.ProcessesById(pids, servers);
+        Dictionary<string, Process> processes = processManagementService.ActiveServers;
+        return await serverParameterService.getPerformance(processes, servers);
 
     }
 
@@ -82,10 +82,9 @@ public class ServerController : ControllerBase {
     public IActionResult StartServer(string serverName)
     {
         var process = processManagementService.Start(serverName);
-
         var hubContext = HttpContext.RequestServices.GetService<IHubContext<ConsoleHub>>();
+        
         BackgroundServiceManager.StartNewBackgroundService(hubContext!, process, serverName);
-
         return Ok();
     }
 
