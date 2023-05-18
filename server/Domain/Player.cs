@@ -1,8 +1,8 @@
-﻿namespace domain;
+﻿namespace Domain;
 
 public class Player : NamedEntityBase
 {
-    public Player(string name, Guid id) : base(string name) {
+    public Player(string name, Guid id) : base(name) {
         this.id = id;
     }
 

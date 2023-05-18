@@ -1,4 +1,4 @@
-﻿namespace domain.enums;
+﻿namespace Domain.Enums;
 
 public enum Difficulty
 {
