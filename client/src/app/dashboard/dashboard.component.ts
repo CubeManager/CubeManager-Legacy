@@ -34,16 +34,51 @@ export class DashboardComponent {
       memory: 880,
       cpu: 10,
       storage: 2000
-    }
-  ]
-  ;
+    },
+    {
+      name: "5",
+      memory: 1020,
+      cpu: 5,
+      storage: 1000
+    },
+    {
+      name: "6",
+      memory: 880,
+      cpu: 10,
+      storage: 2000
+    },
+    {
+      name: "7",
+      memory: 1020,
+      cpu: 5,
+      storage: 1000
+    },
+    {
+      name: "8",
+      memory: 880,
+      cpu: 10,
+      storage: 2000
+    },
+    {
+      name: "6",
+      memory: 880,
+      cpu: 10,
+      storage: 2000
+    },
+    {
+      name: "7",
+      memory: 1020,
+      cpu: 5,
+      storage: 1000
+    },
+  ];
 
-  constructor(){
+  constructor() {
 
     for (let server of this.servers) {
-        this.cpu += server.cpu;
-        this.currentMemory += server.memory;
-        this.storage += server.storage;
+      this.cpu += server.cpu;
+      this.currentMemory += server.memory;
+      this.storage += server.storage;
     }
   };
 
