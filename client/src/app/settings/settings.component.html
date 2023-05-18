@@ -8,12 +8,8 @@
                 <p>Theme</p>
             </div>
             <div>
-                <select class="select w-full max-w-xs primary">
-                    <option>Theme 1</option>
-                    <option>Theme 2</option>
-                    <option>Theme 3</option>
-                    <option>Theme 4</option>
-                    <option>Theme 5</option>
+                <select class="select w-full max-w-xs primary" (change)="changeTheme($event)">
+                    <option *ngFor="let theme of availableThemes" [value]="theme | lowercase">{{ theme }}</option>
                 </select>
             </div>
         </div>
