@@ -46,12 +46,23 @@ public class ServerController : ControllerBase {
     [HttpGet]
     public async Task<ActionResult<List<Server>>> GetAll()
     {
-        //TODO = return all servers and set 'running' based on process list
+        //TODO = return all servers and set state based on process list
         List<Server> servers = serverParameterService.CreateTestServers();
         Dictionary<string, Process> processes = processManagementService.ActiveServers;
         return await serverParameterService.getPerformance(processes, servers);
 
     }
+
+    // if needed for single request
+    // [HttpGet("{serverName}")]
+    // public async Task<ActionResult<Server>> GetOneByName(string serverName)
+    // {
+    //     List<Server> servers = serverParameterService.CreateTestServers();
+    //     Dictionary<string, Process> processes = processManagementService.ActiveServers;
+    //     await serverParameterService.getPerformance(processes, servers);
+    //     return servers.Find(server => server.name == serverName);
+
+    // }
 
     [HttpGet("/ram")]
     public ActionResult<double> getRAM() {

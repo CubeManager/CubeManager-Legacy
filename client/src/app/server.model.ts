@@ -1,12 +1,17 @@
+import { ServerProperties } from './server-properties';
 export class Server {
     constructor() {
         this.name = "";
         this.cpu = 0;
-        this.ram = 0;
-        this.running = false;
+        this.memory = 0;
+        this.state = "Started";
+        this.currentPlayers = [];
+        this.serverProperties = new ServerProperties();
     }
     public name: string;
     public cpu: number;
-    public ram: number; 
-    public running: boolean;
+    public memory: number; 
+    public state: string;
+    public currentPlayers: any[];
+    public serverProperties: ServerProperties;
 }

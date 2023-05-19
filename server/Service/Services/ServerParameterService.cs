@@ -34,18 +34,25 @@ public class ServerParameterService : IServerParameterService
     public List<Server> CreateTestServers() {
      List<Server> servers = new List<Server>();
      Server server = new Server();
-            server.running = true;
+            server.state = "Started";
+            server.currentPlayers = new List<Player>();
+            server.currentPlayers.Add(new Player("hey", System.Guid.NewGuid()));
+            server.currentPlayers.Add(new Player("hey2", System.Guid.NewGuid()));
             server.name = "string";
             server.serverProperties = new ServerProperties();
             server.serverProperties.queryPort = 25565;
+            server.serverProperties.maxPlayers = 20;
             servers.Add(server);
 
             Server server2 = new Server();
-            server2.running = false;
+            server2.state = "Stopped";
+            server2.currentPlayers = new List<Player>();
             server2.name = "string3";
             server2.serverProperties = new ServerProperties();
             server2.serverProperties.queryPort = 25566;
+            server2.serverProperties.maxPlayers = 15;
             servers.Add(server2);
+            
             return servers;
     }
 
@@ -56,14 +63,14 @@ public class ServerParameterService : IServerParameterService
         {
             //doesnt work perfectly yet, server and process have to be combined somehow not by index
             servers[index].cpu = Math.Round(await GetCpuUsageForProcess(process.Value), 4);
-            servers[index].ram = process.Value.WorkingSet64 / 1024 / 1024;
+            servers[index].memory = process.Value.WorkingSet64 / 1024 / 1024;
             index++;
         }
 
         if (processes.Count == 0) {
             foreach (Server server in servers) {
                 server.cpu = 0;
-                server.ram = 0;
+                server.memory = 0;
             }
         }
 

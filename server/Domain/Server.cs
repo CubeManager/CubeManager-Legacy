@@ -5,10 +5,10 @@ using Domain.Enums;
 public class Server
 {
     public Server() {
-        this.players = new List<Player>();
+        this.currentPlayers = new List<Player>();
     }
 
-    public List<Player> players {get; set;}
+    public List<Player> currentPlayers {get; set;}
 
     public Whitelist whitelist {get; set;}
 
@@ -19,11 +19,11 @@ public class Server
     public ServerProperties serverProperties {get; set;}
     public string name {get; set;}
 
-    public double ram {get; set;}
+    public double memory {get; set;}
 
     public double cpu {get; set;}
 
-    public Boolean running {get; set;}
+    public string state {get; set;}
 
     public ServerType serverType { get; set; }
 

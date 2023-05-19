@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VariableService } from '../variable.service';
+import { ServerService } from '../core/services/serverApi.service';
+import { Server } from '../server.model';
+import { firstValueFrom } from 'rxjs';
+import { GlobalVariables } from '../global';
 
 
 @Component({
@@ -11,8 +15,7 @@ import { VariableService } from '../variable.service';
 export class ServerDetailComponent implements OnInit {
 
   // TODO: Add interface
-  server: any;
-  servers = [{ name: "Server 1", memory: 1020, cpu: 5, currentPlayers: 4, maxPlayers: 10, state: "Started" }, { name: "Server 2", memory: 800, cpu: 10, currentPlayers: 2, maxPlayers: 10, state: "Stopped" }, { name: "Skyblock", memory: 200, cpu: 6, currentPlayers: 1, maxPlayers: 5, state: "Stopped" }, { name: "Server 4", memory: 2000, cpu: 25, currentPlayers: 5, maxPlayers: 15, state: "Started" }];
+  server: Server = new Server();
 
   tabs = [
     "Console",
@@ -25,16 +28,13 @@ export class ServerDetailComponent implements OnInit {
 
   activeTab = 0;
 
-  constructor(private route: ActivatedRoute, private readonly _variableService: VariableService) {
-    
-  }
+  constructor(private route: ActivatedRoute, private readonly _variableService: VariableService, private _serverService: ServerService) { }
 
-  ngOnInit(): void {
+  ngOnInit(){
     const routeParams = this.route.snapshot.paramMap;
-    const serverName = (routeParams.get('serverName'));
-
-    // this.server = serverService.getServer(serverId)
-    this.server = this.servers.find((server) => server.name === serverName);
+    const serverName = routeParams.get('serverName')  ?? '';
+    const servers: Server[] = GlobalVariables.servers;
+    this.server = servers.find(server => server.name == serverName) ?? new Server();
 
     if (this._variableService.setConfigTabActive) {
       this.activeTab = 4;

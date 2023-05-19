@@ -16,7 +16,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="hover table-item" *ngFor="let server of servers" [routerLink]="['/servers', server.name]">
+            <tr class="hover table-item" *ngFor="let server of classReference.servers" [routerLink]="['/servers', server.name]">
               <td class="w-[11rem]">
                 <div class="flex items-center space-x-3">
                   <div>
@@ -43,7 +43,7 @@
               </td>
 
               <td>
-                {{ server.currentPlayers}}/{{ server.maxPlayers }}
+                {{ server.currentPlayers.length}}/{{ server.serverProperties.maxPlayers }}
               </td>
 
               <td>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ApiService } from './core/services/api.service';
-
+import { GlobalVariables } from './global';
+import { ServerService } from './core/services/serverApi.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,7 +9,12 @@ import { ApiService } from './core/services/api.service';
 export class AppComponent {
   title = 'client';
 
-  constructor(private apiService: ApiService){
-    this.apiService.get("http://localhost:4200/api/servers").pipe().subscribe((data) => console.log(data))
+  constructor(private readonly _serverService: ServerService){
+    setInterval(async () => {      
+      GlobalVariables.servers = await this._serverService.getServers();
+      GlobalVariables.storage = await this._serverService.getStorage();
+      GlobalVariables.cpu =  GlobalVariables.servers.reduce((sum, current) => sum + current.cpu, 0);
+      GlobalVariables.ram =  GlobalVariables.servers.reduce((sum, current) => sum + current.memory, 0);
+    }, 1000);
   }
 }

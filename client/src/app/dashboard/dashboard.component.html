@@ -6,14 +6,14 @@
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title">CPU</h2>
-                <p class="text-6xl my-8 data">{{cpu}}%</p>
+                <p class="text-6xl my-8 data">{{referenceClass.cpu}}%</p>
             </div>
         </div>
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title">Memory</h2>
                 <div class="my-10" style="display: flex; justify-content: space-between;">
-                    <p  class="text-6xl mr-3" style="text-align: right">{{currentMemory}}</p>
+                    <p  class="text-6xl mr-3" style="text-align: right">{{referenceClass.ram}}</p>
                     <p class="text-4xl mt-5">/ {{maxMemory}} MB</p>
                 </div>
             </div>
@@ -31,9 +31,9 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let server of servers">
+                        <tr *ngFor="let server of referenceClass.servers">
                           <td>{{server.name}}</td>
-                          <td>{{server.ram}} MB</td>
+                          <td>{{server.memory}} MB</td>
                           <td>{{server.cpu}} %</td>
                         </tr>
                       </tbody>
@@ -44,7 +44,7 @@
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title">Storage</h2>
-                <p  class="text-6xl my-8 data">{{storage}} MB</p>
+                <p  class="text-6xl my-8 data">{{referenceClass.storage}} MB</p>
             </div>
         </div>
     </div>
