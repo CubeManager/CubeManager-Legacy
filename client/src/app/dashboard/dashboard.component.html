@@ -1,52 +1,53 @@
-<div class="ml-12 mt-6 mr-12">
+<div class="ml-12 mt-6 mr-12 h-[95vh]">
 
-    <h1 class="text-5xl">Dashboard</h1>
+  <h1 class="text-5xl">Dashboard</h1>
 
-    <div class="mt-11 grid grid-cols-2 gap-6">
-        <div class="card bg-base-100 shadow-xl">
-            <div class="card-body">
-                <h2 class="card-title">CPU</h2>
-                <p class="text-6xl my-8 data">{{cpu}}%</p>
-            </div>
+  <div class="mt-11 grid grid-rows-2 gap-y-6 h-[82vh]">
+    <div class="grid grid-cols-2 gap-x-6">
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title">CPU</h2>
+          <p class="flex items-center justify-center text-6xl data">{{cpu}}%</p>
         </div>
-        <div class="card bg-base-100 shadow-xl">
-            <div class="card-body">
-                <h2 class="card-title">Memory</h2>
-                <div class="my-10" style="display: flex; justify-content: space-between;">
-                    <p  class="text-6xl mr-3" style="text-align: right">{{currentMemory}}</p>
-                    <p class="text-4xl mt-5">/ {{maxMemory}} MB</p>
-                </div>
-            </div>
+      </div>
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title">Memory</h2>
+          <p class="flex items-center justify-center text-6xl mr-3 data">{{currentMemory}} <span class="text-4xl mt-4 ml-2 data-sm">/
+              {{maxMemory}} MB</span></p>
         </div>
-        <div class="card bg-base-100 shadow-xl overflow-scroll no-scrollbar h-[35vh]">
-            <div class="card-body overflow-auto no-scrollbar">
-                <h2 class="card-title">Running Servers</h2>
-                <div class="overflow-x-auto no-scrollbar">
-                    <table class="table table-auto w-full mt-2">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Memory</th>
-                          <th>CPU</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let server of servers">
-                          <td>{{server.name}}</td>
-                          <td>{{server.ram}} MB</td>
-                          <td>{{server.cpu}} %</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-            </div>
-        </div>
-        <div class="card bg-base-100 shadow-xl">
-            <div class="card-body">
-                <h2 class="card-title">Storage</h2>
-                <p  class="text-6xl my-8 data">{{storage}} MB</p>
-            </div>
-        </div>
+      </div>
     </div>
-
+    <div class="grid grid-cols-2 gap-x-6">
+      <div class="card bg-base-100 shadow-xl overflow-scroll no-scrollbar">
+        <div class="card-body overflow-auto no-scrollbar">
+          <h2 class="card-title">Running Servers</h2>
+          <div class="overflow-x-auto no-scrollbar">
+            <table class="table table-auto w-full mt-2">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Memory</th>
+                  <th>CPU</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let server of servers">
+                  <td>{{server.name}}</td>
+                  <td>{{server.ram}} MB</td>
+                  <td>{{server.cpu}} %</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title">Storage</h2>
+          <p class="flex items-center justify-center text-6xl data">{{storage}} MB</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
