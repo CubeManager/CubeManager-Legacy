@@ -1,4 +1,6 @@
-﻿using Service.IServices;
+﻿using Microsoft.AspNetCore.SignalR;
+using Service.Hubs;
+using Service.IServices;
 using Service.Services.Util;
 using System.Diagnostics;
 
@@ -13,7 +15,7 @@ public class ProcessManagementService : IProcessManagementService
         ActiveServers = new Dictionary<string, Process>();
     }
 
-    public Process Start(string serverName)
+    public async Task<Process> Start(string serverName)
     {
         if (ActiveServers.ContainsKey(serverName))
         {
@@ -21,14 +23,24 @@ public class ProcessManagementService : IProcessManagementService
         }
 
         var serverConfig = CubeManagerConfigUtil.GetCubeManagerConfig(serverName);
+
         var processStartInfo = ServerProcessUtil.CreateServerProcessStartInfo(
             PersistenceUtil.GetServerPath(serverName), 
             serverConfig.jarFile!, 
             serverConfig.maxMemory);
+
         var process = ServerProcessUtil.StartServerProcess(processStartInfo);
 
         ActiveServers.Add(serverName, process);
 
+        using (var outputStreamReader = process.StandardOutput)
+        {
+            while (!outputStreamReader.EndOfStream)
+            {
+                var output = await outputStreamReader.ReadLineAsync();
+                Debug.WriteLine(output);
+            }
+        }
         return process;
     }
 

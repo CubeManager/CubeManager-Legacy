@@ -20,8 +20,8 @@ public static class BackgroundServiceManager
             serverProcess: serverProcess,
             serverName: serverName
         );
-
         AddBackgroundService(serverOutputSenderService);
+        //serverOutputSenderService.(CancellationToken.None);
     }
 
     public static void AddBackgroundService(IHostedService service)
