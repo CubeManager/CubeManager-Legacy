@@ -24,6 +24,10 @@ export class ServerlistComponent {
     //TODO Logic
   }
 
+  deleteServer() {
+    
+  }
+
   setConfigTab() {
     this._variableService.setConfigTabActive = true;
   }

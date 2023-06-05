@@ -12,6 +12,7 @@ public static class IServiceCollectionExtensions
         services.AddSingleton<IProcessManagementService, ProcessManagementService>();
 
         services.AddScoped<IServerCreationService, ServerCreationService>();
+        services.AddScoped<IServerParameterService, ServerParameterService>();
         services.AddScoped<IServerPropertiesService, ServerPropertiesService>();
         services.AddScoped<IServerUpdateService, ServerUpdateService>();
         services.AddScoped<IConsoleService, ConsoleService>();

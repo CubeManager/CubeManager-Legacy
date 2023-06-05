@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ApiService } from '../core/services/api.service';
+import { Server } from '../server.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,41 +12,19 @@ export class DashboardComponent {
   public currentMemory: number = 0;
   public maxMemory: number = 16000;
   public storage: number = 0;
-  public servers = [
-    {
-      name: "1",
-      memory: 1020,
-      cpu: 5,
-      storage: 1000
-    },
-    {
-      name: "2",
-      memory: 880,
-      cpu: 10,
-      storage: 2000
-    },
-    {
-      name: "3",
-      memory: 1020,
-      cpu: 5,
-      storage: 1000
-    },
-    {
-      name: "4",
-      memory: 880,
-      cpu: 10,
-      storage: 2000
-    }
-  ]
-  ;
+  public servers: Server[] = new Array<Server>();
 
-  constructor(){
-
-    for (let server of this.servers) {
-        this.cpu += server.cpu;
-        this.currentMemory += server.memory;
-        this.storage += server.storage;
-    }
-  };
-
+  constructor(apiService: ApiService){
+    apiService.get<number>('http://localhost:4200/api/ram').subscribe(data => {
+      this.maxMemory = data} );
+      apiService.get<number>('http://localhost:4200/api/storage').subscribe(data => {
+        this.storage = data} );
+    setInterval(() => {
+    apiService.get<Server[]>('http://localhost:4200/api/servers').subscribe(data => {
+      this.cpu = data.reduce((sum, current) => sum + current.cpu, 0);
+      this.currentMemory = data.reduce((sum, current) => sum + current.ram, 0);
+      this.servers = data.filter(server => server.running ? server : null);
+      } );
+  }, 1000);
+}
 }

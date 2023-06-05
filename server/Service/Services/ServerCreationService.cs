@@ -8,10 +8,12 @@ using System.Diagnostics;
 public class ServerCreationService : IServerCreationService
 {
     IServerPropertiesService serverPropertiesService;
+    IServerCubeManagerConfigService serverCubeManagerConfigService;
 
-    public ServerCreationService(IServerPropertiesService serverPropertiesService)
+    public ServerCreationService(IServerPropertiesService serverPropertiesService, IServerCubeManagerConfigService serverCubeManagerConfigService)
     {
         this.serverPropertiesService = serverPropertiesService;
+        this.serverCubeManagerConfigService = serverCubeManagerConfigService;
     }
 
     public async Task CreateServer(ServerInputModel serverInput)

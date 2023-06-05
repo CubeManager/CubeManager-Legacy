@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from './core/services/api.service';
-import { ConsoleHubService } from './shared/console-hub.service';
+import { VariableService } from './variable.service';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +9,10 @@ import { ConsoleHubService } from './shared/console-hub.service';
 })
 export class AppComponent {
   title = 'client';
+  selectedTheme = "dark";
 
-
-
-  constructor(private consoleHubService: ConsoleHubService){
-  this.consoleHubService.startConnection();
-  this.consoleHubService.addListener();
+  constructor(private apiService: ApiService, private variableService: VariableService) {
+    this.apiService.get("http://localhost:4200/api/servers").pipe().subscribe((data) => console.log(data));
+    this.variableService.themeChange.subscribe(theme => this.selectedTheme = theme);
   }
 }

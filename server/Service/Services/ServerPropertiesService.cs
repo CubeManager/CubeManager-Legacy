@@ -13,7 +13,8 @@ public class ServerPropertiesService : IServerPropertiesService
     {
         var filePath = Path.Combine(PersistenceUtil.GetServerPath(serverName), "server.properties");
         // Read in the file 
-        string fileContents = File.ReadAllText(filePath);
+        if (File.Exists(filePath)){
+            string fileContents = File.ReadAllText(filePath);
 
 
         Type classType = serverProperties.GetType();
@@ -22,26 +23,30 @@ public class ServerPropertiesService : IServerPropertiesService
             var propertyValue = property.GetValue(serverProperties);
             if (propertyValue != null)
             {
-                var propertyName = GetPropertyName(property);
-                // Use a regular expression to find the line with the property we want to change
-                string pattern = $"{propertyName}=(.*)";
-                Regex regex = new Regex(pattern);
-                Match match = regex.Match(fileContents);
+                var propertyValue = property.GetValue(serverProperties);
+                if(propertyValue != null)
+                {
+                    var propertyName = GetPropertyName(property);
+                    // Use a regular expression to find the line with the property we want to change
+                    string pattern = $"{propertyName}=(.*)";
+                    Regex regex = new Regex(pattern);
+                    Match match = regex.Match(fileContents);
 
-                if (match.Success)
-                {
-                    // Replace the old value with the new value
-                    string oldValue = match.Groups[1].Value;
-                    string newLine = $"{propertyName}={propertyValue}";
-                    fileContents = fileContents.Replace($"{propertyName}={oldValue}", newLine);
+                    if (match.Success)
+                    {
+                        // Replace the old value with the new value
+                        string oldValue = match.Groups[1].Value;
+                        string newLine = $"{propertyName}={propertyValue}";
+                        fileContents = fileContents.Replace($"{propertyName}={oldValue}", newLine);
+                    }
+                    else
+                    {
+                        throw new ArgumentException($"Property {property.Name} not found in file {filePath}");
+                    }
                 }
-                else
-                {
-                    throw new ArgumentException($"Property {property.Name} not found in file {filePath}");
-                }
-            }
-        } // Write the updated file contents back to the file
-        File.WriteAllText(filePath, fileContents);
+            } // Write the updated file contents back to the file
+            File.WriteAllText(filePath, fileContents);
+        }
     }
 
     private string GetPropertyName(PropertyInfo prop)
