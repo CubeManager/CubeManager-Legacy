@@ -23,9 +23,6 @@ public class ServerPropertiesService : IServerPropertiesService
             var propertyValue = property.GetValue(serverProperties);
             if (propertyValue != null)
             {
-                var propertyValue = property.GetValue(serverProperties);
-                if(propertyValue != null)
-                {
                     var propertyName = GetPropertyName(property);
                     // Use a regular expression to find the line with the property we want to change
                     string pattern = $"{propertyName}=(.*)";
