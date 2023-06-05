@@ -19,6 +19,8 @@ import { ServerDetailPluginsComponent } from './server-detail-plugins/server-det
 import { ServerConfigAdvancedComponent } from './server-config-advanced/server-config-advanced.component';
 import { NewserverAdvancedComponent } from './newserver-advanced/newserver-advanced.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { HttpClientModule } from '@angular/common/http';
     CoreModule,
     SharedModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

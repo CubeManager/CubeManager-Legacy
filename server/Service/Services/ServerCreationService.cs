@@ -19,7 +19,6 @@ public class ServerCreationService : IServerCreationService
     public async Task CreateServer(ServerInputModel serverInput)
     {
         var serverPath = PersistenceUtil.GetServerPath(serverInput.serverName);
-        var serverJarFile = PersistenceUtil.GetJarFileName(serverInput);
 
         if (serverInput.maxMemory < 250)
         {
@@ -33,7 +32,9 @@ public class ServerCreationService : IServerCreationService
 
         Directory.CreateDirectory(serverPath);
 
-        var processStartInfo = ServerProcessUtil.CreateServerProcessStartInfo(serverPath, serverJarFile, serverInput.maxMemory);
+        File.Copy($"{PersistenceUtil.GetAppData}\\serverjars\\{serverInput.serverFileName}", $"{serverPath}\\{serverInput.serverFileName}");
+
+        var processStartInfo = ServerProcessUtil.CreateServerProcessStartInfo(serverPath, serverInput.serverFileName, serverInput.maxMemory);
 
         CreateEulaFile(serverPath);
 
@@ -46,7 +47,7 @@ public class ServerCreationService : IServerCreationService
             serverPropertiesService.ChangeServerProperties(serverInput.serverProperties, serverInput.serverName);
         }
 
-        CreateServerCubeManagerConfig(serverJarFile, serverInput.maxMemory, serverInput.serverName);
+        CreateServerCubeManagerConfig(serverInput.serverFileName, serverInput.maxMemory, serverInput.serverName);
     }
 
     private Process StartServerProcess(ProcessStartInfo startProcessInfo)

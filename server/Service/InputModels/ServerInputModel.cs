@@ -14,6 +14,7 @@ public class ServerInputModel
     }
 
     public string serverName { get; set; }
+    public string serverFileName { get; set; }
     public ServerType serverType { get; set; }
     public string exactVersion { get; set; }
     public int maxMemory { get; set; }

@@ -8,6 +8,7 @@ using Service.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Service.BackgroundServices;
 using Domain;
+using Service.Services.Util;
 
 [ApiController]
 [Route("servers")]
@@ -58,6 +59,13 @@ public class ServerController : ControllerBase {
     public ActionResult<double> getUsedStorage() {
         string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),$"CubeManager");
         return new DirectoryInfo(path).EnumerateFiles("*", SearchOption.AllDirectories).Sum(fi => fi.Length) / 1024 / 1024;
+    }
+
+    [HttpGet("/serverjars")]
+    public ActionResult<List<string>> getServerJars()
+    {
+        string path = $"{PersistenceUtil.GetAppData}\\serverjars";
+        return Directory.GetFiles(path).ToList();
     }
 
     [HttpPost]

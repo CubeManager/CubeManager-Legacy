@@ -26,4 +26,12 @@ public static class PersistenceUtil
         }
         throw new Exception("No jar filename found");
     }
+
+    public static string GetAppData()
+    {
+        return Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            $"CubeManager"
+        );
+    }
 }

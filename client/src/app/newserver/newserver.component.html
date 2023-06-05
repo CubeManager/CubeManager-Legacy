@@ -18,6 +18,12 @@
             </select>
         </div>
 
+        <form [formGroup]="createForm">
+          <select name="serverjar">
+            <option *ngFor="let option of serverJars" [value]="option">{{ option }}</option>
+          </select>
+        </form>
+
         <div class="grid grid-cols-2 w-10/12 mt-11 setting-wrapper">
             <div class="grid grid-cols-2">
                 <div>
