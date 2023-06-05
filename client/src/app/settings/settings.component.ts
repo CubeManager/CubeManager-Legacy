@@ -8,9 +8,11 @@ import { VariableService } from '../variable.service';
 })
 export class SettingsComponent {
   availableThemes: Array<string> = ["Dark", "Light", "Aqua"];
-  selectedTheme: string = "dark";
+  selectedTheme: string = '';
 
-  constructor(private variableService: VariableService) {}
+  constructor(private variableService: VariableService) {
+    this.selectedTheme = this.variableService.selectedTheme;
+  }
 
   changeTheme(event: any): void {
     this.variableService.changeTheme(event.target.value);
