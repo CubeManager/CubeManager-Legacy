@@ -1,4 +1,6 @@
-﻿namespace Web.Controllers;
+﻿using Service.Services.Util;
+
+namespace Web.Controllers;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -73,6 +75,22 @@ public class ServerController : ControllerBase {
     public ActionResult<double> getUsedStorage() {
         string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),$"CubeManager");
         return new DirectoryInfo(path).EnumerateFiles("*", SearchOption.AllDirectories).Sum(fi => fi.Length) / 1024 / 1024;
+    }
+
+    [HttpGet("/serverjars")]
+    public ActionResult<List<string>> getServerJars()
+    {
+        string path = $"{PersistenceUtil.GetApplicationPath()}serverjars";
+        string[] files = Directory.GetFiles(path);
+        List<string> filenames = new List<string>();
+
+        foreach (string file in files)
+        {
+            string filename = Path.GetFileName(file);
+            filenames.Add(filename);
+        }
+
+        return filenames;
     }
 
     [HttpPost("{serverName}/start")]
