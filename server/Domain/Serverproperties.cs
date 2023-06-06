@@ -160,14 +160,14 @@ public class ServerProperties
     public string? generatorSettings { get; set; }
 
     [ServerPropertyName("difficulty")]
-    public Difficulty difficulty { get; set; }
+    public string difficulty { get; set; }
 
     [ServerPropertyName("gamemode")]
-    public Gamemode gamemode { get; set; }
+    public string gamemode { get; set; }
 
     [ServerPropertyName("level-type")]
-    public LevelType levelType { get; set; }
+    public string levelType { get; set; }
 
     [ServerPropertyName("op-permission-level")]
-    public OpPermissionLevel opPermissionLevel { get; set; }
+    public int opPermissionLevel { get; set; }
 }

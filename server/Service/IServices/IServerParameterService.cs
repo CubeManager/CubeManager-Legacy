@@ -13,11 +13,6 @@ public interface IServerParameterService
     /// <summary>
     /// 
     /// </summary>
-    public List<Server> CreateTestServers();
-
-    /// <summary>
-    /// 
-    /// </summary>
     /// <param name="pids"></param>
     /// <param name="servers"></param>
     public Task<List<Server>> getPerformance(Dictionary<string, Process> processes, List<Server> servers);

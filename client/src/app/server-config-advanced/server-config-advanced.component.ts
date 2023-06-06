@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Server } from '../core/models/server.model';
 
 @Component({
   selector: 'app-server-config-advanced',
@@ -7,12 +8,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./server-config-advanced.component.scss']
 })
 export class ServerConfigAdvancedComponent implements OnInit {
-  
-  server = { name: "Server 1", memory: 1020, cpu: 5, currentPlayers: 4, maxPlayers: 10, state: "Started" };
+
+  @Input() server!: Server
   newConfig: any;
 
   constructor(private route: ActivatedRoute) {
-    
+
   }
 
   ngOnInit(): void {

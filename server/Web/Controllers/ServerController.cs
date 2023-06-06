@@ -1,17 +1,14 @@
 ﻿namespace Web.Controllers;
 
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Diagnostics;
-using Service.IServices;
-using Service.InputModels;
 using Domain;
-using Service.Hubs;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Service.BackgroundServices;
-
-
-
+using Service.Hubs;
+using Service.InputModels;
+using Service.IServices;
+using Service.ViewModel;
+using System;
 
 [ApiController]
 [Route("servers")]
@@ -23,6 +20,8 @@ public class ServerController : ControllerBase {
     private readonly IServerParameterService serverParameterService;
     private readonly IConsoleService consoleService;
     private readonly IProcessManagementService processManagementService;
+    private readonly IServerService serverService;
+
     private readonly IHubContext<ConsoleHub> hubContext;
 
     public ServerController(
@@ -31,26 +30,41 @@ public class ServerController : ControllerBase {
         IServerUpdateService serverUpdateService, 
         IConsoleService consoleService,
         IProcessManagementService processManagementService,
+        IHubContext<ConsoleHub> hubContext,
         IServerParameterService serverParameterService,
-        IHubContext<ConsoleHub> hubContext)
+        IServerService serverService)
     {
         this.serverCreationService = serverCreationService;
         this.serverPropertiesService = serverPropertiesService;
         this.serverUpdateService = serverUpdateService;
-        this.serverParameterService = serverParameterService;
         this.consoleService = consoleService;
         this.processManagementService = processManagementService;
         this.hubContext = hubContext;
+        this.serverParameterService = serverParameterService;
+        this.serverService = serverService;
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Server>>> GetAll()
+    public ActionResult<List<ServerViewModel>> GetAll()
     {
-        //TODO = return all servers and set 'running' based on process list
-        List<Server> servers = serverParameterService.CreateTestServers();
-        Dictionary<string, Process> processes = processManagementService.ActiveServers;
-        return await serverParameterService.getPerformance(processes, servers);
+        //TODO: move to performance
+        // List<Server> servers = serverParameterService.CreateTestServers();
+        // Dictionary<string, Process> processes = processManagementService.ActiveServers;
+        // return await serverParameterService.getPerformance(processes, servers);
+        return serverService.GetAllServers();
+    }
 
+    [HttpPost]
+    public async Task<IActionResult> CreateServer([FromBody] ServerInputModel serverInput)
+    {
+        await serverCreationService.CreateServer(serverInput);
+        return Ok();
+    }
+
+    [HttpGet("{serverName}")]
+    public ActionResult<ServerViewModel> Get(string serverName)
+    {
+        return serverService.GetServer(serverName);
     }
 
     [HttpGet("/ram")]
@@ -64,27 +78,21 @@ public class ServerController : ControllerBase {
         return new DirectoryInfo(path).EnumerateFiles("*", SearchOption.AllDirectories).Sum(fi => fi.Length) / 1024 / 1024;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> CreateServer([FromBody] ServerInputModel serverInput)
+
+
+    [HttpPost("start/{serverName}")]
+    public async Task<IActionResult> StartServer(string serverName)
     {
-        await serverCreationService.CreateServer(serverInput);
+        var process = await processManagementService.Start(serverName);
+        var hubContext = HttpContext.RequestServices.GetService<IHubContext<ConsoleHub>>();
+        BackgroundServiceManager.StartNewBackgroundService(hubContext!, process, serverName);
         return Ok();
     }
 
-    [HttpPut]
-    public IActionResult UpdateServer([FromBody] ServerInputModel serverInput)
+    [HttpDelete("stop/{serverName}")]
+    public IActionResult StopServer(string serverName)
     {
-        serverUpdateService.UpdateServer(serverInput);
-        return Ok();
-    } 
-
-    [HttpPost("start/{serverName}")]
-    public IActionResult StartServer(string serverName)
-    {
-        var process = processManagementService.Start(serverName);
-        var hubContext = HttpContext.RequestServices.GetService<IHubContext<ConsoleHub>>();
-        
-        BackgroundServiceManager.StartNewBackgroundService(hubContext!, process, serverName);
+        processManagementService.Stop(serverName);
         return Ok();
     }
 
@@ -103,5 +111,12 @@ public class ServerController : ControllerBase {
             return BadRequest();
         }
     }
+
+    [HttpPut]
+    public IActionResult UpdateServer([FromBody] ServerInputModel serverInput)
+    {
+        serverUpdateService.UpdateServer(serverInput);
+        return Ok();
+    } 
 }
 
