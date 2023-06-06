@@ -1,6 +1,5 @@
 ﻿namespace Web.Controllers;
 
-using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Service.BackgroundServices;
@@ -15,31 +14,22 @@ using System;
 public class ServerController : ControllerBase { 
 
     private readonly IServerCreationService serverCreationService;
-    private readonly IServerPropertiesService serverPropertiesService;
     private readonly IServerUpdateService serverUpdateService;
     private readonly IServerParameterService serverParameterService;
-    private readonly IConsoleService consoleService;
     private readonly IProcessManagementService processManagementService;
     private readonly IServerService serverService;
 
-    private readonly IHubContext<ConsoleHub> hubContext;
 
     public ServerController(
         IServerCreationService serverCreationService, 
-        IServerPropertiesService serverPropertiesService,
         IServerUpdateService serverUpdateService, 
-        IConsoleService consoleService,
         IProcessManagementService processManagementService,
-        IHubContext<ConsoleHub> hubContext,
         IServerParameterService serverParameterService,
         IServerService serverService)
     {
         this.serverCreationService = serverCreationService;
-        this.serverPropertiesService = serverPropertiesService;
         this.serverUpdateService = serverUpdateService;
-        this.consoleService = consoleService;
         this.processManagementService = processManagementService;
-        this.hubContext = hubContext;
         this.serverParameterService = serverParameterService;
         this.serverService = serverService;
     }
@@ -61,6 +51,13 @@ public class ServerController : ControllerBase {
         return Ok();
     }
 
+    [HttpPut]
+    public IActionResult UpdateServer([FromBody] ServerInputModel serverInput)
+    {
+        serverUpdateService.UpdateServer(serverInput);
+        return Ok();
+    }
+
     [HttpGet("{serverName}")]
     public ActionResult<ServerViewModel> Get(string serverName)
     {
@@ -78,45 +75,20 @@ public class ServerController : ControllerBase {
         return new DirectoryInfo(path).EnumerateFiles("*", SearchOption.AllDirectories).Sum(fi => fi.Length) / 1024 / 1024;
     }
 
-
-
-    [HttpPost("start/{serverName}")]
+    [HttpPost("{serverName}/start")]
     public async Task<IActionResult> StartServer(string serverName)
     {
         var process = await processManagementService.Start(serverName);
         var hubContext = HttpContext.RequestServices.GetService<IHubContext<ConsoleHub>>();
-        BackgroundServiceManager.StartNewBackgroundService(hubContext!, process, serverName);
+        ServerBackgroundServiceManager.StartNewBackgroundService(hubContext!, process, serverName);
         return Ok();
     }
 
-    [HttpDelete("stop/{serverName}")]
+    [HttpDelete("{serverName}/stop")]
     public IActionResult StopServer(string serverName)
     {
         processManagementService.Stop(serverName);
         return Ok();
     }
-
-    [Route("console/{serverName}")]
-    [ApiExplorerSettings(IgnoreApi = true)]
-    public async Task<IActionResult> GetConsole(string serverName)
-    {
-        if (HttpContext.WebSockets.IsWebSocketRequest)
-        {
-            using var webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
-            await consoleService.RedirectConsoleStream(webSocket, serverName);
-            return Ok();
-        }
-        else
-        {
-            return BadRequest();
-        }
-    }
-
-    [HttpPut]
-    public IActionResult UpdateServer([FromBody] ServerInputModel serverInput)
-    {
-        serverUpdateService.UpdateServer(serverInput);
-        return Ok();
-    } 
 }
 

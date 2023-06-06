@@ -30,19 +30,19 @@
         <div class="flex flex-col justify-center">
             <div>
                 <button [ngClass]="server.isRunning ? 'black': 'green'"
-                    [disabled]="server.isRunning " (click)="startServer(server.serverName!)">
+                    [disabled]="server.isRunning " (click)="startServer()">
                     <mat-icon class="text-4xl icons">play_arrow</mat-icon>
                 </button>
             </div>
             <div>
-                <button [ngClass]="server.isRunning ? '': 'black'" [disabled]="!server.isRunning"
-                    (click)="restartServer(server.serverName!)">
+                <button [ngClass]="server.isRunning ? 'blue': 'black'" [disabled]="!server.isRunning"
+                    (click)="restartServer()">
                     <mat-icon class="text-4xl icons">refresh</mat-icon>
                 </button>
             </div>
             <div>
-                <button [ngClass]="server.isRunning ? 'black': 'red'" [disabled]="!server.isRunning"
-                    (click)="stopServer(server.serverName!)">
+                <button [ngClass]="server.isRunning ? 'red': 'black'" [disabled]="!server.isRunning"
+                    (click)="stopServer()">
                     <mat-icon class="text-4xl icons">stop</mat-icon>
                 </button>
             </div>
