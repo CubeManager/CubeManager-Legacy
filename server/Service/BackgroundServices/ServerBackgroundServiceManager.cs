@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
-public static class BackgroundServiceManager
+public static class ServerBackgroundServiceManager
 {
     private static readonly ConcurrentDictionary<string, IHostedService> BackgroundServices =
     new ConcurrentDictionary<string, IHostedService>();
@@ -20,18 +20,18 @@ public static class BackgroundServiceManager
             serverProcess: serverProcess,
             serverName: serverName
         );
-        AddBackgroundService(serverOutputSenderService);
+        AddBackgroundService(serverOutputSenderService, serverName);
         //serverOutputSenderService.(CancellationToken.None);
     }
 
-    public static void AddBackgroundService(IHostedService service)
+    public static void AddBackgroundService(IHostedService service, string serverName)
     {
-        BackgroundServices.TryAdd(service.GetType().Name, service);
+        BackgroundServices.TryAdd(serverName, service);
     }
 
-    public static void RemoveBackgroundService(IHostedService service)
+    public static void RemoveBackgroundService(string serverName)
     {
-        BackgroundServices.TryRemove(service.GetType().Name, out _);
+        BackgroundServices.TryRemove(serverName, out _);
     }
 
     public static async Task StopAllBackgroundServicesAsync(CancellationToken cancellationToken = default)

@@ -8,10 +8,6 @@ import { Server } from '../models/server.model';
 export class ServerApiService {
   constructor(private apiService: ApiService) { }
 
-  public createServer() {
-    this.apiService.post('http://localhost:4200/api/servers', { name: 'test' }).subscribe((data) => {});
-  }
-
   public getServerByName(serverName: string) {
     return this.apiService.get<Server>(`http://localhost:4200/api/servers/${serverName}`);
   }
@@ -19,4 +15,21 @@ export class ServerApiService {
   public getALlServers() {
     return this.apiService.get<Server[]>('http://localhost:4200/api/servers');
   }
+
+  public startServer(serverName: string) {
+    return this.apiService.post(`http://localhost:4200/api/servers/${serverName}/start`, {});
+  }
+
+  public stopServer(serverName: string) {
+    return this.apiService.delete(`http://localhost:4200/api/servers/${serverName}/stop`, {});
+  }
+
+  public createServer(server: Server) {
+    return this.apiService.post('http://localhost:4200/api/servers', server);
+  }
+
+  public updateServer(server: Server) {
+    return this.apiService.post('http://localhost:4200/api/servers', server);
+  }
+
 }
