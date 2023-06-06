@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VariableService } from '../variable.service';
 import { ServerApiService } from '../core/services/serverApi.service';
 import { Server } from '../core/models/server.model';
 import { Subject, interval, takeUntil } from 'rxjs';
+import { ServerDetailConsoleComponent } from '../server-detail-console/server-detail-console.component';
 
 
 @Component({
@@ -12,6 +13,8 @@ import { Subject, interval, takeUntil } from 'rxjs';
   styleUrls: ['./server-detail.component.scss']
 })
 export class ServerDetailComponent implements OnInit, OnDestroy {
+  @ViewChild('console') console?: ServerDetailConsoleComponent;
+
   public server: Server = {} as Server;
   // Subject for Server
   public serverSubject: Subject<Server> = new Subject<Server>();
@@ -57,6 +60,7 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
   }
 
   startServer() {
+    this.console?.clearConsole();
     this.serverApiService.startServer(this.server.serverName!).pipe(takeUntil(this.$destroy)).subscribe(() => {
       this.fetchServer(this.server.serverName!);
     });
