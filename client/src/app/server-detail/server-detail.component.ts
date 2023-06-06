@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VariableService } from '../variable.service';
 import { ServerApiService } from '../core/services/serverApi.service';
 import { Server } from '../core/models/server.model';
+import { Subject, interval, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -10,9 +11,12 @@ import { Server } from '../core/models/server.model';
   templateUrl: './server-detail.component.html',
   styleUrls: ['./server-detail.component.scss']
 })
-export class ServerDetailComponent implements OnInit {
-
+export class ServerDetailComponent implements OnInit, OnDestroy {
   public server: Server = {} as Server;
+  // Subject for Server
+  public serverSubject: Subject<Server> = new Subject<Server>();
+
+  private $destroy: Subject<void> = new Subject<void>();
 
   tabs = [
     "Console",
@@ -25,19 +29,16 @@ export class ServerDetailComponent implements OnInit {
 
   activeTab = 0;
 
-  constructor(private route: ActivatedRoute, private readonly _variableService: VariableService, private serverApiService: ServerApiService) {
-
-  }
+  constructor(private route: ActivatedRoute, private readonly _variableService: VariableService, private serverApiService: ServerApiService) {}
 
   ngOnInit(): void {
-    // http://localhost:4200/servers/test
-    // get server name from url (test in this case)
     const routeParams = this.route.snapshot.paramMap;
     const serverName = (routeParams.get('serverName'));
-    // this.server = serverService.getServer(serverId)
 
-    this.serverApiService.getServerByName(serverName!).subscribe((data) => {
-      next: this.server = data;
+    this.fetchServer(serverName!);
+
+    interval(3000).pipe(takeUntil(this.$destroy)).subscribe(() => {
+      this.fetchServer(serverName!);
     });
 
     if (this._variableService.setConfigTabActive) {
@@ -46,20 +47,35 @@ export class ServerDetailComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.$destroy.next();
+    this.$destroy.complete();
+  }
+
   switchTab(index: number) {
     this.activeTab = index;
   }
 
-  startServer(serverName: string) {
-    this.serverApiService.startServer(serverName);
+  startServer() {
+    this.serverApiService.startServer(this.server.serverName!).pipe(takeUntil(this.$destroy)).subscribe(() => {
+      this.fetchServer(this.server.serverName!);
+    });
   }
 
-  stopServer(serverName: string) {
-    this.serverApiService.stopServer(serverName);
+  stopServer() {
+    this.serverApiService.stopServer(this.server.serverName!).pipe(takeUntil(this.$destroy)).subscribe(() => {
+      this.fetchServer(this.server.serverName!);
+    });
   }
 
-  restartServer(serverName: string) {
-    this.stopServer(serverName);
-    this.startServer(serverName);
+  restartServer() {
+    this.stopServer();
+    this.startServer();
+  }
+
+  private fetchServer(serverName: string) {
+    this.serverApiService.getServerByName(serverName!).pipe(takeUntil(this.$destroy)).subscribe((data) => {
+      next: this.server = data;
+    });
   }
 }
