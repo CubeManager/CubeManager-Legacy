@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
-public static class ServerBackgroundServiceManager
+public static class ServerOutputSenderServiceManager
 {
     private static readonly ConcurrentDictionary<string, IHostedService> BackgroundServices =
     new ConcurrentDictionary<string, IHostedService>();

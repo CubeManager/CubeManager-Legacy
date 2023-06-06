@@ -8,3 +8,8 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+
+.logs-container {
+  height: 300px; /* Set the desired height of the container */
+  overflow-y: scroll;
+}
