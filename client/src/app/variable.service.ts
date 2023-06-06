@@ -9,7 +9,10 @@ export class VariableService {
 
   themeChange: Subject<string> = new Subject<string>();
 
+  selectedTheme: string = '';
+
   changeTheme(selectedTheme: string): void {
     this.themeChange.next(selectedTheme);
+    this.selectedTheme = selectedTheme;
   }
 }

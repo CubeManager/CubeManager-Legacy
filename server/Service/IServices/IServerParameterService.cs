@@ -17,11 +17,6 @@ public interface IServerParameterService
     /// <summary>
     /// 
     /// </summary>
-    public List<Server> CreateTestServers();
-
-    /// <summary>
-    /// 
-    /// </summary>
     /// <param name="pids"></param>
     /// <param name="servers"></param>
     public Task<List<Server>> ProcessesById(string[] pids, List<Server> servers);

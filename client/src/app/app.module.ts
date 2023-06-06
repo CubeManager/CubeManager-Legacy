@@ -45,7 +45,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     MatIconModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
