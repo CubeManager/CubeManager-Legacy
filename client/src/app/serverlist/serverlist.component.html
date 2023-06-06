@@ -16,7 +16,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="hover table-item" *ngFor="let server of servers" [routerLink]="['/servers', server.name]">
+            <tr class="hover table-item" *ngFor="let server of servers" [routerLink]="['/servers', server.serverName]">
               <td class="w-[11rem]">
                 <div class="flex items-center space-x-3">
                   <div>
@@ -24,14 +24,14 @@
                       <img src="./../../assets/server-logo-round.png" alt="Server Logo" />
                     </div>
                   </div>
-                  <div [ngClass]="server.state === 'Started' ? 'green': 'red'">
+                  <div [ngClass]="server.isRunning ? 'green': 'red'">
                     <mat-icon class="running-state-container text-lg">circle</mat-icon>
                   </div>
                 </div>
               </td>
 
               <td class="text-xl">
-                {{server.name}}
+                {{server.serverName}}
               </td>
 
               <td>
@@ -43,25 +43,25 @@
               </td>
 
               <td>
-                {{ server.currentPlayers}}/{{ server.maxPlayers }}
+                {{ server.currentPlayers}}/{{ server.serverProperties.maxPlayers }}
               </td>
 
               <td>
                 <div class="flex space-x-4">
                   <div>
-                    <button [ngClass]="server.state === 'Started' ? 'black': 'green'"
-                      [disabled]="server.state === 'Started'" (click)="startServer()">
+                    <button [ngClass]="server.isRunning ? 'black': 'green'"
+                      [disabled]="server.isRunning" (click)="startServer()">
                       <mat-icon>play_arrow</mat-icon>
                     </button>
                   </div>
                   <div>
-                    <button [ngClass]="server.state === 'Started' ? '': 'black'" [disabled]="server.state === 'Stopped'"
+                    <button [ngClass]="server.isRunning ? '': 'black'" [disabled]="!server.isRunning"
                       (click)="reloadServer()">
                       <mat-icon>refresh</mat-icon>
                     </button>
                   </div>
                   <div>
-                    <button [ngClass]="server.state === 'Stopped' ? 'black': 'red'" [disabled]="server.state === 'Stopped'"
+                    <button [ngClass]="server.isRunning ? 'black': 'red'" [disabled]="!server.isRunning"
                       (click)="stopServer()">
                       <mat-icon>stop</mat-icon>
                     </button>
@@ -71,7 +71,7 @@
 
               <td>
                 <div>
-                  <button [routerLink]="['/servers', server.name]" (click)="setConfigTab()" >
+                  <button [routerLink]="['/servers', server.serverName]" (click)="setConfigTab()" >
                     <mat-icon>edit</mat-icon>
                   </button>
                 </div>
