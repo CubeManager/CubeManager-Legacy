@@ -1,6 +1,6 @@
 ﻿namespace Service.Services;
 
-using Domain;
+using Util;
 using Service.InputModels;
 using Service.IServices;
 using System.Diagnostics;
@@ -18,9 +18,10 @@ public class ServerCreationService : IServerCreationService
 
     public async Task CreateServer(ServerInputModel serverInput)
     {
-        var serverPath = Util.GetServerPath(serverInput.serverName);
+        var serverPath = PersistenceUtil.GetServerPath(serverInput.serverName);
+        var serverJarFile = PersistenceUtil.GetJarFileName(serverInput);
 
-        if(serverInput.maxMemory < 250)
+        if (serverInput.maxMemory < 250)
         {
             // throw new Exception("maxMemory must be at least 250 MB")
         }
@@ -32,7 +33,7 @@ public class ServerCreationService : IServerCreationService
 
         Directory.CreateDirectory(serverPath);
 
-        var processStartInfo = CreateServerProcessStartInfo(serverPath, serverInput.maxMemory);
+        var processStartInfo = ServerProcessUtil.CreateServerProcessStartInfo(serverPath, serverJarFile, serverInput.maxMemory);
 
         CreateEulaFile(serverPath);
 
@@ -45,18 +46,7 @@ public class ServerCreationService : IServerCreationService
             serverPropertiesService.ChangeServerProperties(serverInput.serverProperties, serverInput.serverName);
         }
 
-        CreateServerCubeManagerConfig(Util.GetJarFileName(serverInput), serverInput.maxMemory, serverInput.serverName);
-    }
-
-    private ProcessStartInfo CreateServerProcessStartInfo(string serverPath, int maxMemory)
-    {
-        ProcessStartInfo processStartInfo = new ProcessStartInfo();
-        processStartInfo.RedirectStandardInput = true;
-        processStartInfo.RedirectStandardOutput = true;
-        processStartInfo.WorkingDirectory = serverPath;
-        processStartInfo.FileName = "java";
-        processStartInfo.Arguments = $"-Xmx{maxMemory}M -jar {serverPath}\\server.jar nogui";
-        return processStartInfo;
+        CreateServerCubeManagerConfig(serverJarFile, serverInput.maxMemory, serverInput.serverName);
     }
 
     private Process StartServerProcess(ProcessStartInfo startProcessInfo)
@@ -86,7 +76,7 @@ public class ServerCreationService : IServerCreationService
 
     private void CreateServerCubeManagerConfig(string jarFile, int maxMemory, string serverName)
     {
-        var config = serverCubeManagerConfigService.CreateServerCubeManagerConfig(jarFile, maxMemory);
-        serverCubeManagerConfigService.SetCubeManagerConfig(config, serverName);
+        var config = CubeManagerConfigUtil.CreateServerCubeManagerConfig(jarFile, maxMemory);
+        CubeManagerConfigUtil.SetCubeManagerConfig(config, serverName);
     }
 }

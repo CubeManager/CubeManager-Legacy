@@ -66,24 +66,6 @@ public class ServerParameterService : IServerParameterService
         return pids;
     } 
 
-    public List<Server> CreateTestServers() {
-     List<Server> servers = new List<Server>();
-     Server server = new Server();
-            server.running = true;
-            server.name = "string";
-            server.serverProperties = new ServerProperties();
-            server.serverProperties.queryPort = 25565;
-            servers.Add(server);
-
-            Server server2 = new Server();
-            server2.running = false;
-            server2.name = "string3";
-            server2.serverProperties = new ServerProperties();
-            server2.serverProperties.queryPort = 25566;
-            servers.Add(server2);
-            return servers;
-    }
-
     public async Task<List<Server>> ProcessesById(string[] pids, List<Server> servers)
     {
         int index = 0;

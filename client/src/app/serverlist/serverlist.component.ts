@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { VariableService } from '../variable.service';
+import { ServerApiService } from '../core/services/serverApi.service';
+import { Server } from '../core/models/server.model';
+import { Subject, interval, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -7,10 +10,34 @@ import { VariableService } from '../variable.service';
   templateUrl: './serverlist.component.html',
   styleUrls: ['./serverlist.component.scss']
 })
-export class ServerlistComponent {
-  servers = [{ name: "Server 1", memory: 1020, cpu: 5, currentPlayers: 4, maxPlayers: 10, state: "Started" }, { name: "Server 2", memory: 800, cpu: 10, currentPlayers: 2, maxPlayers: 10, state: "Stopped" }, { name: "Skyblock", memory: 200, cpu: 6, currentPlayers: 1, maxPlayers: 5, state: "Stopped" }, { name: "Server 4", memory: 2000, cpu: 25, currentPlayers: 5, maxPlayers: 15, state: "Started" }, { name: "Server 4", memory: 2000, cpu: 25, currentPlayers: 5, maxPlayers: 15, state: "Started" }, { name: "Server 4", memory: 2000, cpu: 25, currentPlayers: 5, maxPlayers: 15, state: "Started" }, { name: "Server 4", memory: 2000, cpu: 25, currentPlayers: 5, maxPlayers: 15, state: "Started" }, { name: "Server 4", memory: 2000, cpu: 25, currentPlayers: 5, maxPlayers: 15, state: "Started" }, { name: "Server 4", memory: 2000, cpu: 25, currentPlayers: 5, maxPlayers: 15, state: "Started" }, { name: "Server 4", memory: 2000, cpu: 25, currentPlayers: 5, maxPlayers: 15, state: "Started" }, { name: "Server 4", memory: 2000, cpu: 25, currentPlayers: 5, maxPlayers: 15, state: "Started" }, { name: "Server 4", memory: 2000, cpu: 25, currentPlayers: 5, maxPlayers: 15, state: "Started" }]
+export class ServerlistComponent implements OnInit, OnDestroy {
+  public servers?: Server[];
 
-  constructor(private readonly _variableService: VariableService) {}
+  private $destroy = new Subject<void>();
+
+  constructor(private readonly _variableService: VariableService, private serverApiService: ServerApiService) {
+  }
+
+
+  ngOnInit(): void {
+    // start interval to fetch servers every 10 seconds
+    this.fetchServers();
+
+    interval(300).pipe(takeUntil(this.$destroy)).subscribe(() => {
+      this.fetchServers();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.$destroy.next();
+    this.$destroy.complete();
+  }
+
+  fetchServers() {
+    this.serverApiService.getALlServers().pipe(takeUntil(this.$destroy)).subscribe((data) => {
+      next: this.servers = data;
+    });
+  }
 
   startServer() {
     //TODO Logic
@@ -25,7 +52,7 @@ export class ServerlistComponent {
   }
 
   deleteServer() {
-    
+
   }
 
   setConfigTab() {

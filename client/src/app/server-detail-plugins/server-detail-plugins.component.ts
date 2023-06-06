@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Server } from '../core/models/server.model';
 
 @Component({
   selector: 'app-server-detail-plugins',
@@ -6,7 +7,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./server-detail-plugins.component.scss']
 })
 export class ServerDetailPluginsComponent {
-  @Input() server: any;
+  @Input() server!: Server
 
   plugins = [
     { name: 'Plugin1' },

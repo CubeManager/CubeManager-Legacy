@@ -1,9 +1,9 @@
 <div class="ml-12 mt-10 h-full">
     <div class="flex space-x-3">
-        <div [ngClass]="server.state === 'Started' ? 'green': 'red'" class="flex items-center">
+        <div [ngClass]="server.isRunning  ? 'green': 'red'" class="flex items-center">
             <mat-icon class="running-state-container">circle</mat-icon>
         </div>
-        <h1 class="text-5xl">{{ server.name }}</h1>
+        <h1 class="text-5xl">{{ server.serverName }}</h1>
     </div>
 
     <div class="mt-5 grid grid-cols-4 gap-6 card-wrapper">
@@ -23,26 +23,26 @@
             <div class="card-body">
                 <h2 class="card-title">Players</h2>
                 <div class="" >
-                    <p class="text-5xl usage-text my-10">{{server.currentPlayers}} / {{server.maxPlayers}}</p>
+                    <p class="text-5xl usage-text my-10">{{server.currentPlayers}} / {{server.serverProperties.maxPlayers}}</p>
                 </div>
             </div>
         </div>
         <div class="flex flex-col justify-center">
             <div>
-                <button [ngClass]="server.state === 'Started' ? 'black': 'green'"
-                    [disabled]="server.state === 'Started'" (click)="startServer(server.name)">
+                <button [ngClass]="server.isRunning ? 'black': 'green'"
+                    [disabled]="server.isRunning " (click)="startServer(server.serverName!)">
                     <mat-icon class="text-4xl icons">play_arrow</mat-icon>
                 </button>
             </div>
             <div>
-                <button [ngClass]="server.state === 'Started' ? '': 'black'" [disabled]="server.state === 'Stopped'"
-                    (click)="restartServer(server.name)">
+                <button [ngClass]="server.isRunning ? '': 'black'" [disabled]="!server.isRunning"
+                    (click)="restartServer(server.serverName!)">
                     <mat-icon class="text-4xl icons">refresh</mat-icon>
                 </button>
             </div>
             <div>
-                <button [ngClass]="server.state === 'Stopped' ? 'black': 'red'" [disabled]="server.state === 'Stopped'"
-                    (click)="stopServer(server.name)">
+                <button [ngClass]="server.isRunning ? 'black': 'red'" [disabled]="!server.isRunning"
+                    (click)="stopServer(server.serverName!)">
                     <mat-icon class="text-4xl icons">stop</mat-icon>
                 </button>
             </div>
