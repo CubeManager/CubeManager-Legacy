@@ -6,7 +6,8 @@ export class ServerInput {
     public serverType: string | null | undefined,
     public exactVersion: string | null | undefined,
     public maxMemory: number | null | undefined,
-    public serverProperties: ServerPropertiesInput | null,
-    public serverFileName: string | null | undefined
+    public serverFileName: string | null | undefined,
+    public serverProperties: ServerPropertiesInput | null
+
   ) {}
 }

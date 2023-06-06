@@ -86,8 +86,8 @@ export class NewserverComponent {
       null,
       null,
       null,
-      new ServerPropertiesInput(),
-      null
+      null,
+      new ServerPropertiesInput()
     );
   }
 
@@ -124,7 +124,7 @@ export class NewserverComponent {
     this.serverCreateForm.get('serverType')?.setValue(e.target.value, {
       onlySelf: true,
     });
-  }  
+  }
 
   changeGamemode(e: any) {
     this.serverCreateForm.get('gamemode')?.setValue(e.target.value, {
@@ -148,14 +148,14 @@ export class NewserverComponent {
   }
 
   onSubmit() {
-    debugger;
-
     const body = {
         'serverName': this.serverCreateForm.get('serverName')?.value,
         'serverFileName': this.serverCreateForm.get('serverJar')?.value,
         'serverType': this.serverCreateForm.get('serverType')?.value || 'Vanilla',
         'exactVersion': this.serverCreateForm.get('serverVersion')?.value || '1.19.1',
+        'maxMemory': 1024,
         'serverProperties': {
+          'enableQuery': true,
           'gamemode': this.serverCreateForm.get('gamemode')?.value || 'Survival',
           'difficulty': this.serverCreateForm.get('difficulty')?.value || 'Easy',
           'worldName': this.serverCreateForm.get('worldName')?.value,
@@ -175,22 +175,13 @@ export class NewserverComponent {
           'worldFile': this.serverCreateForm.get('worldFile')?.value,
         }
     };
-    console.log(JSON.stringify(body));
-    
+
     this.apiService.post('http://localhost:4200/api/servers', JSON.stringify(body), new HttpHeaders({
       'Content-Type': 'application/json'
     }))
-      .subscribe((data) => {
-        next: console.log(data)
-        error: console.error(data)
-      });
-    // this.serverApiService.createServer(this.server).pipe().subscribe((data) => {
-    //   next: console.log(data)
-    //   error: console.error(data)
-    // });
-    //this.router.navigate(['/servers']);
+      .subscribe((data) => {});
   }
-  
+
   cancel() {
     console.log(this.serverCreateForm.dirty)
     if (this.serverCreateForm.dirty) {
