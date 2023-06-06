@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Hosting;
+using Service.BackgroundServices;
 using Service.Hubs;
 using Service.IServices;
 using Service.Services.Util;
@@ -36,62 +38,58 @@ public class ProcessManagementService : IProcessManagementService
 
         ActiveServers.Add(serverName, process);
 
-        await Task.Run(async () =>
-        {
-            using (var outputStreamReader = process.StandardOutput)
-            {
-                while (!outputStreamReader.EndOfStream)
-                {
-                    var output = await outputStreamReader.ReadLineAsync();
-                    Debug.WriteLine(output);
-
-                    // Send the output to the WebSocket
-                    await hubContext.Clients.All.SendAsync(WebSocketActions.MESSAGE_RECEIVED, serverName, output);
-                }
-            }
-        });
+        var backgroundService = new ServerOutputSenderService(hubContext, process, serverName);
+        ServerBackgroundServiceManager.AddBackgroundService(backgroundService, serverName);
+        await backgroundService.StartAsync(CancellationToken.None);
 
         return process;
     }
 
-    public async void Restart(string serverName)
+    public void Restart(string serverName)
     {
         var process = ActiveServers[serverName];
-        await KillProcess(process);
+        KillProcess(process);
         process.Start();
+        ServerBackgroundServiceManager.RemoveBackgroundService(serverName);
     }
 
-    public async void RestartAll()
+    public void RestartAll()
     {
-        foreach (Process process in ActiveServers.Values)
+        foreach ((string serverName, Process process) in ActiveServers)
         {
-            await KillProcess(process);
+            KillProcess(process);
             process.Start();
+            ServerBackgroundServiceManager.RemoveBackgroundService(serverName);
         }
 
     }
 
-    public async void Stop(string serverName)
+    public void Stop(string serverName)
     {
         var process = ActiveServers[serverName];
-        await KillProcess(process);
+        KillProcess(process);
         ActiveServers.Remove(serverName);
+        ServerBackgroundServiceManager.RemoveBackgroundService(serverName);
     }
 
-    public async void StopAll()
+    public void StopAll()
     {
         foreach((string serverName, Process process) in ActiveServers)
         {
-            await KillProcess(process);
+            KillProcess(process);
             ActiveServers.Remove(serverName);
+            ServerBackgroundServiceManager.RemoveBackgroundService(serverName);
         }
 
     }
 
-    private async Task KillProcess(Process process)
+    private async void KillProcess(Process process)
     {
-        process.Kill();
-        await process.WaitForExitAsync();
-        return;
+        if (!process.HasExited)
+        {
+            process.StandardInput.WriteLine("stop");
+            await process.WaitForExitAsync();
+            process.Close();
+        }
     }
 }
