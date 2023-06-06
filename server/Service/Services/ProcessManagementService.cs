@@ -24,7 +24,7 @@ public class ProcessManagementService : IProcessManagementService
     {
         if (ActiveServers.ContainsKey(serverName))
         {
-            throw new Exception($"Server \"{serverName}\"is already running");
+            throw new Exception($"Server \"{serverName}\" is already running");
         }
 
         var serverConfig = CubeManagerConfigUtil.GetCubeManagerConfig(serverName);
@@ -42,11 +42,7 @@ public class ProcessManagementService : IProcessManagementService
         ServerBackgroundServiceManager.AddBackgroundService(backgroundService, serverName);
         await backgroundService.StartAsync(CancellationToken.None);
 
-        var perfomanceSenderService = new PerfomanceSenderService(
-            hubContext: perfHubContext,
-            serverProcess: process,
-            serverName: serverName
-        );
+        var perfomanceSenderService = new PerfomanceSenderService(perfHubContext, process, serverName);
         ServerBackgroundServiceManager.AddBackgroundService(perfomanceSenderService, serverName);
         await perfomanceSenderService.StartAsync(CancellationToken.None);
 

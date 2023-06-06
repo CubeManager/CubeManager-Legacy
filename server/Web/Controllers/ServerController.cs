@@ -19,9 +19,6 @@ public class ServerController : ControllerBase {
     private readonly IProcessManagementService processManagementService;
     private readonly IServerService serverService;
 
-    private Process process;
-
-
     public ServerController(
         IServerCreationService serverCreationService, 
         IServerUpdateService serverUpdateService, 
@@ -55,10 +52,8 @@ public class ServerController : ControllerBase {
     }
 
     [HttpGet("{serverName}")]
-    public ActionResult<ServerViewModel> Get(string serverName)
+    public async Task<ActionResult<ServerViewModel>> Get(string serverName)
     {
-        var hubContext = HttpContext.RequestServices.GetService<IHubContext<PerformanceHub>>();
-        ServerBackgroundServiceManager.StartPerformanceBackgroundService(hubContext!, this.process, serverName);
         return serverService.GetServer(serverName);
     }
 
@@ -83,9 +78,11 @@ public class ServerController : ControllerBase {
     [HttpPost("{serverName}/start")]
     public async Task<IActionResult> StartServer(string serverName)
     {
-        this.process = await processManagementService.Start(serverName);
+        var process = await processManagementService.Start(serverName);
         var hubContext = HttpContext.RequestServices.GetService<IHubContext<ConsoleHub>>();
-        ServerBackgroundServiceManager.StartNewBackgroundService(hubContext!, this.process, serverName);
+        ServerBackgroundServiceManager.StartNewBackgroundService(hubContext!, process, serverName);
+        var hubContext2 = HttpContext.RequestServices.GetService<IHubContext<PerformanceHub>>();
+        await ServerBackgroundServiceManager.StartPerformanceBackgroundService(hubContext2!, process, serverName);
         return Ok();
     }
 

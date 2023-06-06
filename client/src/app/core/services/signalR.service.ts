@@ -10,11 +10,11 @@ export class SignalRService {
 
   constructor() {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl('https://localhost:8080/hub/console')
+      .withUrl('/api/hub/console')
       .build();
 
     this.performanceHubConnection = new HubConnectionBuilder()
-    .withUrl('https://localhost:8080/hub/performance')
+    .withUrl('/api/hub/performance')
     .build();
   }
 
@@ -33,7 +33,7 @@ export class SignalRService {
   }
 
   addPerformanceListener(callback: (serverName: string, cpu: number, ram: number) => void): void {
-    this.performanceHubConnection.on('PerformanceReceived', (serverName: string, cpu: number, ram: number) => {
+    this.performanceHubConnection.on('performanceReceived', (serverName: string, cpu: number, ram: number) => {
       callback(serverName, cpu, ram);
     });
   }

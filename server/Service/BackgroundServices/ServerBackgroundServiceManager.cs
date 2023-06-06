@@ -23,15 +23,14 @@ public static class ServerBackgroundServiceManager
         AddBackgroundService(serverOutputSenderService, serverName);
     }
 
-        public static async void StartPerformanceBackgroundService(IHubContext<PerformanceHub> hubContext, Process serverProcess, string serverName)
+        public static async Task StartPerformanceBackgroundService(IHubContext<PerformanceHub> hubContext, Process serverProcess, string serverName)
     {
         var perfomanceSenderService = new PerfomanceSenderService(
             hubContext: hubContext,
             serverProcess: serverProcess,
             serverName: serverName
         );
-        AddBackgroundService(perfomanceSenderService, serverName);
-        await perfomanceSenderService.StartAsync(CancellationToken.None);
+        await AddBackgroundService(perfomanceSenderService, serverName);
     }
 
     public static void AddBackgroundService(IHostedService service, string serverName)
