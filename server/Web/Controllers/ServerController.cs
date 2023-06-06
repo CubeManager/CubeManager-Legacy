@@ -1,6 +1,5 @@
 ﻿namespace Web.Controllers;
 
-using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Service.BackgroundServices;
