@@ -59,7 +59,7 @@
 
     <div class="mt-6 tab-content-wrapper h-[55vh]">
         <div *ngIf="activeTab === 0">
-            <app-server-detail-console [server]="server"></app-server-detail-console>
+            <app-server-detail-console #console [server]="server"></app-server-detail-console>
         </div>
         <div *ngIf="activeTab === 1">
             <app-server-detail-logs [server]="server"></app-server-detail-logs>

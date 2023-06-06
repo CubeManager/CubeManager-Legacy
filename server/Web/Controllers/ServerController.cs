@@ -19,21 +19,25 @@ public class ServerController : ControllerBase {
     private readonly IServerUpdateService serverUpdateService;
     private readonly IServerParameterService serverParameterService;
     private readonly IProcessManagementService processManagementService;
+    private readonly IServerLogService serverLogService;
     private readonly IServerService serverService;
 
 
     public ServerController(
         IServerCreationService serverCreationService, 
-        IServerUpdateService serverUpdateService, 
+        IServerUpdateService serverUpdateService,
         IProcessManagementService processManagementService,
         IServerParameterService serverParameterService,
-        IServerService serverService)
+        IServerService serverService,
+        IServerLogService serverLogService
+        )
     {
         this.serverCreationService = serverCreationService;
         this.serverUpdateService = serverUpdateService;
         this.processManagementService = processManagementService;
         this.serverParameterService = serverParameterService;
         this.serverService = serverService;
+        this.serverLogService = serverLogService;
     }
 
     [HttpGet]
@@ -94,7 +98,7 @@ public class ServerController : ControllerBase {
     {
         var process = await processManagementService.Start(serverName);
         var hubContext = HttpContext.RequestServices.GetService<IHubContext<ConsoleHub>>();
-        ServerBackgroundServiceManager.StartNewBackgroundService(hubContext!, process, serverName);
+        ServerOutputSenderServiceManager.StartNewBackgroundService(hubContext!, process, serverName);
         return Ok();
     }
 
@@ -103,6 +107,13 @@ public class ServerController : ControllerBase {
     {
         processManagementService.Stop(serverName);
         return Ok();
+    }
+
+    [HttpGet("{serverName}/log")]
+    public IActionResult GetServerLog(string serverName)
+    {
+        var serverLog = serverLogService.GetLatestServerLog(serverName);
+        return Ok(serverLog);
     }
 }
 
