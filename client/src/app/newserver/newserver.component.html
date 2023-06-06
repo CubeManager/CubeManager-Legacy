@@ -11,17 +11,18 @@
         
                 <div class="mt-2">
                     <p>Server Version</p>
-                    <select class="select w-full max-w-xs text" formControlName="serverVersion" (change)="changeServerVersion($event)">
-                        <option *ngFor="let serverVersion of serverVersions; let i = index" [ngValue]="serverVersion" >{{ serverVersion }}</option>
+                    <select class="select w-full max-w-xs text" formControlName="serverJar" (change)="changeServerJar($event)">
+                        <option *ngFor="let serverJar of serverJars;" [value]="serverJar" >{{ serverJar }}</option>
                     </select>
                 </div>
     
                 <div class="mt-2">
                     <p>Server Type</p>
                     <select class="select w-full max-w-xs text" formControlName="serverType" (change)="changeServerType($event)">
-                        <option *ngFor="let serverType of serverTypes" [ngValue]="serverType | uppercase">{{ serverType }}</option>
+                      <option *ngFor="let serverType of serverTypes" [value]="serverType">{{ serverType }}</option>
                     </select>
                 </div>
+                  
             </div>
     
             <div class="grid grid-cols-2 w-10/12 mt-11 setting-wrapper">
@@ -30,14 +31,14 @@
                         <div>
                             <p>Gamemode</p>
                             <select class="select text" formControlName="gamemode" (change)="changeGamemode($event)">
-                                <option *ngFor="let gamemode of gamemodes" [ngValue]="gamemode | uppercase">{{ gamemode }}</option>
+                                <option *ngFor="let gamemode of gamemodes" [value]="gamemode | uppercase">{{ gamemode }}</option>
                             </select>
                         </div>
     
                         <div>
                             <p>Difficulty</p>
                             <select class="select text" formControlName="difficulty" (change)="changeDifficulty($event)">
-                                <option *ngFor="let difficulty of difficulties" [ngValue]="difficulty | uppercase">{{ difficulty }}</option>
+                                <option *ngFor="let difficulty of difficulties" [value]="difficulty | uppercase">{{ difficulty }}</option>
                             </select>
                         </div>
     

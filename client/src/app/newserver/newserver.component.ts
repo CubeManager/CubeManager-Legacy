@@ -5,6 +5,10 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ServerApiService } from '../core/services/serverApi.service';
+import { Server } from 'src/app/core/models/server.model';
+import { ServerPropertiesInput } from '../core/models/serverPropertiesInput.model';
+import { ServerInput } from '../core/models/serverInput.model';
+import { HttpHeaders } from '@angular/common/http';
 
 
 @Component({
@@ -13,8 +17,9 @@ import { ServerApiService } from '../core/services/serverApi.service';
   styleUrls: ['./newserver.component.scss']
 })
 export class NewserverComponent {
-  serverVersions: Array<string> = [
-  ]
+  serverJars: Array<string> = []
+  server!: ServerInput;
+
   serverTypes: Array<string> = [
     "Vanilla",
     "Spigot",
@@ -61,12 +66,13 @@ export class NewserverComponent {
 
   constructor(private router: Router, private apiService: ApiService, private serverApiService: ServerApiService , private fb: FormBuilder, private http: HttpClient) {
     this.getServerJars();
+    this.initializeServer();
   }
 
   getServerJars() {
     this.http.get<string[]>('api/serverjars').subscribe(
       (response) => {
-        this.serverVersions = response;
+        this.serverJars = response;
       },
       (error) => {
         console.error(error);
@@ -74,12 +80,23 @@ export class NewserverComponent {
     );
   }
 
+  initializeServer(): void {
+    this.server = new ServerInput(
+      null,
+      null,
+      null,
+      null,
+      new ServerPropertiesInput(),
+      null
+    );
+  }
+
   serverCreateForm = this.fb.group({
     serverName: ['', [Validators.required]],
-    serverVersion: ['', [Validators.required]],
-    serverType: ['VANILLA', [Validators.required]],
-    gamemode: ['SURVIVAL', [Validators.required]],
-    difficulty: ['EASY', [Validators.required]],
+    serverJar: ['', [Validators.required]],
+    serverType: ['Vanilla', [Validators.required]],
+    gamemode: ['Survival', [Validators.required]],
+    difficulty: ['Easy', [Validators.required]],
     worldName: [''],
     maxPlayers: [20],
     viewDistance: [10],
@@ -97,8 +114,8 @@ export class NewserverComponent {
     worldFile: [null],
   });
 
-  changeServerVersion(e: any) {
-    this.serverCreateForm.get('serverVersion')?.setValue(e.target.value, {
+  changeServerJar(e: any) {
+    this.serverCreateForm.get('serverJar')?.setValue(e.target.value, {
       onlySelf: true,
     });
   }
@@ -107,7 +124,7 @@ export class NewserverComponent {
     this.serverCreateForm.get('serverType')?.setValue(e.target.value, {
       onlySelf: true,
     });
-  }
+  }  
 
   changeGamemode(e: any) {
     this.serverCreateForm.get('gamemode')?.setValue(e.target.value, {
@@ -131,33 +148,48 @@ export class NewserverComponent {
   }
 
   onSubmit() {
+    debugger;
+
     const body = {
-      'serverName': this.serverCreateForm.get('serverName')?.value,
-      'serverType': this.serverCreateForm.get('serverType')?.value,
-      'exactVersion': this.serverCreateForm.get('serverVersion')?.value,
-      'serverProperties': {
-        'gamemode': this.serverCreateForm.get('gamemode')?.value,
-        'difficulty': this.serverCreateForm.get('difficulty')?.value,
-        'worldName': this.serverCreateForm.get('worldName')?.value,
-        'maxPlayers': this.serverCreateForm.get('maxPlayers')?.value,
-        'viewDistance': this.serverCreateForm.get('viewDistance')?.value,
-        'simulationDistance': this.serverCreateForm.get('simulationDistance')?.value,
-        'pvp': this.serverCreateForm.get('pvp')?.value,
-        'structures': this.serverCreateForm.get('structures')?.value,
-        'commandBlock': this.serverCreateForm.get('commandBlock')?.value,
-        'forceGamemode': this.serverCreateForm.get('forceGamemode')?.value,
-        'hardcore': this.serverCreateForm.get('hardcore')?.value,
-        'whitelist': this.serverCreateForm.get('whitelist')?.value,
-        'npcs': this.serverCreateForm.get('npcs')?.value,
-        'animals': this.serverCreateForm.get('animals')?.value,
-        'monsters': this.serverCreateForm.get('monsters')?.value,
-        'motd': this.serverCreateForm.get('motd')?.value,
-        'worldFile': this.serverCreateForm.get('worldFile')?.value,
+      'serverInput': {
+        'serverName': this.serverCreateForm.get('serverName')?.value,
+        'serverFileName': this.serverCreateForm.get('serverJar')?.value,
+        'serverType': this.serverCreateForm.get('serverType')?.value || 'Vanilla',
+        'exactVersion': this.serverCreateForm.get('serverVersion')?.value,
+        'serverProperties': {
+          'gamemode': this.serverCreateForm.get('gamemode')?.value || 'Survival',
+          'difficulty': this.serverCreateForm.get('difficulty')?.value || 'Easy',
+          'worldName': this.serverCreateForm.get('worldName')?.value,
+          'maxPlayers': this.serverCreateForm.get('maxPlayers')?.value,
+          'viewDistance': this.serverCreateForm.get('viewDistance')?.value,
+          'simulationDistance': this.serverCreateForm.get('simulationDistance')?.value,
+          'pvp': this.serverCreateForm.get('pvp')?.value,
+          'structures': this.serverCreateForm.get('structures')?.value,
+          'commandBlock': this.serverCreateForm.get('commandBlock')?.value,
+          'forceGamemode': this.serverCreateForm.get('forceGamemode')?.value,
+          'hardcore': this.serverCreateForm.get('hardcore')?.value,
+          'whitelist': this.serverCreateForm.get('whitelist')?.value,
+          'npcs': this.serverCreateForm.get('npcs')?.value,
+          'animals': this.serverCreateForm.get('animals')?.value,
+          'monsters': this.serverCreateForm.get('monsters')?.value,
+          'motd': this.serverCreateForm.get('motd')?.value,
+          'worldFile': this.serverCreateForm.get('worldFile')?.value,
+        }
       }
-    }
+    };
+    console.log(JSON.stringify(body));
     
-    //this.apiService.post('http://localhost:4200/api/servers', JSON.stringify(body)).subscribe((data) => {});
-    this.serverApiService.createServer().subscribe((data) => {});
+    this.apiService.post('http://localhost:4200/api/servers', JSON.stringify(body), new HttpHeaders({
+      'Content-Type': 'application/json'
+    }))
+      .subscribe((data) => {
+        next: console.log(data)
+        error: console.error(data)
+      });
+    // this.serverApiService.createServer(this.server).pipe().subscribe((data) => {
+    //   next: console.log(data)
+    //   error: console.error(data)
+    // });
     //this.router.navigate(['/servers']);
   }
   
@@ -174,16 +206,16 @@ export class NewserverComponent {
     this.serverCreateForm.get('serverName')?.setValue('', {
       onlySelf: true,
     });
-    this.serverCreateForm.get('serverVersion')?.setValue('Vanilla x.xx.x', {
+    this.serverCreateForm.get('serverJar')?.setValue('Vanilla 1.19.1', {
       onlySelf: true,
     });
-    this.serverCreateForm.get('serverType')?.setValue('VANILLA', {
+    this.serverCreateForm.get('serverType')?.setValue('Vanilla', {
       onlySelf: true,
     });
-    this.serverCreateForm.get('gamemode')?.setValue('EASY', {
+    this.serverCreateForm.get('gamemode')?.setValue('Survival', {
       onlySelf: true,
     });
-    this.serverCreateForm.get('difficulty')?.setValue('SURVIVAL', {
+    this.serverCreateForm.get('difficulty')?.setValue('Easy', {
       onlySelf: true,
     });
     this.serverCreateForm.get('worldName')?.setValue('', {

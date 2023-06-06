@@ -49,8 +49,8 @@ export interface ServerProperties {
   resourcePackPrompt: string | null;
   initialDisabledPacks: string | null;
   generatorSettings: string | null;
-  difficulty: string | null;
-  gamemode: string | null;
+  difficulty: string | null | undefined;
+  gamemode: string | null | undefined;
   levelType: string | null;
   opPermissionLevel: number | null;
 }
