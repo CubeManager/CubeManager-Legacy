@@ -80,12 +80,8 @@ public class ServerController : ControllerBase {
     public async Task<IActionResult> StartServer(string serverName)
     {
         var process = await processManagementService.Start(serverName);
-
-
-
         var hubContext = HttpContext.RequestServices.GetService<IHubContext<ConsoleHub>>();
         BackgroundServiceManager.StartNewBackgroundService(hubContext!, process, serverName);
-
         return Ok();
     }
 
