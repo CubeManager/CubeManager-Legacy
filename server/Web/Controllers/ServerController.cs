@@ -17,6 +17,7 @@ public class ServerController : ControllerBase {
     private readonly IServerCreationService serverCreationService;
     private readonly IServerPropertiesService serverPropertiesService;
     private readonly IServerUpdateService serverUpdateService;
+    private readonly IServerDeleteService serverDeleteService;
     private readonly IServerParameterService serverParameterService;
     private readonly IConsoleService consoleService;
     private readonly IProcessManagementService processManagementService;
@@ -28,6 +29,7 @@ public class ServerController : ControllerBase {
         IServerCreationService serverCreationService, 
         IServerPropertiesService serverPropertiesService,
         IServerUpdateService serverUpdateService, 
+        IServerDeleteService serverDeleteService,
         IConsoleService consoleService,
         IProcessManagementService processManagementService,
         IHubContext<ConsoleHub> hubContext,
@@ -37,7 +39,7 @@ public class ServerController : ControllerBase {
         this.serverCreationService = serverCreationService;
         this.serverPropertiesService = serverPropertiesService;
         this.serverUpdateService = serverUpdateService;
-        this.consoleService = consoleService;
+        this.serverDeleteService = serverDeleteService;
         this.processManagementService = processManagementService;
         this.hubContext = hubContext;
         this.serverParameterService = serverParameterService;
@@ -92,27 +94,12 @@ public class ServerController : ControllerBase {
         return Ok();
     }
 
-    [Route("console/{serverName}")]
-    [ApiExplorerSettings(IgnoreApi = true)]
-    public async Task<IActionResult> GetConsole(string serverName)
+    [HttpDelete("{serverName}")]
+    public IActionResult DeleteServer(string serverName)
     {
-        if (HttpContext.WebSockets.IsWebSocketRequest)
-        {
-            using var webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
-            await consoleService.RedirectConsoleStream(webSocket, serverName);
-            return Ok();
-        }
-        else
-        {
-            return BadRequest();
-        }
-    }
-
-    [HttpPut]
-    public IActionResult UpdateServer([FromBody] ServerInputModel serverInput)
-    {
-        serverUpdateService.UpdateServer(serverInput);
+        processManagementService.Stop(serverName);
+        serverDeleteService.DeleteServer(serverName);
         return Ok();
-    } 
+    }
 }
 
