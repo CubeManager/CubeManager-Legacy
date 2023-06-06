@@ -4,6 +4,8 @@ import { VariableService } from '../variable.service';
 import { ServerApiService } from '../core/services/serverApi.service';
 import { Server } from '../core/models/server.model';
 import { Subject, interval, takeUntil } from 'rxjs';
+import { SignalRService } from '../core/services/signalR.service';
+import * as signalR from '@microsoft/signalr';
 
 
 @Component({
@@ -29,7 +31,7 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
 
   activeTab = 0;
 
-  constructor(private route: ActivatedRoute, private readonly _variableService: VariableService, private serverApiService: ServerApiService) {}
+  constructor(private route: ActivatedRoute, private readonly _variableService: VariableService, private serverApiService: ServerApiService, private SignalRService: SignalRService) {}
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
@@ -39,6 +41,12 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
 
     interval(3000).pipe(takeUntil(this.$destroy)).subscribe(() => {
       this.fetchServer(serverName!);
+    });
+
+    this.SignalRService.startPerformanceConnection();
+    this.SignalRService.addPerformanceListener((serverName: string, cpu: number, ram: number) => {
+        this.server.cpu = cpu;
+        this.server.memory = ram;
     });
 
     if (this._variableService.setConfigTabActive) {

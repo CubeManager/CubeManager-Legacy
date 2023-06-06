@@ -37,10 +37,6 @@ public class ServerController : ControllerBase {
     [HttpGet]
     public ActionResult<List<ServerViewModel>> GetAll()
     {
-        //TODO: move to performance
-        // List<Server> servers = serverParameterService.CreateTestServers();
-        // Dictionary<string, Process> processes = processManagementService.ActiveServers;
-        // return await serverParameterService.getPerformance(processes, servers);
         return serverService.GetAllServers();
     }
 
@@ -59,8 +55,11 @@ public class ServerController : ControllerBase {
     }
 
     [HttpGet("{serverName}")]
-    public ActionResult<ServerViewModel> Get(string serverName)
+    public async Task<ActionResult<ServerViewModel>> Get(string serverName)
     {
+        var process = await processManagementService.Start(serverName);
+        var hubContext = HttpContext.RequestServices.GetService<IHubContext<PerformanceHub>>();
+        ServerBackgroundServiceManager.StartPerformanceBackgroundService(hubContext!, process, serverName);
         return serverService.GetServer(serverName);
     }
 
