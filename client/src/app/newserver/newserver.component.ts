@@ -178,8 +178,9 @@ export class NewserverComponent {
 
     this.apiService.post('http://localhost:4200/api/servers', JSON.stringify(body), new HttpHeaders({
       'Content-Type': 'application/json'
-    }))
-      .subscribe((data) => {});
+    })).subscribe((data) => {
+      this.router.navigate(['/servers']);
+    });
   }
 
   cancel() {

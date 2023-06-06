@@ -23,11 +23,12 @@ public class ServerCreationService : IServerCreationService
         if (serverInput.maxMemory < 250)
         {
             // throw new Exception("maxMemory must be at least 250 MB")
+            serverInput.maxMemory = 250;
         }
 
         if (Directory.Exists(serverPath))
         {
-            //throw new Exception("Server Folder already exists");
+            throw new Exception("Server Folder already exists");
         }
 
         Directory.CreateDirectory(serverPath);
