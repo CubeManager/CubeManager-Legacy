@@ -8,10 +8,13 @@ namespace Service.Services;
 
 public class ProcessManagementService : IProcessManagementService
 {
+    private readonly IHubContext<ConsoleHub> hubContext;
+
     public Dictionary<string, Process> ActiveServers { get; set; }
 
-    public ProcessManagementService()
+    public ProcessManagementService(IHubContext<ConsoleHub> hubContext)
     {
+        this.hubContext = hubContext;
         ActiveServers = new Dictionary<string, Process>();
     }
 
@@ -33,14 +36,21 @@ public class ProcessManagementService : IProcessManagementService
 
         ActiveServers.Add(serverName, process);
 
-        using (var outputStreamReader = process.StandardOutput)
+        await Task.Run(async () =>
         {
-            while (!outputStreamReader.EndOfStream)
+            using (var outputStreamReader = process.StandardOutput)
             {
-                var output = await outputStreamReader.ReadLineAsync();
-                Debug.WriteLine(output);
+                while (!outputStreamReader.EndOfStream)
+                {
+                    var output = await outputStreamReader.ReadLineAsync();
+                    Debug.WriteLine(output);
+
+                    // Send the output to the WebSocket
+                    await hubContext.Clients.All.SendAsync(WebSocketActions.MESSAGE_RECEIVED, serverName, output);
+                }
             }
-        }
+        });
+
         return process;
     }
 

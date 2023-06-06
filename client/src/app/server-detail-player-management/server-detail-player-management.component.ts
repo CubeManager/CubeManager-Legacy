@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Server } from '../core/models/server.model';
 
 @Component({
   selector: 'app-server-detail-player-management',
@@ -7,7 +8,7 @@ import { Component, Input } from '@angular/core';
 })
 export class ServerDetailPlayerManagementComponent {
 
-  @Input() server: any;
+  @Input() server!: Server
 
   whiteList = [
     { name: 'Player1' },

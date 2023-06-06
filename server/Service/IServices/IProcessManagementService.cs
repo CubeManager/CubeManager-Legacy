@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.AspNetCore.SignalR;
+using Service.Hubs;
+using System.Diagnostics;
 
 namespace Service.IServices;
 

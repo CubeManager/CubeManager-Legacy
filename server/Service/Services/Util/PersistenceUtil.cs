@@ -4,11 +4,27 @@ using Service.InputModels;
 
 public static class PersistenceUtil
 {
+    public static string GetApplicationPath()
+    {
+        return Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            $"CubeManager\\"
+        );
+    }
+
+    public static string GetServerPath()
+    {
+        return Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            $"CubeManager\\servers\\"
+        );
+    }
+
     public static string GetServerPath(string serverName)
     {
         return Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            $"CubeManager\\{serverName}\\"
+            $"CubeManager\\servers\\{serverName}\\"
         );
     }
 
@@ -27,11 +43,4 @@ public static class PersistenceUtil
         throw new Exception("No jar filename found");
     }
 
-    public static string GetAppData()
-    {
-        return Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            $"CubeManager"
-        );
-    }
 }
