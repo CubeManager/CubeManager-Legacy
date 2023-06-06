@@ -24,7 +24,7 @@ public class PerfomanceSenderService : BackgroundService
             double cpu = Math.Round(await GetCpuUsageForProcess(_serverProcess), 4);
             long ram = _serverProcess.WorkingSet64 / 1024 / 1024;
 
-            await _hubContext.Clients.All.SendAsync(WebSocketActions.MESSAGE_RECEIVED, _serverName, cpu, ram);
+            await _hubContext.Clients.All.SendAsync("performanceReceived", _serverName, cpu, ram);
 
         });
     }

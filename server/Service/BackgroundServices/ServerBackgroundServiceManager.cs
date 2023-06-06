@@ -21,10 +21,9 @@ public static class ServerBackgroundServiceManager
             serverName: serverName
         );
         AddBackgroundService(serverOutputSenderService, serverName);
-        //serverOutputSenderService.(CancellationToken.None);
     }
 
-        public static void StartPerformanceBackgroundService(IHubContext<PerformanceHub> hubContext, Process serverProcess, string serverName)
+        public static async void StartPerformanceBackgroundService(IHubContext<PerformanceHub> hubContext, Process serverProcess, string serverName)
     {
         var perfomanceSenderService = new PerfomanceSenderService(
             hubContext: hubContext,
@@ -32,7 +31,7 @@ public static class ServerBackgroundServiceManager
             serverName: serverName
         );
         AddBackgroundService(perfomanceSenderService, serverName);
-        //serverOutputSenderService.(CancellationToken.None);
+        await perfomanceSenderService.StartAsync(CancellationToken.None);
     }
 
     public static void AddBackgroundService(IHostedService service, string serverName)

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.Hosting;
 using Service.BackgroundServices;
 using Service.Hubs;
 using Service.IServices;
@@ -11,6 +10,7 @@ namespace Service.Services;
 public class ProcessManagementService : IProcessManagementService
 {
     private readonly IHubContext<ConsoleHub> hubContext;
+    private readonly IHubContext<PerformanceHub> perfHubContext;
 
     public Dictionary<string, Process> ActiveServers { get; set; }
 
@@ -41,6 +41,14 @@ public class ProcessManagementService : IProcessManagementService
         var backgroundService = new ServerOutputSenderService(hubContext, process, serverName);
         ServerBackgroundServiceManager.AddBackgroundService(backgroundService, serverName);
         await backgroundService.StartAsync(CancellationToken.None);
+
+        var perfomanceSenderService = new PerfomanceSenderService(
+            hubContext: perfHubContext,
+            serverProcess: process,
+            serverName: serverName
+        );
+        ServerBackgroundServiceManager.AddBackgroundService(perfomanceSenderService, serverName);
+        await perfomanceSenderService.StartAsync(CancellationToken.None);
 
         return process;
     }

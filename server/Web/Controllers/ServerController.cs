@@ -8,6 +8,7 @@ using Service.InputModels;
 using Service.IServices;
 using Service.ViewModel;
 using System;
+using System.Diagnostics;
 
 [ApiController]
 [Route("servers")]
@@ -15,22 +16,21 @@ public class ServerController : ControllerBase {
 
     private readonly IServerCreationService serverCreationService;
     private readonly IServerUpdateService serverUpdateService;
-    private readonly IServerParameterService serverParameterService;
     private readonly IProcessManagementService processManagementService;
     private readonly IServerService serverService;
+
+    private Process process;
 
 
     public ServerController(
         IServerCreationService serverCreationService, 
         IServerUpdateService serverUpdateService, 
         IProcessManagementService processManagementService,
-        IServerParameterService serverParameterService,
         IServerService serverService)
     {
         this.serverCreationService = serverCreationService;
         this.serverUpdateService = serverUpdateService;
         this.processManagementService = processManagementService;
-        this.serverParameterService = serverParameterService;
         this.serverService = serverService;
     }
 
@@ -55,17 +55,23 @@ public class ServerController : ControllerBase {
     }
 
     [HttpGet("{serverName}")]
-    public async Task<ActionResult<ServerViewModel>> Get(string serverName)
+    public ActionResult<ServerViewModel> Get(string serverName)
     {
-        var process = await processManagementService.Start(serverName);
         var hubContext = HttpContext.RequestServices.GetService<IHubContext<PerformanceHub>>();
-        ServerBackgroundServiceManager.StartPerformanceBackgroundService(hubContext!, process, serverName);
+        ServerBackgroundServiceManager.StartPerformanceBackgroundService(hubContext!, this.process, serverName);
         return serverService.GetServer(serverName);
     }
 
     [HttpGet("/ram")]
     public ActionResult<double> getRAM() {
-        return serverParameterService.getPCRAM();
+        var info = new ProcessStartInfo();
+        info.FileName = "wmic";
+        info.Arguments = "OS get TotalVisibleMemorySize /Value";
+        info.RedirectStandardOutput = true;
+        var process = Process.Start(info);
+        string output = process.StandardOutput.ReadToEnd();
+        var totalMemoryParts = output.Substring(output.IndexOf('=') + 1);
+        return Math.Round((double.Parse(totalMemoryParts) / 1024), 0);
     }
 
     [HttpGet("/storage")]
@@ -77,9 +83,9 @@ public class ServerController : ControllerBase {
     [HttpPost("{serverName}/start")]
     public async Task<IActionResult> StartServer(string serverName)
     {
-        var process = await processManagementService.Start(serverName);
+        this.process = await processManagementService.Start(serverName);
         var hubContext = HttpContext.RequestServices.GetService<IHubContext<ConsoleHub>>();
-        ServerBackgroundServiceManager.StartNewBackgroundService(hubContext!, process, serverName);
+        ServerBackgroundServiceManager.StartNewBackgroundService(hubContext!, this.process, serverName);
         return Ok();
     }
 

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 public class PerformanceHub : Hub
 {
     static readonly Dictionary<string, string> Performance = new Dictionary<string, string>();
-    public async Task Send(string serverName, string message)
+    public async Task Send(string serverName, string message, double cpu, long ram)
     {
-        await Clients.All.SendAsync(WebSocketActions.MESSAGE_RECEIVED, serverName, message);
+        await Clients.All.SendAsync("performanceReceived", serverName, cpu, ram);
     }
 }
