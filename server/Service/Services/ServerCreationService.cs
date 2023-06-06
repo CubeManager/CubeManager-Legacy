@@ -32,7 +32,15 @@ public class ServerCreationService : IServerCreationService
 
         Directory.CreateDirectory(serverPath);
 
-        File.Copy($"{PersistenceUtil.GetApplicationPath()}serverjars\\{serverInput.serverFileName}", $"{serverPath}\\{serverInput.serverFileName}");
+        try
+        {
+            await FileCopyAsync($"{PersistenceUtil.GetApplicationPath()}serverjars\\{serverInput.serverFileName}", $"{serverPath}\\{serverInput.serverFileName}");
+            Console.WriteLine("File copied successfully.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error copying file: {ex.Message}");
+        }
 
         var processStartInfo = ServerProcessUtil.CreateServerProcessStartInfo(serverPath, serverInput.serverFileName, serverInput.maxMemory);
 
@@ -79,5 +87,16 @@ public class ServerCreationService : IServerCreationService
     {
         var config = CubeManagerConfigUtil.CreateServerCubeManagerConfig(jarFile, maxMemory);
         CubeManagerConfigUtil.SetCubeManagerConfig(config, serverName);
+    }
+
+    private async Task FileCopyAsync(string sourcePath, string destinationPath)
+    {
+        using (FileStream sourceStream = new FileStream(sourcePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 4096, useAsync: true))
+        {
+            using (FileStream destinationStream = new FileStream(destinationPath, FileMode.CreateNew, FileAccess.Write, FileShare.None, bufferSize: 4096, useAsync: true))
+            {
+                await sourceStream.CopyToAsync(destinationStream);
+            }
+        }
     }
 }

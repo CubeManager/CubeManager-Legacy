@@ -20,7 +20,7 @@ public static class ServerProcessUtil
         processStartInfo.RedirectStandardOutput = true;
         processStartInfo.WorkingDirectory = serverPath;
         processStartInfo.FileName = "java";
-        processStartInfo.Arguments = $"-Xmx{maxMemory}M -jar {Path.Combine(serverPath, serverJarFile)} nogui";
+        processStartInfo.Arguments = $"-Xmx{maxMemory}M -jar {serverJarFile} nogui";
         return processStartInfo;
     }
 }

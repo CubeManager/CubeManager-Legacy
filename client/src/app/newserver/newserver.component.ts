@@ -151,11 +151,10 @@ export class NewserverComponent {
     debugger;
 
     const body = {
-      'serverInput': {
         'serverName': this.serverCreateForm.get('serverName')?.value,
         'serverFileName': this.serverCreateForm.get('serverJar')?.value,
         'serverType': this.serverCreateForm.get('serverType')?.value || 'Vanilla',
-        'exactVersion': this.serverCreateForm.get('serverVersion')?.value,
+        'exactVersion': this.serverCreateForm.get('serverVersion')?.value || '1.19.1',
         'serverProperties': {
           'gamemode': this.serverCreateForm.get('gamemode')?.value || 'Survival',
           'difficulty': this.serverCreateForm.get('difficulty')?.value || 'Easy',
@@ -175,7 +174,6 @@ export class NewserverComponent {
           'motd': this.serverCreateForm.get('motd')?.value,
           'worldFile': this.serverCreateForm.get('worldFile')?.value,
         }
-      }
     };
     console.log(JSON.stringify(body));
     
