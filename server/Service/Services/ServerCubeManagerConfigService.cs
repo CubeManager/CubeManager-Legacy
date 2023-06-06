@@ -1,7 +1,6 @@
 ﻿using Domain;
 
 using Service.IServices;
-using Service.Services.Util;
 using System.Text.Json;
 
 namespace Service.Services;
@@ -10,7 +9,7 @@ public class ServerCubeManagerConfigService : IServerCubeManagerConfigService
 {
     public ServerCubeManagerConfig GetCubeManagerConfig(string serverName)
     {
-        string cubeManagerConfigFile = Path.Combine(PersistenceUtil.GetServerPath(serverName), "cubemanager-config.json");
+        string cubeManagerConfigFile = Path.Combine(Util.PersistenceUtil.GetServerPath(serverName), "cubemanager-config.json");
         if (!File.Exists(cubeManagerConfigFile))
         {
             throw new Exception("CubeManager config file does not exist");
@@ -43,7 +42,7 @@ public class ServerCubeManagerConfigService : IServerCubeManagerConfigService
 
     public void SetCubeManagerConfig(ServerCubeManagerConfig serverCubeManagerConfig, string serverName)
     {
-        string cubeManagerConfigFile = Path.Combine(PersistenceUtil.GetServerPath(serverName), "cubemanager-config.json");
+        string cubeManagerConfigFile = Path.Combine(Util.PersistenceUtil.GetServerPath(serverName), "cubemanager-config.json");
         if (!File.Exists(cubeManagerConfigFile))
         {
             File.Create(cubeManagerConfigFile).Close();

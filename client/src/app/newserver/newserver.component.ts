@@ -39,7 +39,7 @@ export class NewserverComponent implements OnInit {
   }
 
   getServerJars() {
-    this.http.get<string[]>('/serverjars').subscribe(
+    this.http.get<string[]>('api/serverjars').subscribe(
       (response) => {
         this.serverJars = response;
       },

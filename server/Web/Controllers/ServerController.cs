@@ -1,4 +1,6 @@
-﻿namespace Web.Controllers;
+﻿using Service.Services.Util;
+
+namespace Web.Controllers;
 
 using Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -77,15 +79,17 @@ public class ServerController : ControllerBase {
     [HttpGet("/serverjars")]
     public ActionResult<List<string>> getServerJars()
     {
-        string path = $"{PersistenceUtil.GetAppData}\\serverjars";
-        return Directory.GetFiles(path).ToList();
-    }
+        string path = $"{PersistenceUtil.GetApplicationPath()}serverjars";
+        string[] files = Directory.GetFiles(path);
+        List<string> filenames = new List<string>();
 
-    [HttpPost]
-    public async Task<IActionResult> CreateServer([FromBody] ServerInputModel serverInput)
-    {
-        await serverCreationService.CreateServer(serverInput);
-        return Ok();
+        foreach (string file in files)
+        {
+            string filename = Path.GetFileName(file);
+            filenames.Add(filename);
+        }
+
+        return filenames;
     }
 
     [HttpPost("start/{serverName}")]

@@ -32,7 +32,7 @@ public class ServerCreationService : IServerCreationService
 
         Directory.CreateDirectory(serverPath);
 
-        File.Copy($"{PersistenceUtil.GetAppData}\\serverjars\\{serverInput.serverFileName}", $"{serverPath}\\{serverInput.serverFileName}");
+        File.Copy($"{PersistenceUtil.GetApplicationPath()}serverjars\\{serverInput.serverFileName}", $"{serverPath}\\{serverInput.serverFileName}");
 
         var processStartInfo = ServerProcessUtil.CreateServerProcessStartInfo(serverPath, serverInput.serverFileName, serverInput.maxMemory);
 
