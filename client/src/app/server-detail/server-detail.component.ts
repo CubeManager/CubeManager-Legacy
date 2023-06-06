@@ -51,11 +51,11 @@ export class ServerDetailComponent implements OnInit {
   }
 
   startServer(serverName: string) {
-    // TODO: Implement startServer()
+    this.serverApiService.startServer(serverName);
   }
 
   stopServer(serverName: string) {
-    // TODO: Implement stopServer()
+    this.serverApiService.stopServer(serverName);
   }
 
   restartServer(serverName: string) {

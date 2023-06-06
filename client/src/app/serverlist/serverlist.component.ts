@@ -34,25 +34,26 @@ export class ServerlistComponent implements OnInit, OnDestroy {
   }
 
   fetchServers() {
-    this.serverApiService.getALlServers().pipe(takeUntil(this.$destroy)).subscribe((data) => {
+    this.serverApiService.getAllServers().pipe(takeUntil(this.$destroy)).subscribe((data) => {
       next: this.servers = data;
     });
   }
 
-  startServer() {
-    //TODO Logic
+  startServer(serverName: any) {
+    this.serverApiService.startServer(serverName);
   }
 
-  stopServer() {
-    //TODO Logic
+  stopServer(serverName: any) {
+    this.serverApiService.stopServer(serverName);
   }
 
-  reloadServer() {
-    //TODO Logic
+  reloadServer(serverName: any) {
+    this.stopServer(serverName);
+    this.startServer(serverName);
   }
 
-  deleteServer() {
-
+  deleteServer(serverName: any) {
+    this.serverApiService.deleteServerByName(serverName);
   }
 
   setConfigTab() {
