@@ -19,21 +19,31 @@ public class ServerCreationService : IServerCreationService
     public async Task CreateServer(ServerInputModel serverInput)
     {
         var serverPath = PersistenceUtil.GetServerPath(serverInput.serverName);
-        var serverJarFile = PersistenceUtil.GetJarFileName(serverInput);
 
         if (serverInput.maxMemory < 250)
         {
             // throw new Exception("maxMemory must be at least 250 MB")
+            serverInput.maxMemory = 250;
         }
 
         if (Directory.Exists(serverPath))
         {
-            //throw new Exception("Server Folder already exists");
+            throw new Exception("Server Folder already exists");
         }
 
         Directory.CreateDirectory(serverPath);
 
-        var processStartInfo = ServerProcessUtil.CreateServerProcessStartInfo(serverPath, serverJarFile, serverInput.maxMemory);
+        try
+        {
+            await FileCopyAsync($"{PersistenceUtil.GetApplicationPath()}serverjars\\{serverInput.serverFileName}", $"{serverPath}\\{serverInput.serverFileName}");
+            Console.WriteLine("File copied successfully.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error copying file: {ex.Message}");
+        }
+
+        var processStartInfo = ServerProcessUtil.CreateServerProcessStartInfo(serverPath, serverInput.serverFileName, serverInput.maxMemory);
 
         CreateEulaFile(serverPath);
 
@@ -46,7 +56,7 @@ public class ServerCreationService : IServerCreationService
             serverPropertiesService.ChangeServerProperties(serverInput.serverProperties, serverInput.serverName);
         }
 
-        CreateServerCubeManagerConfig(serverJarFile, serverInput.maxMemory, serverInput.serverName);
+        CreateServerCubeManagerConfig(serverInput.serverFileName, serverInput.maxMemory, serverInput.serverName);
     }
 
     private Process StartServerProcess(ProcessStartInfo startProcessInfo)
@@ -78,5 +88,16 @@ public class ServerCreationService : IServerCreationService
     {
         var config = CubeManagerConfigUtil.CreateServerCubeManagerConfig(jarFile, maxMemory);
         CubeManagerConfigUtil.SetCubeManagerConfig(config, serverName);
+    }
+
+    private async Task FileCopyAsync(string sourcePath, string destinationPath)
+    {
+        using (FileStream sourceStream = new FileStream(sourcePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 4096, useAsync: true))
+        {
+            using (FileStream destinationStream = new FileStream(destinationPath, FileMode.CreateNew, FileAccess.Write, FileShare.None, bufferSize: 4096, useAsync: true))
+            {
+                await sourceStream.CopyToAsync(destinationStream);
+            }
+        }
     }
 }

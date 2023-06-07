@@ -20,7 +20,6 @@ export class ServerlistComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    // start interval to fetch servers every 10 seconds
     this.fetchServers();
 
     interval(300).pipe(takeUntil(this.$destroy)).subscribe(() => {
