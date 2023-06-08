@@ -112,10 +112,9 @@ public class ServerController : ControllerBase {
         return Ok();
     }
 
-    [HttpDelete("{serverName}")]
+    [HttpDelete("{serverName}/delete")]
     public IActionResult DeleteServer(string serverName)
     {
-        processManagementService.Stop(serverName);
         serverDeleteService.DeleteServer(serverName);
         return Ok();
     }

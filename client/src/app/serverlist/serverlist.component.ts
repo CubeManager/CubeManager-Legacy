@@ -35,6 +35,13 @@ export class ServerlistComponent implements OnInit, OnDestroy {
   fetchServers() {
     this.serverApiService.getAllServers().pipe(takeUntil(this.$destroy)).subscribe((data) => {
       next: this.servers = data;
+      this.servers.forEach(server => {
+        if(!server.isRunning) {
+          server.memory = 0;
+          server.cpu = 0;
+          server.currentPlayers = 0;
+        }
+      });
     });
   }
 

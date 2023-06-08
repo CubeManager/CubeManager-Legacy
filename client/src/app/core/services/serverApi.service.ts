@@ -33,8 +33,8 @@ export class ServerApiService {
     return this.apiService.post('http://localhost:4200/api/servers', server);
   }
 
-  public deleteServerByName(serverName: string) {
-    this.apiService.delete(`http://localhost:4200/api/servers/${serverName}`, {});
+  public deleteServerByName(serverName: string) {   
+    return this.apiService.delete(`http://localhost:4200/api/servers/${serverName}/delete`, {});
   }
   public getServerLog(serverName: string) {
     return this.apiService.get<string[]>(`http://localhost:4200/api/servers/${serverName}/log`);
