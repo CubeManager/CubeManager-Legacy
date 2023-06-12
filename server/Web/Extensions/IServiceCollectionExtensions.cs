@@ -14,7 +14,9 @@ public static class IServiceCollectionExtensions
         services.AddScoped<IServerCreationService, ServerCreationService>();
         services.AddScoped<IServerService, ServerService>();
         services.AddScoped<IServerUpdateService, ServerUpdateService>();
-        services.AddScoped<IConsoleService, ConsoleService>();
+        services.AddScoped<IServerLogService, ServerLogService>();
+
+
         return services;
     }
 

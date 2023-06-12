@@ -39,7 +39,7 @@ public class ProcessManagementService : IProcessManagementService
         ActiveServers.Add(serverName, process);
 
         var backgroundService = new ServerOutputSenderService(hubContext, process, serverName);
-        ServerBackgroundServiceManager.AddBackgroundService(backgroundService, serverName);
+        ServerOutputSenderServiceManager.AddBackgroundService(backgroundService, serverName);
         await backgroundService.StartAsync(CancellationToken.None);
 
         var perfomanceSenderService = new PerfomanceSenderService(perfHubContext, process, serverName);
@@ -54,7 +54,7 @@ public class ProcessManagementService : IProcessManagementService
         var process = ActiveServers[serverName];
         KillProcess(process);
         process.Start();
-        ServerBackgroundServiceManager.RemoveBackgroundService(serverName);
+        ServerOutputSenderServiceManager.RemoveBackgroundService(serverName);
     }
 
     public void RestartAll()
@@ -63,7 +63,7 @@ public class ProcessManagementService : IProcessManagementService
         {
             KillProcess(process);
             process.Start();
-            ServerBackgroundServiceManager.RemoveBackgroundService(serverName);
+            ServerOutputSenderServiceManager.RemoveBackgroundService(serverName);
         }
 
     }
@@ -73,7 +73,7 @@ public class ProcessManagementService : IProcessManagementService
         var process = ActiveServers[serverName];
         KillProcess(process);
         ActiveServers.Remove(serverName);
-        ServerBackgroundServiceManager.RemoveBackgroundService(serverName);
+        ServerOutputSenderServiceManager.RemoveBackgroundService(serverName);
     }
 
     public void StopAll()
@@ -82,7 +82,7 @@ public class ProcessManagementService : IProcessManagementService
         {
             KillProcess(process);
             ActiveServers.Remove(serverName);
-            ServerBackgroundServiceManager.RemoveBackgroundService(serverName);
+            ServerOutputSenderServiceManager.RemoveBackgroundService(serverName);
         }
 
     }

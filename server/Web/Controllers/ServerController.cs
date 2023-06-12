@@ -1,4 +1,6 @@
-﻿namespace Web.Controllers;
+﻿using Service.Services.Util;
+
+namespace Web.Controllers;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -17,18 +19,23 @@ public class ServerController : ControllerBase {
     private readonly IServerCreationService serverCreationService;
     private readonly IServerUpdateService serverUpdateService;
     private readonly IProcessManagementService processManagementService;
+    private readonly IServerLogService serverLogService;
     private readonly IServerService serverService;
 
     public ServerController(
         IServerCreationService serverCreationService, 
-        IServerUpdateService serverUpdateService, 
+        IServerUpdateService serverUpdateService,
         IProcessManagementService processManagementService,
-        IServerService serverService)
+        IServerParameterService serverParameterService,
+        IServerService serverService,
+        IServerLogService serverLogService
+        )
     {
         this.serverCreationService = serverCreationService;
         this.serverUpdateService = serverUpdateService;
         this.processManagementService = processManagementService;
         this.serverService = serverService;
+        this.serverLogService = serverLogService;
     }
 
     [HttpGet]
@@ -75,14 +82,30 @@ public class ServerController : ControllerBase {
         return new DirectoryInfo(path).EnumerateFiles("*", SearchOption.AllDirectories).Sum(fi => fi.Length) / 1024 / 1024;
     }
 
+    [HttpGet("/serverjars")]
+    public ActionResult<List<string>> getServerJars()
+    {
+        string path = $"{PersistenceUtil.GetApplicationPath()}serverjars";
+        string[] files = Directory.GetFiles(path);
+        List<string> filenames = new List<string>();
+
+        foreach (string file in files)
+        {
+            string filename = Path.GetFileName(file);
+            filenames.Add(filename);
+        }
+
+        return filenames;
+    }
+
     [HttpPost("{serverName}/start")]
     public async Task<IActionResult> StartServer(string serverName)
     {
         var process = await processManagementService.Start(serverName);
         var hubContext = HttpContext.RequestServices.GetService<IHubContext<ConsoleHub>>();
-        ServerBackgroundServiceManager.StartNewBackgroundService(hubContext!, process, serverName);
+        ServerOutputSenderServiceManager.StartNewBackgroundService(hubContext!, process, serverName);
         var hubContext2 = HttpContext.RequestServices.GetService<IHubContext<PerformanceHub>>();
-        await ServerBackgroundServiceManager.StartPerformanceBackgroundService(hubContext2!, process, serverName);
+        await ServerOutputSenderServiceManager.StartPerformanceBackgroundService(hubContext2!, process, serverName);
         return Ok();
     }
 
@@ -91,6 +114,13 @@ public class ServerController : ControllerBase {
     {
         processManagementService.Stop(serverName);
         return Ok();
+    }
+
+    [HttpGet("{serverName}/log")]
+    public IActionResult GetServerLog(string serverName)
+    {
+        var serverLog = serverLogService.GetLatestServerLog(serverName);
+        return Ok(serverLog);
     }
 }
 

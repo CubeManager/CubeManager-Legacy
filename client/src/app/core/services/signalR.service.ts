@@ -24,6 +24,11 @@ export class SignalRService {
 
   startPerformanceConnection(): void {
     this.performanceHubConnection.start().catch(err => console.error(err));
+
+  }
+  
+  stopConnection(): void {
+    this.hubConnection.stop().catch(err => console.error(err));
   }
 
   addMessageReceivedListener(callback: (serverName: string, message: string) => void): void {

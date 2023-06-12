@@ -1,12 +1,21 @@
 <div class="w-10/12">
     <div class="grid grid-rows-2">
         <div class="card bg-base-100 shadow-xl h-[40.5vh]">
-            <div class="card-body overflow-auto no-scrollbar">
-              <div *ngFor="let message of consoleMessages">{{ message }}</div>
+            <div class="card-body overflow-auto no-scrollbar logs-container" #logsContainer>
+              <div *ngFor="let message of ($consoleMessages | async)" class="pb-2">{{ message }}</div>
             </div>
         </div>
         <div class="mt-2">
-            <input (keyup)="handleKeyUp($event)" [formControl]="chatBox" type="text" class="input w-full"  />
+          <form [formGroup]="commandLine" (submit)="submit()">
+            <div class="form-control">
+              <div class="input-group shadow-xl">
+                <input formControlName="command" type="text" placeholder="Prompt..." class="input w-full" />
+                <button class="btn btn-square">
+                  <mat-icon class="text-lg icons">send</mat-icon>
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
     </div>
 </div>
