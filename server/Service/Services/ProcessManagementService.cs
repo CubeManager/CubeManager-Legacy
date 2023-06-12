@@ -14,8 +14,9 @@ public class ProcessManagementService : IProcessManagementService
 
     public Dictionary<string, Process> ActiveServers { get; set; }
 
-    public ProcessManagementService(IHubContext<ConsoleHub> hubContext)
+    public ProcessManagementService(IHubContext<ConsoleHub> hubContext, IHubContext<PerformanceHub> perfHubContext)
     {
+        this.perfHubContext = perfHubContext;
         this.hubContext = hubContext;
         ActiveServers = new Dictionary<string, Process>();
     }
@@ -43,7 +44,7 @@ public class ProcessManagementService : IProcessManagementService
         await backgroundService.StartAsync(CancellationToken.None);
 
         var perfomanceSenderService = new PerfomanceSenderService(perfHubContext, process, serverName);
-        ServerBackgroundServiceManager.AddBackgroundService(perfomanceSenderService, serverName);
+        ServerOutputSenderServiceManager.AddBackgroundService(perfomanceSenderService, serverName);
         await perfomanceSenderService.StartAsync(CancellationToken.None);
 
         return process;

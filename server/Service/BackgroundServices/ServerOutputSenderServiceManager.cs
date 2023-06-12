@@ -23,14 +23,14 @@ public static class ServerOutputSenderServiceManager
         AddBackgroundService(serverOutputSenderService, serverName);
     }
 
-        public static async Task StartPerformanceBackgroundService(IHubContext<PerformanceHub> hubContext, Process serverProcess, string serverName)
+        public static void StartPerformanceBackgroundService(IHubContext<PerformanceHub> hubContext, Process serverProcess, string serverName)
     {
         var perfomanceSenderService = new PerfomanceSenderService(
             hubContext: hubContext,
             serverProcess: serverProcess,
             serverName: serverName
         );
-        await AddBackgroundService(perfomanceSenderService, serverName);
+        AddBackgroundService(perfomanceSenderService, serverName);
     }
 
     public static void AddBackgroundService(IHostedService service, string serverName)

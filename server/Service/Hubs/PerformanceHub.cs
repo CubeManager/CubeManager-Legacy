@@ -7,7 +7,7 @@ public class PerformanceHub : Hub
 {
     public async Task Send(string serverName, double cpu, long ram)
     {
-        await Clients.All.SendAsync(WebSocketPerformanceActions.PERFORMANCE_RECEIVED, serverName, cpu, ram);
+        await Clients.All.SendAsync(WebSocketPerformanceActions.PERFORMANCE_RECEIVED, serverName, cpu, ram); //not touched
     }
 
         public struct WebSocketPerformanceActions

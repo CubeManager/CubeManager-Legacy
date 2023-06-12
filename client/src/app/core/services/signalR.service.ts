@@ -24,9 +24,8 @@ export class SignalRService {
 
   startPerformanceConnection(): void {
     this.performanceHubConnection.start().catch(err => console.error(err));
-
   }
-  
+
   stopConnection(): void {
     this.hubConnection.stop().catch(err => console.error(err));
   }
@@ -38,7 +37,7 @@ export class SignalRService {
   }
 
   addPerformanceListener(callback: (serverName: string, cpu: number, ram: number) => void): void {
-    this.performanceHubConnection.on('performanceReceived', (serverName: string, cpu: number, ram: number) => {
+    this.performanceHubConnection.on('PerformanceReceived', (serverName: string, cpu: number, ram: number) => {
       callback(serverName, cpu, ram);
     });
   }

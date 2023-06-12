@@ -21,11 +21,14 @@ public class PerfomanceSenderService : BackgroundService
     {
         await Task.Run(async () =>
         {
-
-            double cpu = Math.Round(await GetCpuUsageForProcess(_serverProcess), 4);
-            long ram = _serverProcess.WorkingSet64 / 1024 / 1024;
-
-            await _hubContext.Clients.All.SendAsync(WebSocketPerformanceActions.PERFORMANCE_RECEIVED, _serverName, cpu, ram);
+            while (!_serverProcess.HasExited)
+            {
+                await Task.Delay(1000);
+                double cpu = Math.Round(await GetCpuUsageForProcess(_serverProcess), 4);
+                long ram = _serverProcess.WorkingSet64 / 1024 / 1024;
+                await _hubContext.Clients.All.SendAsync(WebSocketPerformanceActions.PERFORMANCE_RECEIVED, _serverName, cpu, ram);
+            }
+           
 
         });
     }

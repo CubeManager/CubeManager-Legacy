@@ -26,7 +26,6 @@ public class ServerController : ControllerBase {
         IServerCreationService serverCreationService, 
         IServerUpdateService serverUpdateService,
         IProcessManagementService processManagementService,
-        IServerParameterService serverParameterService,
         IServerService serverService,
         IServerLogService serverLogService
         )
@@ -105,7 +104,7 @@ public class ServerController : ControllerBase {
         var hubContext = HttpContext.RequestServices.GetService<IHubContext<ConsoleHub>>();
         ServerOutputSenderServiceManager.StartNewBackgroundService(hubContext!, process, serverName);
         var hubContext2 = HttpContext.RequestServices.GetService<IHubContext<PerformanceHub>>();
-        await ServerOutputSenderServiceManager.StartPerformanceBackgroundService(hubContext2!, process, serverName);
+        ServerOutputSenderServiceManager.StartPerformanceBackgroundService(hubContext2!, process, serverName);
         return Ok();
     }
 

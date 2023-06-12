@@ -47,7 +47,6 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
 
     this.SignalRService.startPerformanceConnection();
     this.SignalRService.addPerformanceListener((serverName: string, cpu: number, ram: number) => {
-      console.log(serverName + "  " + " loool" + " " + cpu + " " + ram)
       if (serverName === this.server.serverName) {
         this.server.cpu = cpu;
         this.server.memory = ram;
