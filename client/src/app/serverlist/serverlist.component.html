@@ -49,20 +49,20 @@
               <td>
                 <div class="flex space-x-4">
                   <div>
-                    <button [ngClass]="server.isRunning ? 'black': 'green'"
-                      [disabled]="server.isRunning" (click)="startServer()">
+                    <button [ngClass]="server.isRunning ? 'black': 'green'" [disabled]="server.isRunning" 
+                      (click)="startServer(server.serverName)">
                       <mat-icon>play_arrow</mat-icon>
                     </button>
                   </div>
                   <div>
                     <button [ngClass]="server.isRunning ? '': 'black'" [disabled]="!server.isRunning"
-                      (click)="reloadServer()">
+                      (click)="reloadServer(server.serverName)">
                       <mat-icon>refresh</mat-icon>
                     </button>
                   </div>
                   <div>
-                    <button [ngClass]="server.isRunning ? 'black': 'red'" [disabled]="!server.isRunning"
-                      (click)="stopServer()">
+                    <button [ngClass]="server.isRunning ? 'red': 'black'" [disabled]="!server.isRunning"
+                      (click)="stopServer(server.serverName)" >
                       <mat-icon>stop</mat-icon>
                     </button>
                   </div>
@@ -79,7 +79,7 @@
 
               <td>
                 <div>
-                  <button (click)="deleteServer()" >
+                  <button (click)="deleteServer(server.serverName)"  >
                     <mat-icon>delete</mat-icon>
                   </button>
                 </div>

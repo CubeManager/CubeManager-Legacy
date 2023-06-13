@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VariableService } from '../variable.service';
 import { ServerApiService } from '../core/services/serverApi.service';
 import { Server } from '../core/models/server.model';
@@ -33,7 +33,7 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
 
   activeTab = 0;
 
-  constructor(private route: ActivatedRoute, private readonly _variableService: VariableService, private serverApiService: ServerApiService, private SignalRService: SignalRService) {}
+  constructor(private route: ActivatedRoute,  private router: Router,private readonly _variableService: VariableService, private serverApiService: ServerApiService, private SignalRService: SignalRService) {}
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
@@ -86,9 +86,20 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
     this.startServer();
   }
 
+  deleteServer() {
+    this.serverApiService.deleteServerByName(this.server.serverName!).pipe(takeUntil(this.$destroy)).subscribe(() => {
+      this.router.navigate(['/servers']);
+    });
+  }
+
   private fetchServer(serverName: string) {
     this.serverApiService.getServerByName(serverName!).pipe(takeUntil(this.$destroy)).subscribe((data) => {
       next: this.server = data;
+      if (!this.server.isRunning) {
+        this.server.memory = 0;
+        this.server.cpu = 0;
+        this.server.currentPlayers = 0;
+      }
     });
   }
 }

@@ -13,7 +13,7 @@ export class ServerApiService {
     return this.apiService.get<Server>(`http://localhost:4200/api/servers/${serverName}`);
   }
 
-  public getALlServers() {
+  public getAllServers() {
     return this.apiService.get<Server[]>('http://localhost:4200/api/servers');
   }
 
@@ -33,6 +33,9 @@ export class ServerApiService {
     return this.apiService.post('http://localhost:4200/api/servers', server);
   }
 
+  public deleteServerByName(serverName: string) {
+    return this.apiService.delete(`http://localhost:4200/api/servers/${serverName}`, {});
+  }
   public getServerLog(serverName: string) {
     return this.apiService.get<string[]>(`http://localhost:4200/api/servers/${serverName}/log`);
   }

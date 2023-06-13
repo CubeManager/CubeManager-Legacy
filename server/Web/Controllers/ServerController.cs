@@ -18,13 +18,15 @@ public class ServerController : ControllerBase {
 
     private readonly IServerCreationService serverCreationService;
     private readonly IServerUpdateService serverUpdateService;
+    private readonly IServerDeleteService serverDeleteService;
     private readonly IProcessManagementService processManagementService;
     private readonly IServerLogService serverLogService;
     private readonly IServerService serverService;
 
     public ServerController(
         IServerCreationService serverCreationService, 
-        IServerUpdateService serverUpdateService,
+        IServerUpdateService serverUpdateService, 
+        IServerDeleteService serverDeleteService,
         IProcessManagementService processManagementService,
         IServerService serverService,
         IServerLogService serverLogService
@@ -32,6 +34,7 @@ public class ServerController : ControllerBase {
     {
         this.serverCreationService = serverCreationService;
         this.serverUpdateService = serverUpdateService;
+        this.serverDeleteService = serverDeleteService;
         this.processManagementService = processManagementService;
         this.serverService = serverService;
         this.serverLogService = serverLogService;
@@ -61,6 +64,13 @@ public class ServerController : ControllerBase {
     public async Task<ActionResult<ServerViewModel>> Get(string serverName)
     {
         return serverService.GetServer(serverName);
+    }
+
+    [HttpDelete("{serverName}")]
+    public IActionResult DeleteServer(string serverName)
+    {
+        serverDeleteService.DeleteServer(serverName);
+        return Ok();
     }
 
     [HttpGet("/ram")]

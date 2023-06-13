@@ -6,7 +6,7 @@
         <h1 class="text-5xl">{{ server.serverName }}</h1>
     </div>
 
-    <div class="mt-5 grid grid-cols-4 gap-6 card-wrapper">
+    <div class="mt-5 grid grid-cols-5 gap-6 card-wrapper">
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title">CPU</h2>
@@ -46,6 +46,11 @@
                     <mat-icon class="text-4xl icons">stop</mat-icon>
                 </button>
             </div>
+        </div>
+        <div>
+            <button (click)="deleteServer()">
+                <mat-icon class="text-4xl icons">delete</mat-icon>
+            </button>
         </div>
     </div>
 
