@@ -13,7 +13,6 @@ public static class IServiceCollectionExtensions
         services.AddScoped<IServerCubeManagerConfigService, ServerCubeManagerConfigService>();
         services.AddScoped<IServerCreationService, ServerCreationService>();
         services.AddScoped<IServerService, ServerService>();
-        services.AddScoped<IServerParameterService, ServerParameterService>();
         services.AddScoped<IServerUpdateService, ServerUpdateService>();
         services.AddScoped<IServerLogService, ServerLogService>();
         services.AddScoped<IServerDeleteService, ServerDeleteService>();

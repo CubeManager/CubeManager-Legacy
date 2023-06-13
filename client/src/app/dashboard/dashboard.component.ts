@@ -19,12 +19,5 @@ export class DashboardComponent {
       this.maxMemory = data} );
       apiService.get<number>('http://localhost:4200/api/storage').subscribe(data => {
         this.storage = data} );
-  //   setInterval(() => {
-  //   apiService.get<Server[]>('http://localhost:4200/api/servers').subscribe(data => {
-  //     this.cpu = data.reduce((sum, current) => sum + current.cpu, 0);
-  //     this.currentMemory = data.reduce((sum, current) => sum + current.ram, 0);
-  //     this.servers = data.filter(server => server.running ? server : null);
-  //     } );
-  // }, 1000);
 }
 }
