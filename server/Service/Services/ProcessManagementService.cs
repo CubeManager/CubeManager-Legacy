@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.Hosting;
 using Service.BackgroundServices;
 using Service.Hubs;
 using Service.IServices;
@@ -11,11 +10,13 @@ namespace Service.Services;
 public class ProcessManagementService : IProcessManagementService
 {
     private readonly IHubContext<ConsoleHub> hubContext;
+    private readonly IHubContext<PerformanceHub> perfHubContext;
 
     public Dictionary<string, Process> ActiveServers { get; set; }
 
-    public ProcessManagementService(IHubContext<ConsoleHub> hubContext)
+    public ProcessManagementService(IHubContext<ConsoleHub> hubContext, IHubContext<PerformanceHub> perfHubContext)
     {
+        this.perfHubContext = perfHubContext;
         this.hubContext = hubContext;
         ActiveServers = new Dictionary<string, Process>();
     }
@@ -24,7 +25,7 @@ public class ProcessManagementService : IProcessManagementService
     {
         if (ActiveServers.ContainsKey(serverName))
         {
-            throw new Exception($"Server \"{serverName}\"is already running");
+            throw new Exception($"Server \"{serverName}\" is already running");
         }
 
         var serverConfig = CubeManagerConfigUtil.GetCubeManagerConfig(serverName);
@@ -41,6 +42,10 @@ public class ProcessManagementService : IProcessManagementService
         var backgroundService = new ServerOutputSenderService(hubContext, process, serverName);
         ServerOutputSenderServiceManager.AddBackgroundService(backgroundService, serverName);
         await backgroundService.StartAsync(CancellationToken.None);
+
+        var perfomanceSenderService = new PerfomanceSenderService(perfHubContext, process, serverName);
+        ServerOutputSenderServiceManager.AddBackgroundService(perfomanceSenderService, serverName);
+        await perfomanceSenderService.StartAsync(CancellationToken.None);
 
         return process;
     }

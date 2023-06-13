@@ -26,7 +26,6 @@ public class ServerOutputSenderService : BackgroundService
                 {
                     var output = await outputStreamReader.ReadLineAsync();
                     
-
                     // Send the output to the WebSocket
                     await _hubContext.Clients.All.SendAsync(WebSocketActions.MESSAGE_RECEIVED, _serverName, output);
                 }
