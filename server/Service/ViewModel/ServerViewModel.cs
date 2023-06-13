@@ -9,6 +9,8 @@ public class ServerViewModel
     public ServerType serverType { get; set; }
     public string? exactVersion { get; set; }
     public int maxMemory { get; set; }
+    public double cpu { get; set; }
+    public long memory { get; set; }
     public bool isRunning { get; set; }
     public ServerProperties serverProperties { get; set; }
 }

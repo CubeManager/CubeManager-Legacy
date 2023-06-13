@@ -19,7 +19,6 @@ public static class WebApplicationExtensions
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapHub<ConsoleHub>("/hub/console");
-            endpoints.MapHub<PerformanceHub>("/hub/performance");
         });
         return app;
     }

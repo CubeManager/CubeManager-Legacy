@@ -38,9 +38,9 @@ public class ServerController : ControllerBase {
     }
 
     [HttpGet]
-    public ActionResult<List<ServerViewModel>> GetAll()
+    public async Task<ActionResult<List<ServerViewModel>>> GetAll()
     {
-        return serverService.GetAllServers();
+        return await serverService.GetAllServers();
     }
 
     [HttpPost]
@@ -60,7 +60,7 @@ public class ServerController : ControllerBase {
     [HttpGet("{serverName}")]
     public async Task<ActionResult<ServerViewModel>> Get(string serverName)
     {
-        return serverService.GetServer(serverName);
+        return await serverService.GetServer(serverName);
     }
 
     [HttpGet("/ram")]
@@ -103,8 +103,6 @@ public class ServerController : ControllerBase {
         var process = await processManagementService.Start(serverName);
         var hubContext = HttpContext.RequestServices.GetService<IHubContext<ConsoleHub>>();
         ServerOutputSenderServiceManager.StartNewBackgroundService(hubContext!, process, serverName);
-        var hubContext2 = HttpContext.RequestServices.GetService<IHubContext<PerformanceHub>>();
-        ServerOutputSenderServiceManager.StartPerformanceBackgroundService(hubContext2!, process, serverName);
         return Ok();
     }
 

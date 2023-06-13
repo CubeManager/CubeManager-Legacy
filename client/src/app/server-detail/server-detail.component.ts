@@ -45,14 +45,6 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
       this.fetchServer(serverName!);
     });
 
-    this.SignalRService.startPerformanceConnection();
-    this.SignalRService.addPerformanceListener((serverName: string, cpu: number, ram: number) => {
-      if (serverName === this.server.serverName) {
-        this.server.cpu = cpu;
-        this.server.memory = ram;
-      }
-    });
-
     if (this._variableService.setConfigTabActive) {
       this.activeTab = 4;
       this._variableService.setConfigTabActive = false;

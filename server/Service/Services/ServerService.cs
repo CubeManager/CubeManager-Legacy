@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using System.Diagnostics;
+using Domain;
 using Service.IServices;
 using Service.Services.Util;
 using Service.ViewModel;
@@ -17,7 +18,7 @@ public class ServerService : IServerService
         this.processManagementService = processManagementService;
     }
 
-    public List<ServerViewModel> GetAllServers()
+    public async Task<List<ServerViewModel>> GetAllServers()
     {
         var serversDirectory = PersistenceUtil.GetServerPath();
 
@@ -31,12 +32,14 @@ public class ServerService : IServerService
             {
                 var serverName = subdirectory.Split("\\").Last();
                 var serverProperties = serverPropertiesService.ParseServerProperties($"{subdirectory}\\server.properties");
-
+                var isRunning = processManagementService.ActiveServers.ContainsKey(serverName);
                 var serverViewModel = new ServerViewModel
                 {
                     serverName = serverName,
                     serverProperties = serverProperties,
-                    isRunning = processManagementService.ActiveServers.ContainsKey(serverName)
+                    isRunning = isRunning,
+                    cpu = isRunning ? Math.Round(await GetCpuUsageForProcess(processManagementService.ActiveServers[serverName]), 2) : 0,
+                    memory = isRunning ? Process.GetProcessById(processManagementService.ActiveServers[serverName].Id).WorkingSet64 / 1024 / 1024 : 0
                 };
 
                 serverViewModels.Add(serverViewModel);
@@ -46,7 +49,7 @@ public class ServerService : IServerService
         return serverViewModels;
     }
 
-    public ServerViewModel GetServer(string serverName)
+    public async Task<ServerViewModel> GetServer(string serverName)
     {
         var serversDirectory = PersistenceUtil.GetServerPath();
         var serverViewModel = new ServerViewModel();
@@ -62,6 +65,8 @@ public class ServerService : IServerService
                 serverViewModel.serverName = serverName;
                 serverViewModel.serverProperties = serverProperties;
                 serverViewModel.isRunning = processManagementService.ActiveServers.ContainsKey(serverName);
+                serverViewModel.cpu = serverViewModel.isRunning ? Math.Round(await GetCpuUsageForProcess(processManagementService.ActiveServers[serverName]), 2) : 0;
+                serverViewModel.memory = serverViewModel.isRunning ? Process.GetProcessById(processManagementService.ActiveServers[serverName].Id).WorkingSet64 / 1024 / 1024 : 0;
             }
             else
             {
@@ -74,5 +79,19 @@ public class ServerService : IServerService
         }
 
         return serverViewModel;
+    }
+
+       private async Task<double> GetCpuUsageForProcess(Process process)
+    {
+        var startTime = DateTime.UtcNow;
+        var startCpuUsage = process.TotalProcessorTime;
+        await Task.Delay(500);
+
+        var endTime = DateTime.UtcNow;
+        var endCpuUsage = process.TotalProcessorTime;
+        var cpuUsedMs = (endCpuUsage - startCpuUsage).TotalMilliseconds;
+        var totalMsPassed = (endTime - startTime).TotalMilliseconds;
+        var cpuUsageTotal = cpuUsedMs / (Environment.ProcessorCount * totalMsPassed);
+        return cpuUsageTotal * 100;
     }
 }
