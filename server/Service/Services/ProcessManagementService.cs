@@ -10,13 +10,11 @@ namespace Service.Services;
 public class ProcessManagementService : IProcessManagementService
 {
     private readonly IHubContext<ConsoleHub> hubContext;
-    private readonly IHubContext<PerformanceHub> perfHubContext;
 
     public Dictionary<string, Process> ActiveServers { get; set; }
 
-    public ProcessManagementService(IHubContext<ConsoleHub> hubContext, IHubContext<PerformanceHub> perfHubContext)
+    public ProcessManagementService(IHubContext<ConsoleHub> hubContext)
     {
-        this.perfHubContext = perfHubContext;
         this.hubContext = hubContext;
         ActiveServers = new Dictionary<string, Process>();
     }
@@ -42,13 +40,9 @@ public class ProcessManagementService : IProcessManagementService
         var backgroundService = new ServerOutputSenderService(hubContext, process, serverName);
         ServerOutputSenderServiceManager.AddBackgroundService(backgroundService, serverName);
         await backgroundService.StartAsync(CancellationToken.None);
-
-        var perfomanceSenderService = new PerfomanceSenderService(perfHubContext, process, serverName);
-        ServerOutputSenderServiceManager.AddBackgroundService(perfomanceSenderService, serverName);
-        await perfomanceSenderService.StartAsync(CancellationToken.None);
-
         return process;
     }
+
 
     public void Restart(string serverName)
     {

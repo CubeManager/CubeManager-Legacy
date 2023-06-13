@@ -5,6 +5,6 @@ using Service.ViewModel;
 
 public interface IServerService
 {
-    public List<ServerViewModel> GetAllServers();
-    public ServerViewModel GetServer(string serverName);
+    public Task<List<ServerViewModel>> GetAllServers();
+    public Task<ServerViewModel> GetServer(string serverName);
 }
