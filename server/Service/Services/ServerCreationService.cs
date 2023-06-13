@@ -49,8 +49,7 @@ public class ServerCreationService : IServerCreationService
 
         var primaryProcess = StartServerProcess(processStartInfo);
         await WaitUntilDoneAsync(primaryProcess);
-        primaryProcess.Kill();
-        await primaryProcess.WaitForExitAsync();
+        ServerProcessUtil.KillServerProcess(primaryProcess);
         if (serverInput.serverProperties != null)
         {
             serverPropertiesService.ChangeServerProperties(serverInput.serverProperties, serverInput.serverName);

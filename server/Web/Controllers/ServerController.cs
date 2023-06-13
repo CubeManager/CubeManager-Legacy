@@ -69,6 +69,13 @@ public class ServerController : ControllerBase {
         return serverService.GetServer(serverName);
     }
 
+    [HttpDelete("{serverName}")]
+    public IActionResult DeleteServer(string serverName)
+    {
+        serverDeleteService.DeleteServer(serverName);
+        return Ok();
+    }
+
     [HttpGet("/ram")]
     public ActionResult<double> getRAM() {
         return serverParameterService.getPCRAM();
@@ -112,13 +119,6 @@ public class ServerController : ControllerBase {
         return Ok();
     }
 
-    [HttpDelete("{serverName}/delete")]
-    public IActionResult DeleteServer(string serverName)
-    {
-        serverDeleteService.DeleteServer(serverName);
-        return Ok();
-    }
-    
     [HttpGet("{serverName}/log")]
     public IActionResult GetServerLog(string serverName)
     {

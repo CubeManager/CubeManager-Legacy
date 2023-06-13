@@ -23,4 +23,25 @@ public static class ServerProcessUtil
         processStartInfo.Arguments = $"-Xmx{maxMemory}M -jar {serverJarFile} nogui";
         return processStartInfo;
     }
+
+    public static async void KillServerProcess(Process process)
+    {
+        if (!process.HasExited)
+        {
+            process.StandardInput.WriteLine("stop");
+            await process.WaitForExitAsync();
+            process.Close();
+        }
+    }
+
+    public static async Task KillServerProcessAsync(Process process)
+    {
+        if (!process.HasExited)
+        {
+            process.StandardInput.WriteLine("stop");
+            await process.WaitForExitAsync();
+            process.Close();
+        }
+        return;
+    }
 }

@@ -48,7 +48,7 @@ public class ProcessManagementService : IProcessManagementService
     public void Restart(string serverName)
     {
         var process = ActiveServers[serverName];
-        KillProcess(process);
+        ServerProcessUtil.KillServerProcess(process);
         process.Start();
         ServerOutputSenderServiceManager.RemoveBackgroundService(serverName);
     }
@@ -57,7 +57,7 @@ public class ProcessManagementService : IProcessManagementService
     {
         foreach ((string serverName, Process process) in ActiveServers)
         {
-            KillProcess(process);
+            ServerProcessUtil.KillServerProcess(process);
             process.Start();
             ServerOutputSenderServiceManager.RemoveBackgroundService(serverName);
         }
@@ -67,7 +67,15 @@ public class ProcessManagementService : IProcessManagementService
     public void Stop(string serverName)
     {
         var process = ActiveServers[serverName];
-        KillProcess(process);
+        ServerProcessUtil.KillServerProcess(process);
+        ActiveServers.Remove(serverName);
+        ServerOutputSenderServiceManager.RemoveBackgroundService(serverName);
+    }
+
+    public async void StopAsync(string serverName)
+    {
+        var process = ActiveServers[serverName];
+        await ServerProcessUtil.KillServerProcessAsync(process);
         ActiveServers.Remove(serverName);
         ServerOutputSenderServiceManager.RemoveBackgroundService(serverName);
     }
@@ -76,20 +84,10 @@ public class ProcessManagementService : IProcessManagementService
     {
         foreach((string serverName, Process process) in ActiveServers)
         {
-            KillProcess(process);
+            ServerProcessUtil.KillServerProcess(process);
             ActiveServers.Remove(serverName);
             ServerOutputSenderServiceManager.RemoveBackgroundService(serverName);
         }
 
-    }
-
-    private async void KillProcess(Process process)
-    {
-        if (!process.HasExited)
-        {
-            process.StandardInput.WriteLine("stop");
-            await process.WaitForExitAsync();
-            process.Close();
-        }
     }
 }
