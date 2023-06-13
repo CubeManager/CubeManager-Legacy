@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DrawerComponent } from './drawer/drawer.component';
+import { LoaderComponent } from './loader/loader.component';
 
 
 
 @NgModule({
   declarations: [
-    DrawerComponent
+    DrawerComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    DrawerComponent
+    DrawerComponent,
+    LoaderComponent
   ]
 })
 export class SharedModule { }

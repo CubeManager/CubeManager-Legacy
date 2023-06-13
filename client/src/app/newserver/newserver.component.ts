@@ -64,6 +64,8 @@ export class NewserverComponent {
 
   serverProperties = {};
 
+  isBusy = false;
+
   constructor(private router: Router, private apiService: ApiService, private serverApiService: ServerApiService , private fb: FormBuilder, private http: HttpClient) {
     this.getServerJars();
     this.initializeServer();
@@ -176,6 +178,7 @@ export class NewserverComponent {
         }
     };
 
+    this.isBusy = true;
     this.apiService.post('http://localhost:4200/api/servers', JSON.stringify(body), new HttpHeaders({
       'Content-Type': 'application/json'
     })).subscribe((data) => {

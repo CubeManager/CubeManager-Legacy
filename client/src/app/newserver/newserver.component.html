@@ -1,30 +1,31 @@
 <div class="ml-12 mt-6 overflow-auto no-scrollbar h-[91.5vh]">
     <h1 class="text-5xl">Create Server</h1>
 
-    <form [formGroup]="serverCreateForm" (ngSubmit)="onSubmit()">
+
+    <form *ngIf="!isBusy" [formGroup]="serverCreateForm" (ngSubmit)="onSubmit()">
         <div class="mt-11 text">
             <div>
                 <div>
                     <p>Server Name</p>
                     <input type="text" class="input w-full max-w-xs text" formControlName="serverName"/>
                 </div>
-        
+
                 <div class="mt-2">
                     <p>Server Version</p>
                     <select class="select w-full max-w-xs text" formControlName="serverJar" (change)="changeServerJar($event)">
                         <option *ngFor="let serverJar of serverJars;" [value]="serverJar" >{{ serverJar }}</option>
                     </select>
                 </div>
-    
+
                 <div class="mt-2">
                     <p>Server Type</p>
                     <select class="select w-full max-w-xs text" formControlName="serverType" (change)="changeServerType($event)">
                       <option *ngFor="let serverType of serverTypes" [value]="serverType">{{ serverType }}</option>
                     </select>
                 </div>
-                  
+
             </div>
-    
+
             <div class="grid grid-cols-2 w-10/12 mt-11 setting-wrapper">
                 <div class="grid grid-cols-2">
                     <div>
@@ -34,87 +35,87 @@
                                 <option *ngFor="let gamemode of gamemodes" [value]="gamemode | uppercase">{{ gamemode }}</option>
                             </select>
                         </div>
-    
+
                         <div>
                             <p>Difficulty</p>
                             <select class="select text" formControlName="difficulty" (change)="changeDifficulty($event)">
                                 <option *ngFor="let difficulty of difficulties" [value]="difficulty | uppercase">{{ difficulty }}</option>
                             </select>
                         </div>
-    
+
                         <div>
                             <p>Level Name (World Name)</p>
                             <input type="text" class="input text" formControlName="worldName"/>
                         </div>
                     </div>
-    
+
                     <div>
                         <div>
                             <p>Max Players</p>
                             <input type="number" class="input text" formControlName="maxPlayers" />
                         </div>
-    
+
                         <div>
                             <p>View Distance</p>
                             <input type="number" class="input text" formControlName="viewDistance" />
                         </div>
-    
+
                         <div>
                             <p>Simulation Distance</p>
                             <input type="number" class="input text max-w-xs" formControlName="simulationDistance" />
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="grid grid-cols-3 checkbox-wrapper">
                     <div>
                         <p>PVP</p>
                         <input type="checkbox" class="toggle mt-1" formControlName="pvp"/>
                     </div>
-    
+
                     <div>
                         <p>Structures</p>
                         <input type="checkbox" class="toggle mt-1" formControlName="structures"/>
                     </div>
-    
+
                     <div>
                         <p>Command Block</p>
                         <input type="checkbox" class="toggle mt-1" formControlName="commandBlock"/>
                     </div>
-    
+
                     <div>
                         <p>Force Gamemode</p>
                         <input type="checkbox" class="toggle mt-1" formControlName="forceGamemode"/>
                     </div>
-    
+
                     <div>
                         <p>Hardcore</p>
                         <input type="checkbox" class="toggle mt-1" formControlName="hardcore"/>
                     </div>
-    
+
                     <div>
                         <p>Whitelist</p>
                         <input type="checkbox" class="toggle mt-1" formControlName="whitelist"/>
                     </div>
-    
+
                     <div>
                         <p>NPCs</p>
                         <input type="checkbox" class="toggle mt-1" formControlName="npcs" />
                     </div>
-    
+
                     <div>
                         <p>Animals</p>
                         <input type="checkbox" class="toggle mt-1" formControlName="animals" />
                     </div>
-    
+
                     <div>
                         <p>Monsters</p>
                         <input type="checkbox" class="toggle mt-1" formControlName="monsters" />
                     </div>
                 </div>
             </div>
-    
-    
+
+
             <div>
                 <div class="mt-2 flex space-x-12">
                     <div>
@@ -127,11 +128,11 @@
                         <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs mt-1" formControlName="worldFile" (change)="changeFile($event)" />
                     </div>
                 </div>
-    
+
                 <div>
                     <a [routerLink]="['/newserver/advanced']" class="underline underline-offset-2" >Show Advanced</a>
                 </div>
-    
+
                 <div class="mt-8 flex space-x-5">
                     <button class="btn btn-error action-button button-sizing" type="button" (click)="cancel()">Cancel</button>
                     <button class="btn btn-success action-button button-sizing" type="submit" [disabled]="serverCreateForm.invalid">Create</button>
@@ -139,4 +140,7 @@
             </div>
         </div>
     </form>
+    <div *ngIf="isBusy" class="flex justify-center align-middle">
+        <app-loader></app-loader>
+    </div>
 </div>

@@ -7,7 +7,7 @@ import { VariableService } from '../variable.service';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent {
-  availableThemes: Array<string> = ["Dark", "Light", "Aqua"];
+  availableThemes: Array<string> = ["light", "dark", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter"];
   selectedTheme: string = '';
 
   constructor(private variableService: VariableService) {
