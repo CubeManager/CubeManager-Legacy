@@ -32,9 +32,9 @@ export class DashboardComponent {
       this.fetchRunningServers();
     });
   }
-  
+
   fetchRunningServers() {
-    this.serverApiService.getALlServers().pipe(takeUntil(this.$destroy)).subscribe((data: Server[]) => {
+    this.serverApiService.getAllServers().pipe(takeUntil(this.$destroy)).subscribe((data: Server[]) => {
       next: {
         this.servers = data.filter(server => server.isRunning);
         this.cpu = data.reduce((acc, server) => acc + server.cpu!, 0);
